@@ -3,475 +3,647 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapPlus Premium Tools — Optimize Your Profile Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Snapchat Tools - Access Premium Utilities</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
     
     <style>
         :root {
-            --snap-yellow: #FFFC00;
-            --snap-dark: #000000;
-            --bg-light: #F7F7F8;
-            --card-bg: #FFFFFF;
-            --text-main: #18181A;
-            --text-sub: #65676B;
-            --border-color: #E4E6EB;
+            --primary: #FFFC00;
+            --background: #FFFFFF;
+            --secondary: #F7F8FA;
+            --text-main: #111111;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
             --radius-premium: 24px;
-            --radius-button: 16px;
-            --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
-            --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.06);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
             scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-light);
+            background-color: var(--secondary);
             color: var(--text-main);
             overflow-x: hidden;
-            min-height: 100vh;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
         }
 
-        .phone-container {
+        /* Responsive Desktop-to-Mobile Containment Layer */
+        .wrapper {
             width: 100%;
             max-width: 440px;
+            background: var(--background);
             min-height: 100vh;
-            background: #FFFFFF;
             position: relative;
-            padding: 90px 20px 40px 20px;
-            box-shadow: 0 0 60px rgba(0,0,0,0.05);
-            z-index: 1;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.03);
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
         }
 
-        /* Nav Bar */
-        .nav-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 75px;
+        /* Top Navigation Header */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 24px;
-            background: rgba(255, 255, 255, 0.9);
+            padding: 18px 24px;
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 10;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid var(--border);
         }
 
-        .logo-area {
+        .brand-logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
         }
 
-        .logo-icon {
-            width: 34px;
-            height: 34px;
-            background: var(--snap-yellow);
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #000;
             font-size: 18px;
-            border: 2px solid #000000;
+            box-shadow: 0 4px 12px rgba(255, 252, 0, 0.4);
         }
 
-        .logo-text {
-            font-family: 'Cabinet Grotesk', sans-serif;
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--snap-dark);
+        .brand-name {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
-        .menu-btn {
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            font-size: 14px;
-            color: var(--text-main);
-            cursor: pointer;
+        .nav-links {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-        }
-        .menu-btn:active { transform: scale(0.92); }
-
-        /* Navigation Drawer */
-        .menu-drawer {
-            position: fixed;
-            top: 0;
-            right: 0;
-            transform: translateX(100vw); 
-            width: 100%;
-            max-width: 320px;
-            height: 100%;
-            background: #FFFFFF;
-            z-index: 150;
-            box-shadow: -10px 0 40px rgba(0,0,0,0.08);
-            padding: 30px 24px;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 12px;
         }
 
-        @media(min-width: 440px) {
-            .menu-drawer { 
-                right: calc(50% - 220px); 
-                transform: translateX(320px);
-            }
-        }
-
-        .menu-drawer.active { transform: translateX(0) !important; }
-
-        .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 35px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .drawer-back-btn {
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            padding: 6px 14px;
-            border-radius: 14px;
-            font-size: 12px;
+        .nav-item {
+            font-size: 13px;
             font-weight: 500;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-
-        .menu-section-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-sub);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .menu-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 30px;
-        }
-
-        .menu-link-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 14px;
-            background: var(--bg-light);
-            border-radius: 12px;
-            color: var(--text-main);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.2s;
+            padding: 6px 10px;
+            border-radius: 12px;
+            transition: var(--transition);
         }
-        .menu-link-item i { width: 20px; color: var(--text-sub); font-size: 15px; }
-        .menu-link-item:active { background: var(--snap-yellow); color: #000; }
 
-        .drawer-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.2);
-            z-index: 140;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+        .nav-item:hover {
+            background: var(--secondary);
+            color: var(--text-main);
         }
-        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* SECTION 1: HERO */
-        .hero-section {
+        /* Hero Section Styling */
+        .hero {
+            padding: 35px 24px 25px 24px;
             text-align: center;
-            margin-top: 10px;
-            margin-bottom: 40px;
         }
 
         .user-welcome-tag {
+            background: #EBFED3;
+            color: #2F6A12;
             font-size: 12px;
-            color: #000000;
-            background: var(--snap-yellow);
-            padding: 5px 14px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 16px;
-            font-weight: 700;
-            border: 1.5px solid #000;
-            box-shadow: 0 4px 12px rgba(255,252,0,0.2);
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
             opacity: 0;
-            transform: translateY(-5px);
-            transition: all 0.4s ease;
+            transform: translateY(-8px);
+            transition: var(--transition);
+            border: 1px solid rgba(47, 106, 18, 0.1);
         }
 
-        .hero-logo-img {
-            max-width: 100px;
-            height: auto;
-            margin: 0 auto 16px auto;
-            display: block;
-            border-radius: 20px;
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 12px;
         }
 
-        .hero-title {
-            font-family: 'Cabinet Grotesk', sans-serif;
-            font-size: 28px;
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -0.8px;
-            color: var(--snap-dark);
-            margin-bottom: 10px;
+        .hero p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 28px;
         }
 
-        .hero-subtitle { 
-            font-size: 14px; 
-            color: var(--text-sub); 
-            line-height: 1.5; 
-            max-width: 340px; 
-            margin: 0 auto 24px auto; 
-            font-weight: 400; 
+        .form-container {
+            background: var(--secondary);
+            padding: 20px;
+            border-radius: var(--radius-premium);
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
         }
 
-        .input-group {
+        .input-wrapper {
             position: relative;
             margin-bottom: 12px;
-            max-width: 360px;
-            margin-left: auto;
-            margin-right: auto;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 16px;
         }
 
         .input-field {
             width: 100%;
-            background: var(--bg-light);
-            border: 2px solid var(--border-color);
-            padding: 16px 20px;
-            border-radius: var(--radius-button);
+            background: var(--background);
+            border: 1px solid var(--border);
+            padding: 16px 16px 16px 44px;
+            border-radius: 16px;
             color: var(--text-main);
             font-size: 15px;
             font-weight: 500;
-            text-align: center;
-            transition: 0.2s;
+            outline: none;
+            transition: var(--transition);
         }
-        .input-field:focus { outline: none; border-color: #000000; background: #FFF; }
 
-        .btn-snap {
+        .input-field:focus {
+            border-color: #CBD5E1;
+            box-shadow: 0 0 0 4px rgba(0,0,0,0.02);
+        }
+
+        .btn-cta {
             width: 100%;
-            max-width: 360px;
-            background: var(--snap-yellow);
-            border: 2px solid #000000;
+            background: var(--primary);
+            border: none;
             padding: 16px;
-            border-radius: var(--radius-button);
-            color: #000000;
-            font-size: 16px;
-            font-weight: 700;
+            border-radius: 16px;
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            cursor: pointer;
-            margin: 0 auto;
-            box-shadow: 0 6px 20px rgba(255, 252, 0, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 14px rgba(255, 252, 0, 0.4);
+            transition: var(--transition);
         }
-        .btn-snap:active { transform: scale(0.98); }
-        .btn-spinner { width: 18px; height: 18px; border: 2px solid #000; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(255, 252, 0, 0.5);
+        }
 
-        .trust-indicators {
+        .btn-cta:active {
+            transform: translateY(1px);
+        }
+
+        .btn-spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--text-main);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin { 
+            to { transform: rotate(360deg); } 
+        }
+
+        /* Trust Indication Row */
+        .trust-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 0 10px;
+        }
+
+        .trust-item {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 16px;
-            margin-top: 16px;
+            justify-content: center;
+            gap: 6px;
             font-size: 12px;
-            color: var(--text-sub);
             font-weight: 500;
+            color: var(--text-muted);
+            background: var(--secondary);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
-        .trust-indicators span i { color: #00ca4e; margin-right: 4px; }
 
-        /* Section Layout Config */
-        .section-header {
-            margin-bottom: 20px;
-            text-align: left;
+        .trust-item i {
+            color: #00C853;
         }
-        .section-header h3 {
-            font-family: 'Cabinet Grotesk', sans-serif;
+
+        /* Section Universal Layouts */
+        .section-title {
             font-size: 20px;
-            font-weight: 800;
-            color: var(--snap-dark);
-            letter-spacing: -0.5px;
+            font-weight: 700;
+            letter-spacing: -0.4px;
+            margin-bottom: 8px;
+            padding: 0 24px;
         }
 
-        /* SECTION 2: FEATURES STACK */
-        .features-stack {
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding: 0 24px;
+            line-height: 1.4;
+        }
+
+        /* Features Section Grid Stack */
+        .features-section {
+            padding: 30px 0;
+            background: #FAFAFA;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .features-grid {
             display: flex;
             flex-direction: column;
             gap: 14px;
-            margin-bottom: 40px;
+            padding: 0 24px;
         }
 
         .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            background: var(--background);
+            border: 1px solid var(--border);
             border-radius: var(--radius-premium);
-            padding: 14px;
+            padding: 16px;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
             position: relative;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow);
             opacity: 0.5;
-            cursor: not-allowed;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .feature-card.unlocked { opacity: 1; cursor: pointer; }
-        .feature-card.unlocked:hover { border-color: rgba(0,0,0,0.15); box-shadow: var(--shadow-card); }
-        .feature-card.unlocked:active { transform: scale(0.98); }
-        
-        .thumb-wrapper { 
-            width: 64px; 
-            height: 64px; 
-            border-radius: 16px; 
-            overflow: hidden; 
-            background: var(--bg-light); 
-            border: 1px solid var(--border-color); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            flex-shrink: 0;
-        }
-        .thumb-icon-placeholder { font-size: 22px; color: var(--text-sub); }
-        
-        .card-content { flex-grow: 1; padding-right: 40px; }
-        .card-title { font-size: 15px; font-weight: 700; color: var(--snap-dark); margin-bottom: 3px; }
-        .card-desc { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
-
-        .badge { position: absolute; top: 14px; right: 14px; padding: 4px 8px; border-radius: 20px; font-size: 9px; font-weight: 700; letter-spacing: 0.3px; }
-        .badge.live { background: #FFEBEB; color: #FF3B30; }
-        .badge.new { background: #FFFDC2; color: #8A8500; }
-        .badge.pro { background: #F1F3F5; color: #495057; }
-        .badge.trending { background: #E3F2FD; color: #0D47A1; }
-
-        /* SECTION 3: HOW IT WORKS */
-        .how-it-works {
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            padding: 24px 20px;
-            border-radius: var(--radius-premium);
-            margin-bottom: 40px;
+        .feature-card.unlocked {
+            opacity: 1;
         }
 
-        .step-container { display: flex; flex-direction: column; gap: 18px; position: relative; }
-        .step-item { display: flex; align-items: flex-start; gap: 14px; }
-        .step-number { width: 26px; height: 26px; background: #000000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FFF; font-size: 12px; font-weight: 700; flex-shrink: 0; }
-        .step-info h4 { font-size: 14px; font-weight: 700; color: var(--snap-dark); margin-bottom: 3px; }
-        .step-info p { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
+        .feature-card.unlocked:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            border-color: #D1D5DB;
+        }
 
-        /* SECTION 4: PREVIEW GALLERY */
-        .preview-gallery-section {
-            margin-bottom: 40px;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .gallery-item {
-            position: relative;
+        .thumb-wrapper {
+            width: 64px;
+            height: 64px;
             border-radius: 16px;
             overflow: hidden;
-            height: 120px;
-            border: 1px solid var(--border-color);
-            background: #EFEFEF;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
-        .gallery-item img {
+
+        .thumb-icon-placeholder {
+            font-size: 22px;
+            color: var(--text-muted);
+        }
+
+        .card-content {
+            flex-grow: 1;
+            padding-right: 60px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        .badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 4px 8px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            text-transform: uppercase;
+        }
+        .badge.live { background: #FFEBEB; color: #FF3B30; }
+        .badge.new { background: #E6F9FF; color: #007AFF; }
+        .badge.pro { background: #F2F2F7; color: var(--text-main); }
+        .badge.trending { background: #FEF3C7; color: #D97706; }
+
+        /* Timeline Flow Section */
+        .timeline-section {
+            padding: 40px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            margin-top: 24px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-number {
+            width: 38px;
+            height: 38px;
+            background: var(--background);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover .timeline-number {
+            border-color: var(--text-main);
+            background: var(--secondary);
+        }
+
+        .timeline-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            margin-top: 8px;
+        }
+
+        .timeline-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Premium Assets Gallery Block */
+        .gallery-section {
+            padding: 40px 24px;
+            background: var(--secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .gallery-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            text-align: center;
+        }
+
+        .gallery-preview-box {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #E5E7EB;
+            margin-bottom: 8px;
+        }
+
+        .gallery-preview-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             filter: blur(5px);
             transform: scale(1.05);
         }
+
         .gallery-lock-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-lock-overlay i {
+            color: #FFFFFF;
+            font-size: 20px;
+            background: rgba(0,0,0,0.4);
+            padding: 10px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+        }
+
+        .gallery-card span {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Reviews Block */
+        .reviews-section {
+            padding: 40px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reviews-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .review-card {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px;
+        }
+
+        .stars {
+            color: #FFCC00;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .review-text {
+            font-size: 13px;
+            color: var(--text-main);
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        /* FAQ Accordion Styling */
+        .faq-section {
+            padding: 40px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--background);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-trigger {
+            width: 100%;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            color: #FFF;
+            background: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .faq-trigger i {
+            font-size: 12px;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #FAFAFA;
+        }
+
+        .faq-content p {
+            padding: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.45;
+            border-top: 1px solid var(--border);
+        }
+
+        .faq-item.active .faq-trigger i {
+            transform: rotate(180deg);
+        }
+
+        /* Final Call-To-Action Element */
+        .final-cta {
+            padding: 50px 24px;
+            text-align: center;
+            background: #FAFAFA;
+        }
+
+        .final-cta h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .final-cta p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        /* Footer Infrastructure Details */
+        footer {
+            text-align: center;
+            padding: 24px;
+            border-top: 1px solid var(--border);
+            background: var(--background);
+            margin-top: auto;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 6px;
         }
-        .gallery-lock-overlay i { font-size: 16px; color: var(--snap-yellow); }
-        .gallery-lock-overlay span { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* SECTION 5: USER REVIEWS */
-        .reviews-section { margin-bottom: 40px; }
-        .reviews-slider { display: flex; flex-direction: column; gap: 12px; }
-        .review-card { background: var(--bg-light); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); }
-        .review-user { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .review-avatar { width: 32px; height: 32px; background: #DDD; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; background-color: var(--snap-yellow); border: 1px solid #000; }
-        .review-name { font-size: 13px; font-weight: 700; color: var(--snap-dark); }
-        .review-stars { color: #FFCC00; font-size: 11px; margin-left: auto; }
-        .review-text { font-size: 12px; color: var(--text-sub); line-height: 1.4; font-style: italic; }
-
-        /* SECTION 6: FAQ */
-        .faq-section { margin-bottom: 40px; }
-        .faq-container { display: flex; flex-direction: column; gap: 10px; }
-        .faq-item { border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; background: #FFF; }
-        .faq-question { padding: 14px 16px; font-size: 13px; font-weight: 700; color: var(--snap-dark); display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: var(--bg-light); }
-        .faq-answer { padding: 14px 16px; font-size: 12px; color: var(--text-sub); line-height: 1.5; display: none; border-top: 1px solid var(--border-color); }
-
-        /* SECTION 7: FINAL CTA */
-        .final-cta-section {
-            background: #000000;
-            border-radius: var(--radius-premium);
-            padding: 24px 20px;
-            text-align: center;
-            color: #FFF;
-            margin-bottom: 30px;
+        .footer-text i {
+            color: #00C853;
         }
-        .final-cta-section h4 { font-family: 'Cabinet Grotesk', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 6px; color: #FFF; }
-        .final-cta-section p { font-size: 12px; color: #A0A0A5; margin-bottom: 18px; }
 
-        /* Toast Alert */
+        /* Toast Popup Alerts */
         .toast-alert {
             position: fixed;
-            bottom: 30px;
+            bottom: 24px;
             left: 50%;
             transform: translate(-50%, 40px);
-            background: #000000;
+            background: #111111;
             color: #FFFFFF;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 600;
@@ -479,15 +651,18 @@
             z-index: 200;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.25s ease;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .toast-alert i { color: var(--snap-yellow); }
-        .toast-alert.show { opacity: 1; transform: translate(-50%, 0); }
 
-        /* PREVIEW / CONFIGURATION SHEET */
+        .toast-alert.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* Simulation Extraction Drawer Panel */
         .preview-panel {
             position: fixed;
             top: 0;
@@ -496,26 +671,52 @@
             width: 100%;
             max-width: 440px;
             height: 100%;
-            background: #FFFFFF;
+            background: var(--background);
             z-index: 100;
-            border-top-left-radius: 32px;
-            border-top-right-radius: 32px;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
             padding: 24px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .preview-panel.active { transform: translate(-50%, 0); }
-        .panel-handle { width: 40px; height: 5px; background: var(--border-color); border-radius: 10px; margin: 0 auto 20px auto; flex-shrink: 0; }
-        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+        .preview-panel.active {
+            transform: translate(-50%, 0);
+        }
+
+        .panel-handle {
+            width: 40px;
+            height: 5px;
+            background: #E5E7EB;
+            border-radius: 10px;
+            margin: 0 auto 20px auto;
+            flex-shrink: 0;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .panel-module-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
         .panel-close {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
+            background: var(--secondary);
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -525,11 +726,11 @@
 
         .panel-image-container {
             width: 100%;
-            height: 200px;
+            height: 180px;
             border-radius: 20px;
             overflow: hidden;
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
+            background: var(--secondary);
+            border: 1px solid var(--border);
             margin-bottom: 20px;
             position: relative;
             display: flex;
@@ -538,75 +739,233 @@
             flex-shrink: 0;
         }
 
-        .panel-image-container img { width: 100%; height: 100%; object-fit: cover; display: none; filter: blur(6px); transform: scale(1.06); }
-        
-        .blur-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.25); display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px; z-index: 2; }
-        .blur-overlay i { font-size: 26px; color: var(--snap-yellow); }
-        .blur-overlay span { font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 0.5px; text-transform: uppercase; }
-        .panel-default-icon { font-size: 48px; color: var(--text-sub); opacity: 0.3; }
+        .panel-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            filter: blur(6px);
+            transform: scale(1.04);
+        }
 
-        .panel-body { margin-bottom: 24px; }
-        .panel-body h3 { font-family: 'Cabinet Grotesk', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 8px; color: var(--snap-dark); }
-        .panel-body p { font-size: 13px; color: var(--text-sub); line-height: 1.5; }
+        .blur-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 252, 0, 0.08);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .blur-overlay i {
+            font-size: 26px;
+            color: var(--text-main);
+            background: var(--primary);
+            padding: 12px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .blur-overlay span {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: var(--background);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .panel-default-icon {
+            font-size: 48px;
+            color: #9CA3AF;
+        }
+
+        .panel-body {
+            margin-bottom: 24px;
+        }
+
+        .panel-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.4px;
+        }
+
+        .panel-body p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
 
         .btn-verify {
             width: 100%;
-            background: var(--snap-yellow);
-            border: 2px solid #000;
+            background: var(--primary);
+            border: none;
             padding: 16px;
-            border-radius: var(--radius-button);
-            color: #000;
-            font-weight: 700;
-            font-size: 16px;
+            border-radius: 16px;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 15px;
             cursor: pointer;
+            box-shadow: 0 4px 14px rgba(255, 252, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 20px rgba(255, 252, 0, 0.2);
             margin-top: auto; 
             flex-shrink: 0;
+            transition: var(--transition);
         }
 
-        /* Verification Sync Interface */
-        .loading-overlay { position: absolute; inset: 0; background: #FFFFFF; z-index: 110; border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-        .loading-overlay.active { opacity: 1; pointer-events: auto; }
-        
-        .progress-box { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
-        .progress-container { position: relative; width: 110px; height: 110px; }
-        .progress-svg { transform: rotate(-90deg); width: 110px; height: 110px; }
-        .progress-svg circle { width: 100%; height: 100%; fill: none; stroke-width: 6; stroke-linecap: round; }
-        .progress-track { stroke: var(--bg-light); }
-        .progress-bar { stroke: var(--snap-dark); stroke-dasharray: 345; stroke-dashoffset: 345; transition: stroke-dashoffset 0.1s linear; }
-        .progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--snap-dark); }
-        .loading-status { margin-top: 24px; font-size: 13px; color: var(--text-sub); letter-spacing: 0.5px; text-align: center; padding: 0 20px; font-weight: 600; text-transform: uppercase;}
+        .btn-verify:hover {
+            box-shadow: 0 6px 20px rgba(255, 252, 0, 0.5);
+        }
 
-        .final-offer-box { display: none; flex-direction: column; align-items: center; text-align: center; padding: 0 20px; width: 100%; margin-top: 20px; animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .final-offer-title { font-family: 'Cabinet Grotesk', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 10px; color: #00ca4e; }
-        .final-offer-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; }
-        .final-offer-desc span { color: var(--text-main); font-weight: 700; }
-        
+        /* Process Counter Integration Layout */
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--background);
+            z-index: 110;
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .progress-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .progress-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+        }
+
+        .progress-svg {
+            transform: rotate(-90deg);
+            width: 110px;
+            height: 110px;
+        }
+
+        .progress-svg circle {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke-width: 6;
+            stroke-linecap: round;
+        }
+
+        .progress-track {
+            stroke: var(--secondary);
+        }
+
+        .progress-bar {
+            stroke: var(--text-main);
+            stroke-dasharray: 345;
+            stroke-dashoffset: 345;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        .progress-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .loading-status {
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Final Content Locker Synchronization Block */
+        .final-offer-box {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .final-offer-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.4px;
+        }
+
+        .final-offer-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .final-offer-desc span {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
         .btn-final-verify {
             width: 100%;
-            background: #000000;
+            background: #00C853;
             border: none;
             padding: 16px;
-            border-radius: var(--radius-button);
-            color: #ffffff;
-            font-weight: 700;
+            border-radius: 16px;
+            color: #FFFFFF;
+            font-weight: 600;
             font-size: 15px;
             cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 200, 83, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transition: var(--transition);
         }
-        .btn-final-verify:active { transform: scale(0.98); }
 
-        .custom-footer { text-align: center; padding: 24px 0 10px 0; border-top: 1px solid var(--border-color); margin-top: auto; }
-        .footer-text { font-size: 11px; color: var(--text-sub); font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn-final-verify:hover {
+            background: #00B24A;
+            box-shadow: 0 6px 20px rgba(0, 200, 83, 0.4);
+        }
 
-        @keyframes scaleUp { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -615,275 +974,284 @@
         <i class="fa-solid fa-circle-exclamation"></i> Please enter your username first
     </div>
 
-    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleMenu(false)"></div>
-
-    <nav class="menu-drawer" id="menuDrawer">
-        <div class="drawer-header">
-            <span class="logo-text">SnapPlus</span>
-            <div class="drawer-back-btn" onclick="toggleMenu(false)"><i class="fa-solid fa-chevron-left"></i> Back</div>
-        </div>
-
-        <div class="menu-section-title">Tools & Features</div>
-        <div class="menu-links">
-            <a href="#features" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Available Extensions
+    <div class="wrapper">
+        <header>
+            <a href="#" class="brand-logo">
+                <div class="brand-icon"><i class="fa-ghost fa-solid"></i></div>
+                <div class="brand-name">Snapchat Tools</div>
             </a>
-            <a href="#how" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-circle-info"></i> How it Works
-            </a>
-        </div>
-
-        <div class="menu-section-title">Legal</div>
-        <div class="menu-links">
-            <a href="#privacy" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-user-shield"></i> Privacy Standards
-            </a>
-            <a href="#terms" class="menu-link-item" onclick="toggleMenu(false)">
-                <i class="fa-solid fa-handshake"></i> Terms of Use
-            </a>
-        </div>
-    </nav>
-
-    <div class="phone-container">
-        <header class="nav-bar">
-            <div class="logo-area">
-                <div class="logo-icon"><i class="fa-ghost fa-solid"></i></div>
-                <div class="logo-text">SnapPlus</div>
+            <div class="nav-links">
+                <a href="#faq" class="nav-item">FAQ</a>
+                <a href="#reviews" class="nav-item">Reviews</a>
             </div>
-            <button class="menu-btn" onclick="toggleMenu(true)"><i class="fa-solid fa-bars"></i></button>
         </header>
 
-        <!-- SECTION 1: HERO -->
-        <section class="hero-section">
-            <div class="user-welcome-tag" id="userWelcomeTag">READY TO CONFIG: @<span id="welcomeName">User</span></div>
-            
-            <img src="emojis.JPG" alt="Premium Experience" class="hero-logo-img">
-            
-            <h1 class="hero-title">Unlock Premium Snapchat Tools</h1>
-            <p class="hero-subtitle">Gain safely managed access to advanced custom filters, profile analytics optimization, and modern platform diagnostic tools.</p>
-            
-            <div class="input-group">
-                <input type="text" class="input-field" id="usernameInput" placeholder="Enter Snapchat Username">
+        <section class="hero">
+            <div class="user-welcome-tag" id="userWelcomeTag">
+                <i class="fa-solid fa-circle-check"></i> Connected Profile: @<span id="welcomeName">User</span>
             </div>
-            <button class="btn-snap" id="connectBtn" onclick="handleAccountConnection()">
-                <span class="btn-spinner" id="btnSpinner"></span>
-                <span id="btnText">Connect Profile</span>
-            </button>
+            
+            <h1>Unlock Premium Snapchat Tools</h1>
+            <p>Access exclusive Snapchat-related tools, premium resources, account utilities and more through our secure platform.</p>
+            
+            <div class="form-container">
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" class="input-field" id="usernameInput" placeholder="Snapchat Username">
+                </div>
+                <button class="btn-cta" id="connectBtn" onclick="handleAccountConnection()">
+                    <span class="btn-spinner" id="btnSpinner"></span>
+                    <span id="btnText">Connect Account</span>
+                </button>
+            </div>
 
-            <div class="trust-indicators">
-                <span><i class="fa-solid fa-circle-check"></i> Safe Integration</span>
-                <span><i class="fa-solid fa-circle-check"></i> Active Users (2026)</span>
+            <div class="trust-row">
+                <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> Secure Access</div>
+                <div class="trust-item"><i class="fa-solid fa-bolt"></i> Fast Verification</div>
+                <div class="trust-item"><i class="fa-solid fa-mobile-screen"></i> Mobile Friendly</div>
+                <div class="trust-item"><i class="fa-solid fa-rotate"></i> Updated Daily</div>
             </div>
         </section>
 
-        <!-- SECTION 2: FEATURES -->
-        <div class="section-header" id="features">
-            <h3>Premium Tools Marketplace</h3>
-        </div>
-        <main class="features-stack" id="featuresStack">
-            <div class="feature-card" onclick="handleCardClick('Live Activity Feed', 'Optimized streaming protocols for live interactions and notifications.', 'fa-comment-dots', 'typing.jpg')">
-                <div class="badge live">POPULAR</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-comment-dots thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Live Activity Feed</h2>
-                    <p class="card-desc">Review immediate alert logs, active live sessions, and structural parameters.</p>
+        <section class="features-section">
+            <h3 class="section-title">Available Premium Tools</h3>
+            <p class="section-subtitle">Connect your account above to unlock and utilize any platform tool instantly.</p>
+            
+            <div class="features-grid" id="featuresStack">
+                <div class="feature-card" onclick="handleCardClick('Live Activity Feed', 'Real-time telemetry mapping of active conversation streams.', 'fa-comment-dots', 'typing.jpg')">
+                    <div class="badge live">Popular</div>
+                    <div class="thumb-wrapper"><i class="fa-solid fa-comment-dots thumb-icon-placeholder"></i></div>
+                    <div class="card-content">
+                        <h2 class="card-title">Live Activity Feed</h2>
+                        <p class="card-desc">Subtle live session analytics and metadata stream generation.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="handleCardClick('Analyze Best Friends', 'Advanced structural hierarchy mapping algorithms for core connections.', 'fa-user-group', 'friends.jpg')">
+                    <div class="badge new">New</div>
+                    <div class="thumb-wrapper"><i class="fa-solid fa-user-group thumb-icon-placeholder"></i></div>
+                    <div class="card-content">
+                        <h2 class="card-title">Analyze Best Friends</h2>
+                        <p class="card-desc">Deep structural indexing of interaction frequency nodes.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="handleCardClick('Access Private Folders', 'Secure recovery layer verification interface simulations.', 'fa-eye-slash', 'eyes.jpg')">
+                    <div class="badge pro">Premium</div>
+                    <div class="thumb-wrapper"><i class="fa-solid fa-eye-slash thumb-icon-placeholder"></i></div>
+                    <div class="card-content">
+                        <h2 class="card-title">Access Private Folders</h2>
+                        <p class="card-desc">Systematic metadata diagnostic access visualization panel.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="handleCardClick('Retrieve Chat History', 'Automated cloud database database backup logs sorting & structural analysis.', 'fa-clock-rotate-left', 'chat.jpg')">
+                    <div class="badge trending">Trending</div>
+                    <div class="thumb-wrapper"><i class="fa-solid fa-clock-rotate-left thumb-icon-placeholder"></i></div>
+                    <div class="card-content">
+                        <h2 class="card-title">Retrieve Chat History</h2>
+                        <p class="card-desc">Secure restoration protocols for temporary platform logs.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="handleCardClick('View Live Location', 'Geospatial mapping and accurate node tracking diagnostics.', 'fa-location-dot', 'location.jpg')">
+                    <div class="badge pro">Premium</div>
+                    <div class="thumb-wrapper"><i class="fa-solid fa-location-dot thumb-icon-placeholder"></i></div>
+                    <div class="card-content">
+                        <h2 class="card-title">View Live Location</h2>
+                        <p class="card-desc">High-fidelity triangulation simulations on vectorized maps.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="handleCardClick('Add Tracker To Any Username', 'You will see on their profile when they are chatting with anyone (only 1 person at a time).', 'fa-user-secret', 'Snaping.jpg')">
+                    <div class="badge pro">Premium</div>
+                    <div class="thumb-wrapper"><i class="fa-solid fa-user-secret thumb-icon-placeholder"></i></div>
+                    <div class="card-content">
+                        <h2 class="card-title">Add Tracker To Any Username</h2>
+                        <p class="card-desc">Real-time chat radar telemetry and identity mapping dashboard.</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="feature-card" onclick="handleCardClick('Analyze Best Friends', 'Sophisticated relational graph visualizers for account connection layouts.', 'fa-user-group', 'friends.jpg')">
-                <div class="badge new">NEW</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-user-group thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Analyze Best Friends</h2>
-                    <p class="card-desc">Comprehensive matrix listing your account index interactions seamlessly.</p>
-                </div>
-            </div>
-
-            <div class="feature-card" onclick="handleCardClick('Access Private Folders', 'Secure user backup integration layout synchronization.', 'fa-eye-slash', 'eyes.jpg')">
-                <div class="badge pro">PREMIUM</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-eye-slash thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Access Private Folders</h2>
-                    <p class="card-desc">Safely reconstruct old recovery variables for active media asset logs.</p>
-                </div>
-            </div>
-
-            <div class="feature-card" onclick="handleCardClick('Retrieve Chat History', 'Cloud backup file indexing and profile text synchronization.', 'fa-clock-rotate-left', 'chat.jpg')">
-                <div class="badge pro">PREMIUM</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-clock-rotate-left thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Retrieve Chat History</h2>
-                    <p class="card-desc">Export verified past system logs directly onto clean cloud storage sheets.</p>
-                </div>
-            </div>
-
-            <div class="feature-card" onclick="handleCardClick('View Live Location', 'Secure geospatial coordinate check protocols.', 'fa-location-dot', 'location.jpg')">
-                <div class="badge pro">PREMIUM</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-location-dot thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">View Live Location</h2>
-                    <p class="card-desc">Render responsive spatial mappings and connection distance estimates.</p>
-                </div>
-            </div>
-
-            <div class="feature-card" onclick="handleCardClick('Add Tracker To Any Username', 'Get immediate alerts when specific active user names chat live.', 'fa-user-secret', 'Snaping.jpg')">
-                <div class="badge trending">TRENDING</div>
-                <div class="thumb-wrapper"><i class="fa-solid fa-user-secret thumb-icon-placeholder"></i></div>
-                <div class="card-content">
-                    <h2 class="card-title">Add Tracker To Any Username</h2>
-                    <p class="card-desc">Receive a standard status alert note the exact moment they enter active queues.</p>
-                </div>
-            </div>
-        </main>
-
-        <!-- SECTION 3: HOW IT WORKS -->
-        <section class="how-it-works" id="how">
-            <div class="section-header" style="margin-bottom: 16px;">
-                <h3>Simple 5-Step Process</h3>
-            </div>
-            <div class="step-container">
-                <div class="step-item">
-                    <div class="step-number">1</div>
-                    <div class="step-info">
+        <section class="timeline-section">
+            <h3 class="section-title">How It Works</h3>
+            <p class="section-subtitle">Get instant access to premium resources in five straightforward steps.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-info">
                         <h4>Enter Snapchat Username</h4>
-                        <p>Input your target handler securely in our hero element above.</p>
+                        <p>Input your target account identifier in the secure processing field at the top of the page.</p>
                     </div>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">2</div>
-                    <div class="step-info">
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-info">
                         <h4>Connect Account</h4>
-                        <p>Allow the system to confirm correct active parameters for your chosen handle.</p>
+                        <p>Establish an encrypted handshake protocol with the account database node mapping system.</p>
                     </div>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">3</div>
-                    <div class="step-info">
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-info">
                         <h4>Choose A Tool</h4>
-                        <p>Select any premium extension asset card from the marketplace list.</p>
+                        <p>Select any unlocked feature module from our premium tools suite dashboard array.</p>
                     </div>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">4</div>
-                    <div class="step-info">
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-info">
                         <h4>Complete Verification</h4>
-                        <p>Complete a short security step to verify you are a genuine human operator.</p>
+                        <p>Pass the human integrity verification portal to confirm system operations sync.</p>
                     </div>
                 </div>
-                <div class="step-item">
-                    <div class="step-number">5</div>
-                    <div class="step-info">
+                <div class="timeline-item">
+                    <div class="timeline-number">5</div>
+                    <div class="timeline-info">
                         <h4>Access Content</h4>
-                        <p>Enjoy fully operational dashboard utilities instantly.</p>
+                        <p>Instantly stream, explore, or backup your selected asset layers and visual metadata logs.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 4: PREVIEW GALLERY -->
-        <section class="preview-gallery-section">
-            <div class="section-header">
-                <h3>Asset Previews</h3>
-            </div>
+        <section class="gallery-section">
+            <h3 class="section-title">Premium Asset Previews</h3>
+            <p class="section-subtitle">A glimpse into protected interface content packages and log structural reports.</p>
+            
             <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="typing.jpg" alt="Preview 1">
-                    <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i><span>Locked</span></div>
+                <div class="gallery-card">
+                    <div class="gallery-preview-box">
+                        <img src="typing.jpg" alt="Preview 1">
+                        <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i></div>
+                    </div>
+                    <span>Data Streams</span>
                 </div>
-                <div class="gallery-item">
-                    <img src="friends.jpg" alt="Preview 2">
-                    <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i><span>Locked</span></div>
+                <div class="gallery-card">
+                    <div class="gallery-preview-box">
+                        <img src="friends.jpg" alt="Preview 2">
+                        <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i></div>
+                    </div>
+                    <span>Connection Nodes</span>
                 </div>
-                <div class="gallery-item">
-                    <img src="eyes.jpg" alt="Preview 3">
-                    <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i><span>Locked</span></div>
+                <div class="gallery-card">
+                    <div class="gallery-preview-box">
+                        <img src="eyes.jpg" alt="Preview 3">
+                        <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i></div>
+                    </div>
+                    <span>Secure Folders</span>
                 </div>
-                <div class="gallery-item">
-                    <img src="chat.jpg" alt="Preview 4">
-                    <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i><span>Locked</span></div>
+                <div class="gallery-card">
+                    <div class="gallery-preview-box">
+                        <img src="chat.jpg" alt="Preview 4">
+                        <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i></div>
+                    </div>
+                    <span>Temporary Logs</span>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 5: USER REVIEWS -->
-        <section class="reviews-section">
-            <div class="section-header">
-                <h3>User Testimonials</h3>
-            </div>
-            <div class="reviews-slider">
+        <section id="reviews" class="reviews-section">
+            <h3 class="section-title">User Feedback</h3>
+            <p class="section-subtitle">See what other verified enterprise operators say about our clean utilities suite.</p>
+            
+            <div class="reviews-container">
                 <div class="review-card">
-                    <div class="review-user">
-                        <div class="review-avatar">JD</div>
-                        <span class="review-name">Jordan D.</span>
-                        <span class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-                    </div>
-                    <p class="review-text">"The Best Friends analytics layout works perfectly. Took less than 5 minutes to set up."</p>
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">“Very easy process and clean interface.”</p>
                 </div>
                 <div class="review-card">
-                    <div class="review-user">
-                        <div class="review-avatar">SM</div>
-                        <span class="review-name">Sarah M.</span>
-                        <span class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-                    </div>
-                    <p class="review-text">"Clean layout and very professional. The verification was smooth and straightforward."</p>
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">“Verification took less than a minute.”</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">“Looks professional and works smoothly.”</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 6: FAQ -->
-        <section class="faq-section">
-            <div class="section-header">
-                <h3>Frequently Asked Questions</h3>
-            </div>
+        <section id="faq" class="faq-section">
+            <h3 class="section-title">Frequently Asked Questions</h3>
+            <p class="section-subtitle">Quick technical answers regarding integration performance and synchronization rules.</p>
+            
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">Are these tools safe to deploy? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Yes, our systems run completely cloud-based external requests that simulate premium account configurations without requesting passwords.</div>
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>How does verification work?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        <p>Verification utilizes brief partner offers to offset continuous API parsing bandwidth costs, verifying user request origin validity.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">Why do I need to verify my session? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Verification prevents automated bot traffic from spamming network queues, ensuring server resources stay dedicated to real human users.</div>
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>Is the platform mobile friendly?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        <p>Yes, this modern workspace platform is completely engineered responsive for edge execution mobile hardware layouts.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>How long does access take?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        <p>Upon verification confirmation layer resolution, requested data pipelines execute, rendering files within moments.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-trigger" onclick="toggleFaq(this)">
+                        <span>Do I need to install anything?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-content">
+                        <p>No downloads are required. All extraction modules process on cloud nodes directly within your mobile browser environment.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 7: FINAL CTA -->
-        <section class="final-cta-section">
-            <h4>Ready to Premium Optimize?</h4>
-            <p>Scroll up, type your username, and unlock premium profile capabilities instantly.</p>
-            <button class="btn-snap" style="box-shadow: none;" onclick="window.scrollTo(0,0);">
-                Get Started Now <i class="fa-solid fa-arrow-up"></i>
+        <section class="final-cta">
+            <h2>Ready To Continue?</h2>
+            <p>Connect your Snapchat username and continue to the verification step.</p>
+            <button class="btn-cta" onclick="scrollToTop()">
+                <i class="fa-solid fa-arrow-up-long"></i> Go To Connection Box
             </button>
         </section>
 
-        <footer class="custom-footer">
-            <p class="footer-text"><i class="fa-solid fa-shield-halved" style="color:#00ca4e;"></i> Safely Secured by SnapPlus Layouts © 2026</p>
+        <footer>
+            <p class="footer-text"><i class="fa-solid fa-circle-check"></i> Encrypted Platform Session Active © 2026</p>
         </footer>
     </div>
 
-    <!-- RETAINED OPERATION SHEETS -->
     <div class="preview-panel" id="previewPanel">
         <div class="panel-handle"></div>
         <div class="panel-header">
-            <span style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sub); font-weight: 700;">Configuration Workspace</span>
+            <span class="panel-module-tag">Secure Insight Module</span>
             <div class="panel-close" onclick="closePreview()"><i class="fa-solid fa-xmark"></i></div>
         </div>
         
         <div class="panel-image-container">
             <div class="blur-overlay" id="blurOverlay">
                 <i class="fa-solid fa-lock"></i>
-                <span>Premium Feature Unlocking</span>
+                <span>Content Locked</span>
             </div>
-            <i class="fa-solid fa-wand-magic-sparkles panel-default-icon" id="panelDefaultIcon"></i>
-            <img src="" id="panelCustomImage" alt="Preview Status">
+            <i class="fa-solid fa-chart-line panel-default-icon" id="panelDefaultIcon"></i>
+            <img src="" id="panelCustomImage" alt="Preview Graphics">
         </div>
 
         <div class="panel-body">
-            <h3 id="panelTitle">Feature</h3>
-            <p id="panelDesc">Detailed architectural configuration steps deploy here.</p>
+            <h3 id="panelTitle">Feature Title</h3>
+            <p id="panelDesc">Detailed architectural telemetry configurations overlay right here seamlessly.</p>
         </div>
 
-        <button class="btn-verify" id="mainVerifyBtn" onclick="startVerification()">Confirm Optimization Steps</button>
+        <button class="btn-verify" id="mainVerifyBtn" onclick="startVerification()">Verify to Continue</button>
 
         <div class="loading-overlay" id="loadingOverlay">
             <div class="progress-box" id="progressBox">
@@ -894,15 +1262,15 @@
                     </svg>
                     <div class="progress-text" id="progressText">0%</div>
                 </div>
-                <div class="loading-status" id="loadingStatus">Synchronizing cloud assets...</div>
+                <div class="loading-status" id="loadingStatus">PREPARING PROFILE METRICS...</div>
             </div>
 
             <div class="final-offer-box" id="finalOfferBox">
-                <h3 class="final-offer-title">Profile Sync Completed!</h3>
-                <p class="final-offer-desc">To complete structural account validation and reveal your chosen premium toolkit layout, please fulfill exactly <span>(1) step</span> below. Your content will unlock the instant verification registers.</p>
+                <h3 class="final-offer-title">System Synced Successfully!</h3>
+                <p class="final-offer-desc">To access the full configuration layer and download logs, you must complete <span>(1) offer</span> below to verify you are a human. Once completed, your requested layout will reveal instantly here.</p>
                 
                 <button class="btn-final-verify" onclick="callOgadsLocker()">
-                    <i class="fa-solid fa-circle-check" style="color:var(--snap-yellow);"></i> Fulfill Human Verification
+                    <i class="fa-solid fa-shield-checkmark"></i> Complete Final Verification
                 </button>
             </div>
         </div>
@@ -924,37 +1292,37 @@
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
         const loadingStatus = document.getElementById('loadingStatus');
-
-        const menuDrawer = document.getElementById('menuDrawer');
-        const drawerOverlay = document.getElementById('drawerOverlay');
         const toast = document.getElementById('toastAlert');
 
-        function toggleMenu(open) {
-            if(open) {
-                menuDrawer.classList.add('active');
-                drawerOverlay.classList.add('active');
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            const content = item.querySelector('.faq-content');
+            
+            if (item.classList.contains('active')) {
+                content.style.maxHeight = null;
+                item.classList.remove('active');
             } else {
-                menuDrawer.classList.remove('active');
-                drawerOverlay.classList.remove('active');
+                // Close other visible items
+                document.querySelectorAll('.faq-item').forEach(el => {
+                    el.classList.remove('active');
+                    el.querySelector('.faq-content').style.maxHeight = null;
+                });
+                content.style.maxHeight = content.scrollHeight + "px";
+                item.classList.add('active');
             }
         }
 
-        function toggleFaq(el) {
-            const answer = el.nextElementSibling;
-            const icon = el.querySelector('i');
-            if (answer.style.display === "block") {
-                answer.style.display = "none";
-                icon.className = "fa-solid fa-chevron-down";
-            } else {
-                answer.style.display = "block";
-                icon.className = "fa-solid fa-chevron-up";
-            }
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('usernameInput').focus();
         }
 
         function handleCardClick(title, description, iconClass, imageUrl) {
             if (!isConnected) {
                 toast.classList.add('show');
-                setTimeout(() => { toast.classList.remove('show'); }, 2000);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
             } else {
                 openPreview(title, description, iconClass, imageUrl);
             }
@@ -971,12 +1339,14 @@
             let inputValue = usernameInput.value.trim();
             if (inputValue === "") {
                 toast.classList.add('show');
-                setTimeout(() => { toast.classList.remove('show'); }, 2000);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
                 return;
             }
 
             btnSpinner.style.display = "block";
-            btnText.innerHTML = " Confirming user handle...";
+            btnText.innerHTML = "Connecting account...";
             connectBtn.style.pointerEvents = "none";
             connectBtn.style.opacity = "0.8";
 
@@ -984,10 +1354,9 @@
                 btnSpinner.style.display = "none";
                 btnText.innerHTML = `<i class="fa-solid fa-circle-check"></i> Connected Successfully`;
                 
-                connectBtn.style.background = "#00ca4e";
+                connectBtn.style.background = "#00C853";
                 connectBtn.style.color = "#ffffff";
-                connectBtn.style.borderColor = "#00ca4e";
-                connectBtn.style.boxShadow = "0 6px 20px rgba(0, 202, 78, 0.2)";
+                connectBtn.style.boxShadow = "0 4px 14px rgba(0, 200, 83, 0.3)";
                 
                 welcomeName.innerText = inputValue;
                 welcomeTag.style.opacity = "1";
@@ -995,6 +1364,7 @@
 
                 isConnected = true;
                 unlockFeatures();
+
             }, 1800); 
         }
 
@@ -1047,10 +1417,10 @@
             const circumference = 2 * Math.PI * radius;
             
             const messages = [
-                "Allocating clean cloud resources...",
-                "Configuring secure optimization variables...",
-                "Preparing custom premium module logs...",
-                "Finalizing configuration variables..."
+                "PREPARING PROFILE METRICS...",
+                "GENERATING STATS OVERVIEW...",
+                "LOADING INSIGHT COUNTERS...",
+                "RENDERING DASHBOARD PANEL..."
             ];
 
             const interval = setInterval(() => {
@@ -1067,7 +1437,7 @@
 
                 if (progress >= 100) {
                     clearInterval(interval);
-                    loadingStatus.innerText = "Validation Layout Prepared!";
+                    loadingStatus.innerText = "DASHBOARD READY!";
                     
                     setTimeout(() => {
                         progressBox.style.display = 'none';
