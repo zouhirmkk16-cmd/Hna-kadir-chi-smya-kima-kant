@@ -1,756 +1,486 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapSuite Pro - Premium OS Utilities</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Core System v4.02 - Cloud Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- OGAds Locker Integration Script -->
+    <!-- OGAds Locker Script -->
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
     
     <style>
         :root {
-            --bg-main: #0B0F19;
-            --bg-card: rgba(22, 30, 49, 0.65);
-            --bg-input: #111827;
-            --primary: #FFFC00;
-            --primary-glow: rgba(255, 252, 0, 0.15);
-            --text-main: #F3F4F6;
-            --text-muted: #9CA3AF;
-            --border: rgba(255, 255, 255, 0.08);
-            --accent-green: #10B981;
-            --radius-main: 20px;
-            --font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        [data-theme="light"] {
-            --bg-main: #F4F6FA;
-            --bg-card: rgba(255, 255, 255, 0.85);
-            --bg-input: #FFFFFF;
-            --primary: #FFFC00;
-            --primary-glow: rgba(234, 179, 8, 0.2);
-            --text-main: #1F2937;
-            --text-muted: #6B7280;
-            --border: rgba(0, 0, 0, 0.08);
+            --bg-terminal: #07090e;
+            --accent-green: #00ff66;
+            --accent-glow: rgba(0, 255, 102, 0.15);
+            --text-main: #e2e8f0;
+            --text-dim: #64748b;
+            --border-color: #1e293b;
+            --font-mono: 'Fira Code', monospace;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: var(--font-family);
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
+            font-family: var(--font-mono);
         }
 
         body {
-            background-color: var(--bg-main);
+            background-color: var(--bg-terminal);
             color: var(--text-main);
             display: flex;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            padding: 12px;
         }
 
-        .container {
+        /* المظهر الخارجي للشاشة بالكامل */
+        .terminal-window {
             width: 100%;
-            max-width: 450px;
-            min-height: 100vh;
-            background: radial-gradient(circle at top right, rgba(255, 252, 0, 0.03), transparent 40%), var(--bg-main);
-            position: relative;
+            max-width: 480px;
+            background: #0a0f1d;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            border-left: 1px solid var(--border);
-            border-right: 1px solid var(--border);
-            padding-bottom: 40px;
+            height: 85vh;
+            max-height: 750px;
         }
 
-        /* Navbar Ultra Clean */
-        nav {
+        /* شريط التحكم العلوي للنافذة */
+        .terminal-header {
+            background: #111827;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            background: rgba(var(--bg-main), 0.7);
-            position: sticky;
-            top: 0;
-            z-index: 60;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .logo {
+        .window-dots {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 800;
-            font-size: 17px;
-            letter-spacing: -0.5px;
-        }
-
-        .logo i {
-            color: #111111;
-            background: var(--primary);
-            padding: 8px;
-            border-radius: 12px;
-            font-size: 14px;
-            box-shadow: 0 4px 12px var(--primary-glow);
-        }
-
-        .mode-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            color: var(--text-main);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Hero Panel V2 */
-        .hero-dashboard {
-            padding: 30px 24px 20px 24px;
-            text-align: center;
-        }
-
-        .status-pill {
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: var(--accent-green);
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
             gap: 6px;
-            margin-bottom: 24px;
-            opacity: 0;
-            transform: scale(0.9);
         }
 
-        .main-pack-img {
-            width: 110px;
-            height: 110px;
-            object-fit: contain;
-            margin: 0 auto 20px auto;
-            display: block;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot-r { background: #ef4444; }
+        .dot-y { background: #f59e0b; }
+        .dot-g { background: #10b981; }
+
+        .window-title {
+            font-size: 11px;
+            color: var(--text-dim);
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
-        .hero-dashboard h1 {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.8px;
-            line-height: 1.2;
-            margin-bottom: 10px;
-        }
-
-        .hero-dashboard p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 24px;
-        }
-
-        /* Terminal Style Input Box */
-        .console-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-main);
+        /* منطقة الأسطر البرمجية الحية */
+        .terminal-body {
             padding: 20px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-size: 13px;
+            line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 14px;
+        .line-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .input-group i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
+        .sys-meta {
+            color: var(--text-dim);
         }
 
-        .terminal-input {
-            width: 100%;
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            padding: 16px 16px 16px 48px;
-            border-radius: 14px;
-            color: var(--text-main);
-            font-size: 15px;
-            font-weight: 600;
-            outline: none;
+        .sys-prompt {
+            color: var(--accent-green);
+            margin-right: 8px;
         }
 
-        .terminal-input:focus {
-            border-color: rgba(255, 252, 0, 0.4);
+        /* أنيميشن الكتابة التلقائية */
+        .typing-effect {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid var(--accent-green);
+            animation: blinkCursor 0.75s step-end infinite;
         }
 
-        .action-btn {
-            width: 100%;
-            background: var(--primary);
-            color: #111111;
-            border: none;
-            padding: 16px;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
+        @keyframes blinkCursor {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-green); }
+        }
+
+        /* حقل الإدخال الأساسي للـ Username */
+        .input-wrapper {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 6px 20px var(--primary-glow);
+            background: #0d1527;
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 8px;
+            margin-top: 6px;
         }
 
-        .action-btn:active { transform: scale(0.98); }
-
-        .spinner {
-            width: 18px;
-            height: 18px;
-            border: 2px solid #111111;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: rotateSpin 0.6s linear infinite;
-            display: none;
+        .main-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--accent-green);
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            margin-left: 8px;
         }
 
-        @keyframes rotateSpin { to { transform: rotate(360deg); } }
+        .submit-node-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        .submit-node-btn:hover { color: var(--accent-green); }
 
-        /* Feature Section Grid Layout V2 */
-        .grid-section {
-            padding: 24px;
+        /* قائمة الخيارات الجديدة (ليست كروت بل أسطر أوامر) */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
         }
 
-        .section-head {
-            margin-bottom: 16px;
+        .opt-row {
+            background: #0d1527;
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
         }
+        .opt-row:hover {
+            border-color: var(--accent-green);
+            background: rgba(0, 255, 102, 0.02);
+        }
+        .opt-row span { font-weight: 500; }
+        .opt-row i { color: var(--text-dim); font-size: 12px; }
+        .opt-row:hover i { color: var(--accent-green); }
 
-        .section-head h2 { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
-        .section-head p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
-
-        .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* إطار عرض الصور والتحميل بصيغة Matrix */
+        .matrix-loader-box {
+            background: #0d1527;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
             gap: 12px;
         }
 
-        .mod-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-main);
-            padding: 16px;
+        .progress-bar-container {
+            width: 100%;
+            background: #111827;
+            height: 6px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-green);
+            width: 0%;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* نافذة المعاينة المدمجة داخل الـ Terminal */
+        .image-preview-frame {
             position: relative;
-            cursor: pointer;
-            opacity: 0.5;
+            border-radius: 6px;
+            height: 140px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .image-preview-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(8px) brightness(0.5);
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: scanMv 2s linear infinite;
+        }
+
+        @keyframes scanMv {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        .frame-lock-status {
+            position: absolute;
+            inset: 0;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 150px;
-        }
-
-        .mod-card.unlocked { opacity: 1; }
-        .mod-card.unlocked:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 252, 0, 0.2);
-            background: rgba(255, 252, 0, 0.02);
-        }
-
-        .mod-icon-box {
-            width: 40px;
-            height: 40px;
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
-            color: var(--text-muted);
-            margin-bottom: 14px;
-        }
-
-        .mod-card.unlocked .mod-icon-box i { color: var(--text-main); }
-
-        .mod-details h3 {
-            font-size: 14px;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 4px;
-        }
-
-        .mod-details p {
+            gap: 6px;
             font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.3;
+            color: #ff3366;
+            font-weight: 600;
         }
 
-        .mod-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 3px 8px;
+        /* شاشة النهاية (الـ Locker المدمج) */
+        .final-panel {
+            text-align: center;
+            padding: 20px 10px;
+            background: rgba(0, 255, 102, 0.02);
+            border: 1px dashed var(--accent-green);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .final-panel h3 {
+            color: var(--accent-green);
+            font-size: 16px;
+        }
+
+        .final-panel p {
+            font-size: 12px;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .unlock-btn {
+            background: var(--accent-green);
+            color: #000;
+            border: none;
+            padding: 14px 28px;
             border-radius: 6px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .b-live { background: rgba(239, 68, 68, 0.1); color: #EF4444; }
-        .b-new { background: rgba(59, 130, 246, 0.1); color: #3B82F6; }
-        .b-pro { background: var(--border); color: var(--text-main); }
+        .unlock-btn:hover {
+            transform: scale(1.02);
+        }
 
-        /* Step Timeline Minimal */
-        .steps-box { padding: 24px; background: rgba(255,255,255,0.01); border-top: 1px solid var(--border); }
-        .steps-list { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
-        .step-node { display: flex; gap: 14px; }
-        .step-index { width: 28px; height: 28px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
-        .step-meta h4 { font-size: 14px; font-weight: 700; }
-        .step-meta p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-
-        /* Graphic Grid System */
-        .showcase-box { padding: 24px; }
-        .showcase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
-        .showcase-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-main); padding: 10px; }
-        .media-holder { position: relative; border-radius: 12px; height: 110px; overflow: hidden; background: #000; }
-        .media-holder img { width: 100%; height: 100%; object-fit: cover; filter: blur(6px); opacity: 0.6; }
-        .media-lock { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #FFF; }
-        .showcase-item span { display: block; font-size: 11px; font-weight: 700; text-align: center; margin-top: 8px; color: var(--text-muted); }
-
-        /* Minimal Feedback Stack */
-        .feed-box { padding: 24px; }
-        .feed-stack { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
-        .feed-card { background: var(--bg-card); border: 1px solid var(--border); padding: 14px; border-radius: 14px; }
-        .stars-row { color: #F59E0B; font-size: 11px; margin-bottom: 4px; }
-        .feed-card p { font-size: 12px; font-weight: 500; }
-
-        /* Accordion Panel */
-        .faq-panel { padding: 24px; }
-        .faq-stack { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
-        .faq-node { border: 1px solid var(--border); background: var(--bg-card); border-radius: 14px; overflow: hidden; }
-        .faq-head { width: 100%; padding: 14px 16px; background: transparent; border: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; font-size: 13px; font-weight: 700; color: var(--text-main); }
-        .faq-body { max-height: 0; overflow: hidden; background: rgba(0,0,0,0.1); }
-        .faq-body p { padding: 14px 16px; font-size: 12px; color: var(--text-muted); line-height: 1.4; }
-
-        /* Toast system */
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translate(-50%, 50px); background: #EF4444; color: white; font-weight: 700; padding: 12px 24px; border-radius: 30px; font-size: 13px; box-shadow: 0 10px 30px rgba(239,68,68,0.2); z-index: 200; opacity: 0; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; gap: 8px; }
-        .toast.visible { opacity: 1; transform: translate(-50%, 0); }
-
-        /* Bottom Sheet Panel (Modal Drawer) */
-        .sheet-panel { position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%); width: 100%; max-width: 450px; background: var(--bg-main); border-top: 1px solid var(--border); border-top-left-radius: 24px; border-top-right-radius: 24px; padding: 24px; z-index: 100; box-shadow: 0 -20px 40px rgba(0,0,0,0.3); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        .sheet-panel.visible { transform: translate(-50%, 0); }
-        .sheet-drag { width: 36px; height: 4px; background: var(--border); border-radius: 10px; margin: 0 auto 16px auto; }
-        .sheet-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .sheet-title { font-size: 18px; font-weight: 800; }
-        .sheet-close { background: var(--bg-card); border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); cursor: pointer; }
-        
-        .sheet-media-box { width: 100%; height: 160px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 16px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .sheet-media-box img { width: 100%; height: 100%; object-fit: cover; filter: blur(5px); display: none; }
-        .sheet-lock-sign { position: absolute; background: rgba(0,0,0,0.6); padding: 12px; border-radius: 50%; font-size: 18px; color: #FFF; display: none; }
-
-        .sheet-info p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
-        .btn-sheet-trigger { width: 100%; background: var(--primary); border: none; padding: 16px; border-radius: 14px; color: #111111; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px var(--primary-glow); }
-
-        /* Loader Overlap inside sheet */
-        .sheet-loader { position: absolute; inset: 0; background: var(--bg-main); padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; }
-        .sheet-loader.visible { opacity: 1; pointer-events: auto; }
-        
-        .circle-progress { position: relative; width: 100px; height: 100px; }
-        .circle-svg { transform: rotate(-90deg); width: 100px; height: 100px; }
-        .circle-svg circle { fill: none; stroke-width: 6; stroke-linecap: round; }
-        .circle-track { stroke: var(--bg-card); }
-        .circle-bar { stroke: var(--text-main); stroke-dasharray: 283; stroke-dashoffset: 283; }
-        .circle-val { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; }
-        
-        .loader-status-msg { margin-top: 16px; font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
-
-        .completion-node { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
-        .completion-node h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
-        .completion-node p { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
-        .completion-node p span { color: var(--text-main); font-weight: 700; }
-        
-        .btn-lock-final { width: 100%; background: var(--accent-green); border: none; color: white; padding: 16px; border-radius: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2); }
-
-        footer { text-align: center; padding: 20px; border-top: 1px solid var(--border); margin-top: auto; font-size: 11px; color: var(--text-muted); font-weight: 600; }
+        /* إخفاء العناصر تمهيداً لعرضها بالتوالي بالـ JS */
+        .hidden-node {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
 
-    <div class="toast" id="systemToast">
-        <i class="fa-solid fa-triangle-exclamation"></i> Username Required First
-    </div>
-
-    <div class="container">
-        <nav>
-            <div class="logo">
-                <i class="fa-solid fa-ghost"></i>
-                <span>SnapSuite Pro</span>
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="window-dots">
+                <div class="dot dot-r"></div>
+                <div class="dot dot-y"></div>
+                <div class="dot dot-g"></div>
             </div>
-            <button class="mode-toggle" id="modeBtn" onclick="alternateTheme()">
-                <i class="fa-solid fa-sun"></i>
-            </button>
-        </nav>
-
-        <section class="hero-dashboard">
-            <div class="status-pill" id="profilePill">
-                <i class="fa-solid fa-circle-dot"></i> Pipeline Target: @<span id="targetLabel">User</span>
-            </div>
-            
-            <img src="emojis.JPG" alt="Asset Package" class="main-pack-img">
-            
-            <h1>Advanced Suite Diagnostics</h1>
-            <p>Deploy specialized cloud parsing modules and telemetry streams against synchronized profile metrics effortlessly.</p>
-            
-            <div class="console-box">
-                <div class="input-group">
-                    <i class="fa-solid fa-terminal"></i>
-                    <input type="text" class="terminal-input" id="profileInput" placeholder="Enter Snapchat Identifier">
-                </div>
-                <button class="action-btn" id="triggerConnectionBtn" onclick="runPipelineHandshake()">
-                    <span class="spinner" id="actionLoader"></span>
-                    <span id="actionLabelText">Initialize Handshake</span>
-                </button>
-            </div>
-        </section>
-
-        <section class="grid-section">
-            <div class="section-head">
-                <h2>Available Operation Modules</h2>
-                <p>Select an operational core cluster node to dump visual metadata layers.</p>
-            </div>
-            
-            <div class="modules-grid">
-                <div class="mod-card" onclick="triggerModuleClick('Live Activity Feed', 'Real-time telemetry mapping of active conversation streams.', 'fa-comment-dots', 'typing.jpg')">
-                    <span class="mod-badge b-live">Active</span>
-                    <div class="mod-icon-box"><i class="fa-solid fa-comment-dots"></i></div>
-                    <div class="mod-details">
-                        <h3>Activity Feed</h3>
-                        <p>Subtle live session analytics stream.</p>
-                    </div>
-                </div>
-
-                <div class="mod-card" onclick="triggerModuleClick('Analyze Best Friends', 'Advanced structural hierarchy mapping algorithms for core connections.', 'fa-user-group', 'friends.jpg')">
-                    <span class="mod-badge b-new">New</span>
-                    <div class="mod-icon-box"><i class="fa-solid fa-user-group"></i></div>
-                    <div class="mod-details">
-                        <h3>Friend Index</h3>
-                        <p>Deep structural connection mapping.</p>
-                    </div>
-                </div>
-
-                <div class="mod-card" onclick="triggerModuleClick('Access Private Folders', 'Secure recovery layer verification interface simulations.', 'fa-eye-slash', 'eyes.jpg')">
-                    <span class="mod-badge b-pro">Pro</span>
-                    <div class="mod-icon-box"><i class="fa-solid fa-eye-slash"></i></div>
-                    <div class="mod-details">
-                        <h3>Private Vault</h3>
-                        <p>Systematic metadata recovery logs.</p>
-                    </div>
-                </div>
-
-                <div class="mod-card" onclick="triggerModuleClick('Retrieve Chat History', 'Automated cloud database backup logs sorting & structural analysis.', 'fa-clock-rotate-left', 'chat.jpg')">
-                    <span class="mod-badge b-pro">Pro</span>
-                    <div class="mod-icon-box"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                    <div class="mod-details">
-                        <h3>Chat Matrix</h3>
-                        <p>Secure temporary platform log dump.</p>
-                    </div>
-                </div>
-
-                <div class="mod-card" onclick="triggerModuleClick('View Live Location', 'Geospatial mapping and accurate node tracking diagnostics.', 'fa-location-dot', 'location.jpg')">
-                    <span class="mod-badge b-pro">Pro</span>
-                    <div class="mod-icon-box"><i class="fa-solid fa-location-dot"></i></div>
-                    <div class="mod-details">
-                        <h3>Geo Radar</h3>
-                        <p>High-fidelity node triangulation map.</p>
-                    </div>
-                </div>
-
-                <div class="mod-card" onclick="triggerModuleClick('Add Tracker To Any Username', 'You will see on their profile when they are chatting with anyone (only 1 person at a time).', 'fa-user-secret', 'Snaping.jpg')">
-                    <span class="mod-badge b-live">Hot</span>
-                    <div class="mod-icon-box"><i class="fa-solid fa-user-secret"></i></div>
-                    <div class="mod-details">
-                        <h3>Chat Radar</h3>
-                        <p>Real-time telemetry mapping dashboard.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="steps-box">
-            <div class="section-head">
-                <h2>Operational Protocol</h2>
-                <p>Execution lifecycle requirements for system file sync.</p>
-            </div>
-            <div class="steps-list">
-                <div class="step-node">
-                    <div class="step-index">1</div>
-                    <div class="step-meta">
-                        <h4>Target Declaration</h4>
-                        <p>Specify the account identity node inside the terminal processing field.</p>
-                    </div>
-                </div>
-                <div class="step-node">
-                    <div class="step-index">2</div>
-                    <div class="step-meta">
-                        <h4>Secure Handshake</h4>
-                        <p>Establish automated entry points via mock cloud extraction.</p>
-                    </div>
-                </div>
-                <div class="step-node">
-                    <div class="step-index">3</div>
-                    <div class="step-meta">
-                        <h4>Cluster Selection</h4>
-                        <p>Pick a specialized telemetry card module from the layout grid.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="showcase-box">
-            <div class="section-head">
-                <h2>Asset Previews</h2>
-                <p>Locked structural visualization node templates.</p>
-            </div>
-            <div class="showcase-grid">
-                <div class="showcase-item">
-                    <div class="media-holder">
-                        <img src="typing.jpg" alt="Preview">
-                        <div class="media-lock"><i class="fa-solid fa-lock"></i></div>
-                    </div>
-                    <span>Data Streams</span>
-                </div>
-                <div class="showcase-item">
-                    <div class="media-holder">
-                        <img src="friends.jpg" alt="Preview">
-                        <div class="media-lock"><i class="fa-solid fa-lock"></i></div>
-                    </div>
-                    <span>Nodes Map</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="feed-box">
-            <div class="feed-stack">
-                <div class="feed-card">
-                    <div class="stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>“Clean minimalist setup. The locker integrated perfectly without lags.”</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="faq-panel">
-            <div class="faq-stack">
-                <div class="faq-node">
-                    <button class="faq-head" onclick="triggerFaqToggle(this)">
-                        <span>Is this layout responsive?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-body">
-                        <p>Engineered entirely inside unified flex containers to render flawlessly on all iOS/Android edge panels.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <p><i class="fa-solid fa-shield-halved" style="color: var(--accent-green)"></i> Secure Session Synced Framework 2026</p>
-        </footer>
-    </div>
-
-    <!-- Modern Drawer Bottom Sheet -->
-    <div class="sheet-panel" id="sheetPanel">
-        <div class="sheet-drag"></div>
-        <div class="sheet-top">
-            <span class="sheet-title" id="mTitle">Module Panel</span>
-            <div class="sheet-close" onclick="dismissSheet()"><i class="fa-solid fa-xmark"></i></div>
-        </div>
-        
-        <div class="sheet-media-box">
-            <div class="sheet-lock-sign" id="mLockIcon"><i class="fa-solid fa-lock"></i></div>
-            <img src="" id="mImg" alt="Preview Asset">
+            <div class="window-title">root@snapsuite-core:~</div>
+            <div><i class="fa-solid fa-signal" style="font-size: 10px; color: var(--accent-green);"></i></div>
         </div>
 
-        <div class="sheet-info">
-            <p id="mDesc">Module telemetry details statement loading dynamically...</p>
-        </div>
-
-        <button class="btn-sheet-trigger" onclick="runSheetVerification()">Deploy Extraction Pipeline</button>
-
-        <!-- Micro Loading Overlay Inside Sheet Drawer -->
-        <div class="sheet-loader" id="sheetLoader">
-            <div class="circle-progress" id="circBox">
-                <svg class="circle-svg">
-                    <circle class="circle-track" cx="50" cy="50" r="45"></circle>
-                    <circle class="circle-bar" id="circBar" cx="50" cy="50" r="45"></circle>
-                </svg>
-                <div class="circle-val" id="circText">0%</div>
+        <div class="terminal-body" id="terminalConsole">
+            
+            <!-- السطر الأول الافتراضي -->
+            <div class="line-entry" id="step1">
+                <span class="sys-meta">[SYS INTRUSION PROTOCOL SECURED v4.02]</span>
+                <div><span class="sys-prompt">#</span><span class="typing-effect">Initialize connection handshake...</span></div>
             </div>
-            <div class="loader-status-msg" id="loaderStatusMsg">SYNCING TARGET SECTOR...</div>
 
-            <div class="completion-node" id="completionNode">
-                <h3>System Handshake Verified!</h3>
-                <p>To finalize the asset report delivery and unpack requested elements, you must resolve <span>(1) automatic metric offer</span>. Content renders instantly afterwards.</p>
-                <button class="btn-lock-final" onclick="dispatchOgadsSystem()">
-                    <i class="fa-solid fa-shield-check"></i> Unlock Dashboard Layer
-                </button>
+            <!-- حقل إدخال الإسم كأنه سطر أوامر -->
+            <div class="line-entry hidden-node" id="usernameBlock">
+                <div><span class="sys-prompt">guest@core:~$</span><span>enter target_identifier:</span></div>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-chevron-right" style="color: var(--accent-green); font-size: 12px;"></i>
+                    <input type="text" class="main-input" id="targetUser" placeholder="username..." autocomplete="off">
+                    <button class="submit-node-btn" onclick="processUsername()"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                </div>
             </div>
+
+            <!-- أسطر المعالجة والخيارات تظهر هنا أوتوماتيكياً عبر الـ JS -->
         </div>
     </div>
 
     <script>
-        let connectionActive = false;
+        // مصفوفة التصاور المرتبطة بكل اختيار
+        const assetMap = {
+            'feed': 'typing.jpg',
+            'friends': 'friends.jpg',
+            'vault': 'eyes.jpg',
+            'chat': 'chat.jpg',
+            'geo': 'location.jpg',
+            'radar': 'Snaping.jpg'
+        };
 
-        const sheet = document.getElementById('sheetPanel');
-        const mTitle = document.getElementById('mTitle');
-        const mDesc = document.getElementById('mDesc');
-        const mImg = document.getElementById('mImg');
-        const mLockIcon = document.getElementById('mLockIcon');
-        
-        const sheetLoader = document.getElementById('sheetLoader');
-        const circBox = document.getElementById('circBox');
-        const completionNode = document.getElementById('completionNode');
-        const circBar = document.getElementById('circBar');
-        const circText = document.getElementById('circText');
-        const loaderStatusMsg = document.getElementById('loaderStatusMsg');
-        const systemToast = document.getElementById('systemToast');
-        const modeBtn = document.getElementById('modeBtn');
-
-        function alternateTheme() {
-            const current = document.documentElement.getAttribute('data-theme');
-            if (current === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                modeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                modeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-            }
-        }
-
-        function triggerFaqToggle(btn) {
-            const node = btn.parentElement;
-            const body = node.querySelector('.faq-body');
-            if (node.classList.contains('active')) {
-                body.style.maxHeight = null;
-                node.classList.remove('active');
-            } else {
-                body.style.maxHeight = body.scrollHeight + "px";
-                node.classList.add('active');
-            }
-        }
-
-        function runPipelineHandshake() {
-            const input = document.getElementById('profileInput');
-            const btn = document.getElementById('triggerConnectionBtn');
-            const loader = document.getElementById('actionLoader');
-            const label = document.getElementById('actionLabelText');
-            const pill = document.getElementById('profilePill');
-            const targetLabel = document.getElementById('targetLabel');
-
-            let val = input.value.trim();
-            if (val === "") {
-                systemToast.classList.add('visible');
-                setTimeout(() => systemToast.classList.remove('visible'), 2000);
-                return;
-            }
-
-            loader.style.display = "block";
-            label.innerText = "Securing link nodes...";
-            btn.style.pointerEvents = "none";
-            btn.style.opacity = "0.8";
-
+        window.addEventListener('DOMContentLoaded', () => {
+            // إظهار حقل الإدخال بعد ثانيتين كأنه يكتب النظام
             setTimeout(() => {
-                loader.style.display = "none";
-                label.innerHTML = `<i class="fa-solid fa-circle-check"></i> Core Link Established`;
-                btn.style.background = "#10B981";
-                btn.style.color = "#FFFFFF";
-                btn.style.boxShadow = "0 6px 20px rgba(16, 185, 129, 0.2)";
-                
-                targetLabel.innerText = val;
-                pill.style.opacity = "1";
-                pill.style.transform = "scale(1)";
+                document.getElementById('usernameBlock').classList.remove('hidden-node');
+                scrollToBottom();
+            }, 1500);
+        });
 
-                connectionActive = true;
-                document.querySelectorAll('.mod-card').forEach(c => c.classList.add('unlocked'));
-            }, 1800);
+        function scrollToBottom() {
+            const consoleBox = document.getElementById('terminalConsole');
+            consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 
-        function triggerModuleClick(title, desc, icon, imgUrl) {
-            if (!connectionActive) {
-                systemToast.classList.add('visible');
-                setTimeout(() => systemToast.classList.remove('visible'), 2000);
-                return;
-            }
+        function createLine(htmlContent, delay = 0, callback = null) {
+            setTimeout(() => {
+                const consoleBox = document.getElementById('terminalConsole');
+                const line = document.createElement('div');
+                line.className = 'line-entry';
+                line.innerHTML = htmlContent;
+                consoleBox.appendChild(line);
+                scrollToBottom();
+                if(callback) callback();
+            }, delay);
+        }
+
+        function processUsername() {
+            const userInp = document.getElementById('targetUser');
+            const username = userInp.value.trim();
+
+            if(username === '') return;
+
+            // قفل الحقل بعد الإدخال
+            userInp.disabled = true;
+            document.querySelector('.submit-node-btn').style.display = 'none';
+
+            // بدء سلسلة أوامر الـ Terminal كأنها عملية حقيقية
+            createLine(`<div><span class="sys-prompt">#</span><span>Querying cloud datacenters for @${username}...</span></div>`, 400);
+            createLine(`<div><span class="sys-prompt">#</span><span style="color: #f59e0b;"><i class="fa-solid fa-spinner fa-spin"></i> Establishing database proxy bridges...</span></div>`, 1200);
+            createLine(`<div><span class="sys-prompt">#</span><span style="color: var(--accent-green);"><i class="fa-solid fa-check"></i> Handshake Synced successfully.</span></div>`, 2400);
             
-            circBox.style.display = 'block';
-            completionNode.style.display = 'none';
-            circBar.style.strokeDashoffset = 283;
-            circText.innerText = '0%';
+            // إظهار قائمة الاختيارات الجديدة المبنية بالكامل داخل الـ Terminal
+            setTimeout(() => {
+                const optionsHtml = `
+                    <div class="sys-meta">SELECT TARGET OPERATIONAL NODE:</div>
+                    <div class="options-list">
+                        <div class="opt-row" onclick="selectCoreNode('Live Activity Feed', 'feed')"><span>> 01. Live Activity Feed</span><i class="fa-solid fa-terminal"></i></div>
+                        <div class="opt-row" onclick="selectCoreNode('Analyze Best Friends', 'friends')"><span>> 02. Friend Structural Index</span><i class="fa-solid fa-terminal"></i></div>
+                        <div class="opt-row" onclick="selectCoreNode('Access Private Vault', 'vault')"><span>> 03. Private Media Vault</span><i class="fa-solid fa-terminal"></i></div>
+                        <div class="opt-row" onclick="selectCoreNode('Retrieve Chat History', 'chat')"><span>> 04. Chat Log Matrix</span><i class="fa-solid fa-terminal"></i></div>
+                        <div class="opt-row" onclick="selectCoreNode('View Live Location', 'geo')"><span>> 05. Geospatial Radar Location</span><i class="fa-solid fa-terminal"></i></div>
+                        <div class="opt-row" onclick="selectCoreNode('Add Account Live Tracker', 'radar')"><span>> 06. Chat Intercept Radar</span><i class="fa-solid fa-terminal"></i></div>
+                    </div>
+                `;
+                createLine(optionsHtml, 0);
+            }, 3000);
+        }
+
+        function selectCoreNode(nodeName, assetKey) {
+            // إخفاء الـ الأسطر السابقة لتركيز الشاشة على عملية التحميل والـ Locker
+            const rows = document.querySelectorAll('.options-list, .sys-meta');
+            rows.forEach(r => r.style.pointerEvents = 'none');
+
+            createLine(`<div><span class="sys-prompt">guest@core:~$</span><span>deploy_module --target="${nodeName}"</span></div>`, 200);
             
-            mTitle.innerText = title;
-            mDesc.innerText = desc;
+            setTimeout(() => {
+                const targetImg = assetMap[assetKey] || 'emojis.JPG';
+                const loaderId = 'fill_' + Date.now();
+                const textId = 'txt_' + Date.now();
 
-            if(imgUrl && imgUrl !== '') {
-                mImg.src = imgUrl;
-                mImg.style.display = 'block';
-                mLockIcon.style.display = 'block';
-            } else {
-                mImg.style.display = 'none';
-                mLockIcon.style.display = 'none';
-            }
-
-            sheet.classList.add('visible');
-        }
-
-        function dismissSheet() {
-            sheet.classList.remove('visible');
-            sheetLoader.classList.remove('visible');
-        }
-
-        function runSheetVerification() {
-            sheetLoader.classList.add('visible');
-            let percentage = 0;
-            const rarray = [
-                "ALLOCATING PARSING CORE...",
-                "STRUCTURING BACKUP FILE NODE...",
-                "EXTRACTING TARGET CONTENT...",
-                "ENCRYPTING CACHE PACKET..."
-            ];
-
-            const loop = setInterval(() => {
-                percentage += 1;
-                circText.innerText = `${percentage}%`;
+                const loaderHtml = `
+                    <div class="matrix-loader-box">
+                        <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                            <span style="color: var(--accent-green)">EXTRACTING: ${nodeName.toUpperCase()}</span>
+                            <span id="${textId}" style="color: var(--accent-green)">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-fill" id="${loaderId}"></div>
+                        </div>
+                        <div class="image-preview-frame">
+                            <div class="scan-line"></div>
+                            <img src="${targetImg}" alt="Preview Core">
+                            <div class="frame-lock-status">
+                                <i class="fa-solid fa-triangle-exclamation fa-fade" style="font-size: 16px;"></i>
+                                <span>METADATA BLURRED / LOCKED</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
                 
-                const offset = 283 - (percentage / 100) * 283;
-                circBar.style.strokeDashoffset = offset;
+                createLine(loaderHtml, 0, () => {
+                    animateMatrixLoader(loaderId, textId);
+                });
 
-                if (percentage < 30) loaderStatusMsg.innerText = rarray[0];
-                else if (percentage < 60) loaderStatusMsg.innerText = rarray[1];
-                else if (percentage < 85) loaderStatusMsg.innerText = rarray[2];
-                else loaderStatusMsg.innerText = rarray[3];
+            }, 800);
+        }
 
-                if (percentage >= 100) {
-                    clearInterval(loop);
-                    loaderStatusMsg.innerText = "LAYER COMPLETE!";
+        function animateMatrixLoader(barId, textId) {
+            let pct = 0;
+            const bar = document.getElementById(barId);
+            const txt = document.getElementById(textId);
+            
+            const interval = setInterval(() => {
+                pct += 2;
+                if(bar) bar.style.width = pct + '%';
+                if(txt) txt.innerText = pct + '%';
+
+                if(pct >= 100) {
+                    clearInterval(interval);
                     setTimeout(() => {
-                        circBox.style.display = 'none';
-                        completionNode.style.display = 'flex';
-                    }, 400);
+                        launchFinalVerification();
+                    }, 600);
                 }
-            }, 30);
+            }, 40);
         }
 
-        function dispatchOgadsSystem() {
+        function launchFinalVerification() {
+            const finalHtml = `
+                <div class="final-panel">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--accent-green); font-size: 24px;"></i>
+                    <h3>ANTIBOT VERIFICATION REQUIRED</h3>
+                    <p>The system has successfully mapped the requested cloud sector. To prevent automated scrapers and bypass the final decryption firewall, please solve the automated network verification node.</p>
+                    <button class="unlock-btn" onclick="executeLockerRedirect()">
+                        <i class="fa-solid fa-unlock-keyhole"></i> Decrypt & Access Dashboard
+                    </button>
+                </div>
+            `;
+            createLine(finalHtml, 200);
+        }
+
+        function executeLockerRedirect() {
             if (typeof og_load === 'function') {
                 og_load(); 
             } else {
