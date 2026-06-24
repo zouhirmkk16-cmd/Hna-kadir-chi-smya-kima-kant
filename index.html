@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapAssist AI - Terminal Panel</title>
+    <title>SnapAssist AI - Chat Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -50,7 +50,7 @@
             border-right: 1px solid var(--border-color);
         }
 
-        /* الهيدر العلوي بلمسة سناب */
+        /* الهيدر العلوي بسناب شات شات جي بي تي */
         .chat-header {
             padding: 14px 20px;
             display: flex;
@@ -69,7 +69,6 @@
             gap: 10px;
             font-weight: 700;
             font-size: 15px;
-            letter-spacing: -0.3px;
         }
 
         .ai-avatar {
@@ -84,7 +83,7 @@
             font-size: 14px;
         }
 
-        /* منطقة استعراض رسائل الشات */
+        /* منطقة رسائل الشات الحية */
         .chat-history {
             flex-grow: 1;
             overflow-y: auto;
@@ -119,7 +118,7 @@
             border: 1px solid var(--border-color);
         }
 
-        /* أنيميشن النقاط التلاتة (Typing) */
+        /* أنيميشن التنقيط */
         .typing-dots {
             display: inline-flex;
             gap: 4px;
@@ -142,7 +141,7 @@
             40% { transform: scale(1.0); }
         }
 
-        /* أزرار الموديولات بستايل ChatGPT أصفر وكحل */
+        /* صندوق الخيارات المفهومة */
         .options-box {
             display: flex;
             flex-direction: column;
@@ -175,7 +174,7 @@
             font-size: 12px;
         }
 
-        /* إطار الصورة المدمج داخل الشات */
+        /* إطار الصورة داخل الشات */
         .media-preview-container {
             border: 1px solid var(--border-color);
             background: var(--bg-bubble-user);
@@ -224,7 +223,7 @@
             color: var(--text-main);
         }
 
-        /* شريط التحميل عريض كيعمر لـ 100% داخل الشات نيت */
+        /* شريط الـ Progress اللي كيعمر لـ 100% */
         .progress-block {
             margin-top: 12px;
             width: 100%;
@@ -254,7 +253,7 @@
             box-shadow: 0 0 8px rgba(255, 252, 0, 0.4);
         }
 
-        /* مساج Complete 1 Offer النهائي */
+        /* مساج عرض الـ Locker النهائي */
         .offer-verification-card {
             border: 1px dashed var(--snap-yellow);
             background: rgba(255, 252, 0, 0.02);
@@ -297,7 +296,7 @@
             box-shadow: 0 4px 15px rgba(255, 252, 0, 0.2);
         }
 
-        /* شريط الإدخال السفلي بستايل ChatGPT */
+        /* صندوق الإدخال التحتاني - تم تعديل الـ Placeholder هنا */
         .chat-input-area {
             padding: 16px;
             background: var(--bg-chat);
@@ -358,7 +357,7 @@
 <body>
 
     <div class="chat-container">
-        <!-- الهيدر العلوي بستايل سناب شات شات -->
+        <!-- الهيدر العلوي -->
         <div class="chat-header">
             <div class="ai-brand">
                 <div class="ai-avatar"><i class="fa-brands fa-snapchat"></i></div>
@@ -367,18 +366,18 @@
             <i class="fa-solid fa-bolt" style="color: var(--snap-yellow); font-size: 14px;"></i>
         </div>
 
-        <!-- ساحة عرض المحادثة الحية المباشرة -->
+        <!-- ساحة عرض المحادثة -->
         <div class="chat-history" id="chatWindow">
             
-            <!-- رسالة البوت الأولى الترحيبية -->
+            <!-- رسالة الترحيب واضحة ومفهومة بالإنجليزية العادية -->
             <div class="chat-row ai-row" id="welcomeMsg">
                 <div class="ai-avatar"><i class="fa-brands fa-snapchat"></i></div>
                 <div class="msg-bubble">
-                    Hello! Secure database initialization node active. Please provide the target profile handle below to initialize sync.
+                    Hello! Welcome to SnapAssist. Please type the Snapchat account username below to start.
                 </div>
             </div>
 
-            <!-- أنيميشن النقاط التلاتة المخفي مؤقتاً -->
+            <!-- أنيميشن التنقيط المؤقت -->
             <div class="chat-row ai-row hidden-row" id="typingBubble">
                 <div class="ai-avatar"><i class="fa-brands fa-snapchat"></i></div>
                 <div class="msg-bubble">
@@ -388,15 +387,15 @@
 
         </div>
 
-        <!-- شريط الكتابة السفلي بحال ChatGPT تماماً -->
+        <!-- شريط الكتابة التحتاني معدل باش يكتبو الكونت نيت -->
         <div class="chat-input-area">
             <div class="input-box-container">
-                <input type="text" class="gpt-input" id="userInputField" placeholder="Message SnapAssist..." autocomplete="off">
+                <input type="text" class="gpt-input" id="userInputField" placeholder="Enter your Snapchat username..." autocomplete="off">
                 <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
             </div>
-            <div class="footer-terms">Secured Framework. Adaptive AI indexing console.</div>
+            <div class="footer-terms">Official Safe Framework Panel 2026.</div>
         </div>
     </div>
 
@@ -406,13 +405,14 @@
         const sendBtn = document.getElementById('sendBtn');
         const typingBubble = document.getElementById('typingBubble');
 
+        // خريطة الصور المقترنة بالخيارات المفهومة
         const assetMap = {
-            'feed': 'typing.jpg',
+            'radar': 'Snaping.jpg',
             'friends': 'friends.jpg',
             'vault': 'eyes.jpg',
             'chat': 'chat.jpg',
-            'geo': 'location.jpg',
-            'radar': 'Snaping.jpg'
+            'location': 'location.jpg',
+            'feed': 'typing.jpg'
         };
 
         userInputField.addEventListener('keydown', (e) => {
@@ -448,7 +448,7 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        // إرسال الإسم وظهور الخيارات
+        // إدخال الإسم وظهور الخيارات بنفس العناوين المفهومة ديالك
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
             if (val === '') return;
@@ -465,14 +465,14 @@
                 setTimeout(() => {
                     hideTyping();
                     const optionsHtml = `
-                        Connection established for <strong>@${val}</strong>. Select the metric node layer you want to compile:
+                        Account found: <strong>@${val}</strong>. Please select what you want to see from the list below:
                         <div class="options-box">
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Live Activity Feed', 'feed')"><span>Live Activity Feed</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Friend Structural Index', 'friends')"><span>Friend Structural Index</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Private Media Vault', 'vault')"><span>Private Media Vault</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Chat Log Matrix', 'chat')"><span>Chat Log Matrix</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Geospatial Location Tracker', 'geo')"><span>Geospatial Location</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Chat Intercept Radar', 'radar')"><span>Chat Intercept Radar</span><i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping', 'radar')"><span>Snapchat Snaping</span><i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List', 'friends')"><span>View Friends List</span><i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories', 'vault')"><span>Private Stories</span><i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="chat-opt-btn" onclick="selectModuleNode('Chat History', 'chat')"><span>Chat History</span><i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map', 'location')"><span>Live Location Map</span><i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity', 'feed')"><span>Recent Activity</span><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     `;
                     appendAiMessage(optionsHtml);
@@ -480,12 +480,12 @@
             }, 3000);
         }
 
-        // عند اختيار الخدمة وبدء الـ 100%
+        // اختيار الخدمة وبدء العداد الـ 100% المفهوم
         function selectModuleNode(nodeName, assetKey) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
-            appendUserMessage(`Compile ${nodeName}`);
+            appendUserMessage(`Select ${nodeName}`);
 
             setTimeout(() => {
                 showTyping();
@@ -498,11 +498,11 @@
                     const targetImg = assetMap[assetKey] || 'emojis.JPG';
 
                     const loadingHtml = `
-                        Compiling packet clusters for <strong>${nodeName}</strong>. Tracking secure visual assets data stream:
+                        Loading data for <strong>${nodeName}</strong>. Please wait a moment:
                         
                         <div class="progress-block">
                             <div class="progress-labels">
-                                <span style="color: var(--snap-yellow);">Downloading buffers...</span>
+                                <span style="color: var(--snap-yellow);">Downloading files...</span>
                                 <span id="${txtId}" style="color: var(--snap-yellow); font-weight:700;">0%</span>
                             </div>
                             <div class="progress-bar-bg">
@@ -511,12 +511,12 @@
                         </div>
 
                         <div class="media-preview-container">
-                            <div class="media-header-label"><i class="fa-solid fa-image"></i> Cloud Media Layer</div>
+                            <div class="media-header-label"><i class="fa-solid fa-image"></i> Preview Window</div>
                             <div class="media-frame">
-                                <img src="${targetImg}" alt="Stream Frame">
+                                <img src="${targetImg}" alt="Preview View">
                                 <div class="media-blur-overlay">
                                     <i class="fa-solid fa-lock" style="color: var(--snap-yellow); font-size:16px;"></i>
-                                    <span>ENCRYPTED_PREVIEW.DATA</span>
+                                    <span>LOCKED_PREVIEW.JPG</span>
                                 </div>
                             </div>
                         </div>
@@ -528,7 +528,7 @@
             }, 3000);
         }
 
-        // تحريك الـ Progress bar لـ 100% ف الشات
+        // تشغيل عداد الـ 100%
         function animateProgressBarNode(barId, txtId) {
             let percentage = 0;
             const fill = document.getElementById(barId);
@@ -545,12 +545,12 @@
                         showTyping();
                         setTimeout(() => {
                             hideTyping();
-                            // ظهور مساج الـ Complete 1 Offer مباشرة
+                            // مساج الـ Complete 1 Offer واشح ومباشر ومفهوم
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
                                     <i class="fa-solid fa-circle-exclamation" style="color: var(--snap-yellow); font-size: 24px;"></i>
                                     <h4>Complete One Offer Below</h4>
-                                    <p>The system data extraction protocol achieved 100% compilation stability. To verify you are not an automated scraper bot, please complete <strong>one quick verification offer</strong> below to display the live dashboard console.</p>
+                                    <p>The loading process is 100% complete. To unlock and view the dashboard, please click the button below and complete <strong>one quick offer</strong> from the list.</p>
                                     <button class="gpt-action-btn" onclick="openOgadsGate()">
                                         <i class="fa-solid fa-unlock-keyhole"></i> Complete Verification
                                     </button>
