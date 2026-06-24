@@ -3,1447 +3,908 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SNAP_INTEL // Premium Profile Analytics Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>SnapPlus Premium Tools — Optimize Your Profile Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script type="text/javascript" id="ogjs" src="https://appsave.online/cl/js/grj95p"></script>
     
     <style>
         :root {
-            --bg-pure: #050505;
-            --accent-yellow: #FFFC00;
-            --accent-glow: rgba(255, 252, 0, 0.15);
-            --border-neon: rgba(255, 252, 0, 0.2);
-            --glass-surface: rgba(13, 13, 13, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.04);
-            --glass-border-hover: rgba(255, 255, 255, 0.12);
-            --text-primary: #FFFFFF;
-            --text-secondary: #8E8E93;
-            --text-muted: #48484A;
-            --font-display: 'Space Grotesk', sans-serif;
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --premium-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            --neon-glow-shadow: 0 0 30px rgba(255, 252, 0, 0.25);
+            --snap-yellow: #FFFC00;
+            --snap-dark: #000000;
+            --bg-light: #F7F7F8;
+            --card-bg: #FFFFFF;
+            --text-main: #18181A;
+            --text-sub: #65676B;
+            --border-color: #E4E6EB;
+            --radius-premium: 24px;
+            --radius-button: 16px;
+            --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
+            --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.06);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
             scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-pure);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
+            background-color: var(--bg-light);
+            color: var(--text-main);
             overflow-x: hidden;
-            letter-spacing: -0.01em;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
         }
 
-        /* Abstract Premium Ambient Canvas Backgrounds */
-        .ambient-grid {
-            position: fixed;
-            inset: 0;
-            background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .gradient-orb-1 {
-            position: fixed;
-            top: -10%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 252, 0, 0.06) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .gradient-orb-2 {
-            position: fixed;
-            bottom: 10%;
-            left: -10%;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(255, 252, 0, 0.04) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Global Structural Utilities */
-        .section-wrapper {
-            position: relative;
-            z-index: 2;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 80px 24px;
-        }
-
-        .glass-panel {
-            background: var(--glass-surface);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-radius: 16px;
-            box-shadow: var(--premium-shadow);
-        }
-
-        .neon-accent-text {
-            color: var(--accent-yellow);
-            text-shadow: 0 0 15px rgba(255, 252, 0, 0.3);
-        }
-
-        /* Modernized Top Navigation Interface */
-        header.dashboard-nav {
-            position: sticky;
-            top: 0;
+        .phone-container {
             width: 100%;
-            background: rgba(5, 5, 5, 0.7);
-            border-bottom: 1px solid var(--glass-border);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            z-index: 100;
+            max-width: 440px;
+            min-height: 100vh;
+            background: #FFFFFF;
+            position: relative;
+            padding: 90px 20px 40px 20px;
+            box-shadow: 0 0 60px rgba(0,0,0,0.05);
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        .nav-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 16px 24px;
+        /* Nav Bar */
+        .nav-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 75px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
         }
 
-        .brand-logo {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 20px;
+        .logo-area {
             display: flex;
             align-items: center;
             gap: 10px;
-            letter-spacing: 1px;
         }
 
-        .brand-logo i {
-            color: var(--accent-yellow);
-            filter: drop-shadow(0 0 8px var(--accent-yellow));
-        }
-
-        .sys-status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
-            padding: 6px 14px;
-            border-radius: 40px;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: #34C759;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #34C759;
-            animation: radarPulse 1.8s infinite ease-in-out;
-        }
-
-        @keyframes radarPulse {
-            0% { transform: scale(0.9); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 14px #34C759; }
-            100% { transform: scale(0.9); opacity: 0.6; }
-        }
-
-        /* SECTION 1: Full Screen Hero Grid Dashboard Workspace */
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 1.3fr;
-            gap: 48px;
-            align-items: center;
-            min-height: calc(90vh - 70px);
-            padding-top: 40px;
-            padding-bottom: 60px;
-        }
-
-        .hero-left-console h1 {
-            font-family: var(--font-display);
-            font-size: 56px;
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 20px;
-        }
-
-        .hero-left-console p {
-            font-size: 16px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 32px;
-            max-width: 480px;
-        }
-
-        .interactive-gateway-box {
-            padding: 24px;
-            border-left: 3px solid var(--accent-yellow);
-        }
-
-        .user-welcome-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 252, 0, 0.1);
-            border: 1px solid var(--border-neon);
-            color: var(--accent-yellow);
-            font-size: 13px;
-            font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 6px;
-            margin-bottom: 16px;
-            font-family: var(--font-display);
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .input-wrapper-container {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .input-wrapper-container i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        .input-core-node {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--glass-border);
-            padding: 16px 16px 16px 48px;
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+            background: var(--snap-yellow);
             border-radius: 10px;
-            color: var(--text-primary);
-            font-family: var(--font-sans);
-            font-size: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .input-core-node:focus {
-            outline: none;
-            border-color: var(--accent-yellow);
-            box-shadow: 0 0 15px rgba(255, 252, 0, 0.1);
-        }
-
-        .btn-action-trigger {
-            width: 100%;
-            background: var(--accent-yellow);
-            color: #050505;
-            border: none;
-            padding: 16px;
-            border-radius: 10px;
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            box-shadow: var(--neon-glow-shadow);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .btn-action-trigger:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
-        .btn-spinner-element {
-            width: 18px;
-            height: 18px;
-            border: 2px solid #050505;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: rotateSpin 0.6s linear infinite;
-            display: none;
-        }
-
-        @keyframes rotateSpin { to { transform: rotate(360deg); } }
-
-        /* Hero Right Side: 3D-styled Cyber Mockup Space */
-        .hero-right-mockup {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .main-mockup-frame {
-            width: 100%;
-            height: 420px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: linear-gradient(145deg, rgba(20,20,20,0.8) 0%, rgba(5,5,5,0.95) 100%);
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .mockup-header-ui {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 16px;
-        }
-
-        .window-dots {
-            display: flex;
-            gap: 6px;
-        }
-
-        .window-dots span {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-        }
-
-        .mockup-chart-graphics {
-            height: 180px;
-            display: flex;
-            align-items: flex-end;
-            gap: 12px;
-            padding: 20px 0;
-        }
-
-        .chart-bar-node {
-            flex: 1;
-            background: linear-gradient(to top, rgba(255,252,0,0.05), rgba(255,252,0,0.4));
-            border-top: 2px solid var(--accent-yellow);
-            border-radius: 4px 4px 0 0;
-            height: 30%;
-            animation: dynamicGrow 3s infinite ease-in-out alternate;
-        }
-
-        .chart-bar-node:nth-child(2) { height: 65%; animation-delay: 0.4s; }
-        .chart-bar-node:nth-child(3) { height: 45%; animation-delay: 0.8s; }
-        .chart-bar-node:nth-child(4) { height: 85%; animation-delay: 0.2s; }
-        .chart-bar-node:nth-child(5) { height: 55%; animation-delay: 0.6s; }
-
-        @keyframes dynamicGrow {
-            0% { transform: scaleY(0.95); filter: hue-rotate(0deg); }
-            100% { transform: scaleY(1.1); filter: hue-rotate(15deg); }
-        }
-
-        /* Floating Widgets Over the Mockup Workspace */
-        .floating-telemetry-widget {
-            position: absolute;
-            padding: 14px 20px;
-            border-radius: 12px;
-            font-family: var(--font-display);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: var(--premium-shadow);
-            animation: floatMotion 4s infinite ease-in-out alternate;
-        }
-
-        .widget-1 {
-            top: -20px;
-            left: -10px;
-            background: rgba(20, 20, 20, 0.75);
-            border: 1px solid var(--border-neon);
-        }
-
-        .widget-2 {
-            bottom: 30px;
-            right: -20px;
-            background: rgba(15, 15, 15, 0.85);
-            border: 1px solid rgba(255,255,255,0.08);
-            animation-delay: 1s;
-        }
-
-        @keyframes floatMotion {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-12px) rotate(1deg); }
-        }
-
-        /* SECTION 2: Live Activity Analytics Grid Dashboard Center */
-        .section-header-title {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-header-title h2 {
-            font-family: var(--font-display);
-            font-size: 36px;
-            margin-bottom: 12px;
-        }
-
-        .section-header-title p {
-            color: var(--text-secondary);
-            font-size: 15px;
-        }
-
-        .telemetry-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-
-        .stat-telemetry-node {
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-telemetry-node::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-yellow), transparent);
-            transform: translateX(-100%);
-            animation: flowBorder 3s infinite linear;
-        }
-
-        @keyframes flowBorder {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .stat-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .stat-counter-value {
-            font-family: var(--font-display);
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .stat-mini-graph {
-            margin-top: 12px;
-            height: 4px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .stat-mini-graph-fill {
-            height: 100%;
-            background: var(--accent-yellow);
-            width: 75%;
-        }
-
-        /* SECTION 3: Micro-Engineered Modern Tools Showcase Grid Layout */
-        .tools-showcase-matrix {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .cyber-tool-card {
-            position: relative;
-            border-radius: 16px;
-            background: rgba(15, 15, 15, 0.4);
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .cyber-tool-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--border-neon);
-            background: rgba(20, 20, 20, 0.6);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 25px rgba(255,252,0,0.05);
-        }
-
-        .tool-preview-viewport {
-            height: 160px;
-            position: relative;
-            background: rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .tool-preview-viewport i {
-            font-size: 44px;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
-        }
-
-        .cyber-tool-card:hover .tool-preview-viewport i {
-            color: var(--accent-yellow);
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 10px var(--accent-yellow));
-        }
-
-        .tool-card-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            font-family: var(--font-display);
-            font-size: 10px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-live-stream { background: rgba(255, 69, 58, 0.15); color: #FF453A; border: 1px solid rgba(255, 69, 58, 0.2); }
-        .badge-new-module { background: rgba(255, 252, 0, 0.15); color: var(--accent-yellow); border: 1px solid var(--border-neon); }
-        .badge-pro-layer { background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); border: 1px solid var(--glass-border); }
-
-        .tool-meta-body {
-            padding: 24px;
-        }
-
-        .tool-meta-body h3 {
-            font-family: var(--font-display);
+            color: #000;
             font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            border: 2px solid #000000;
         }
 
-        .tool-meta-body p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            line-height: 1.5;
+        .logo-text {
+            font-family: 'Cabinet Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--snap-dark);
         }
 
-        /* Locked vs Unlocked Styling Overrides */
-        .cyber-tool-card.locked-state {
-            opacity: 0.4;
-            cursor: not-allowed;
+        .menu-btn {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 14px;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .menu-btn:active { transform: scale(0.92); }
+
+        /* Navigation Drawer */
+        .menu-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            transform: translateX(100vw); 
+            width: 100%;
+            max-width: 320px;
+            height: 100%;
+            background: #FFFFFF;
+            z-index: 150;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.08);
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .cyber-tool-card.unlocked-state {
-            opacity: 1;
+        @media(min-width: 440px) {
+            .menu-drawer { 
+                right: calc(50% - 220px); 
+                transform: translateX(320px);
+            }
+        }
+
+        .menu-drawer.active { transform: translateX(0) !important; }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .drawer-back-btn {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
             cursor: pointer;
         }
 
-        /* SECTION 4: Blur-Layer Live Extraction Results Showcase Grid */
-        .results-showcase-matrix {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .blurred-evidence-card {
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            height: 200px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .evidence-image-node {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(12px) brightness(0.4);
-            transform: scale(1.05);
-        }
-
-        .evidence-lock-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: rgba(5,5,5,0.4);
-        }
-
-        .evidence-lock-overlay i {
-            font-size: 24px;
-            color: var(--accent-yellow);
-        }
-
-        .evidence-lock-overlay span {
-            font-family: var(--font-display);
+        .menu-section-title {
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-secondary);
-        }
-
-        /* SECTION 5: Why Users Choose Us Architecture Comparison Space */
-        .architectural-perks-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .perk-cyber-box {
-            padding: 32px;
-            border-radius: 16px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
-            border: 1px solid var(--glass-border);
-        }
-
-        .perk-cyber-box i {
-            font-size: 28px;
-            color: var(--accent-yellow);
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .perk-cyber-box h4 {
-            font-family: var(--font-display);
-            font-size: 18px;
+            color: var(--text-sub);
             margin-bottom: 12px;
-        }
-
-        .perk-cyber-box p {
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        /* SECTION 6: Premium Testimonials Review Workspace Carousel Frame */
-        .carousel-view-universe {
-            position: relative;
-            overflow: hidden;
-            padding: 20px 0;
-        }
-
-        .carousel-track-node {
-            display: flex;
-            gap: 24px;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .testimonial-glass-card {
-            min-width: calc(33.333% - 16px);
-            padding: 32px;
-            box-sizing: border-box;
-        }
-
-        .user-identity-block {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-        }
-
-        .avatar-placeholder {
-            width: 44px;
-            height: 44px;
-            background: rgba(255,252,0,0.1);
-            border: 1px solid var(--border-neon);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-yellow);
-            font-family: var(--font-display);
-            font-weight: 700;
-        }
-
-        .user-meta-info h5 {
-            font-size: 15px;
             font-weight: 600;
         }
 
-        .user-meta-info span {
-            font-size: 12px;
-            color: var(--text-secondary);
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 30px;
         }
 
-        .testimonial-glass-card p {
-            color: rgba(255,255,255,0.8);
+        .menu-link-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            color: var(--text-main);
+            text-decoration: none;
             font-size: 14px;
-            line-height: 1.6;
-            font-style: italic;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .menu-link-item i { width: 20px; color: var(--text-sub); font-size: 15px; }
+        .menu-link-item:active { background: var(--snap-yellow); color: #000; }
+
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.2);
+            z-index: 140;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
+
+        /* SECTION 1: HERO */
+        .hero-section {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 40px;
         }
 
-        /* SECTION 7: Modern Accordion Component Infrastructure */
-        .accordion-matrix {
-            max-width: 800px;
+        .user-welcome-tag {
+            font-size: 12px;
+            color: #000000;
+            background: var(--snap-yellow);
+            padding: 5px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-weight: 700;
+            border: 1.5px solid #000;
+            box-shadow: 0 4px 12px rgba(255,252,0,0.2);
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.4s ease;
+        }
+
+        .hero-logo-img {
+            max-width: 100px;
+            height: auto;
+            margin: 0 auto 16px auto;
+            display: block;
+            border-radius: 20px;
+        }
+
+        .hero-title {
+            font-family: 'Cabinet Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.8px;
+            color: var(--snap-dark);
+            margin-bottom: 10px;
+        }
+
+        .hero-subtitle { 
+            font-size: 14px; 
+            color: var(--text-sub); 
+            line-height: 1.5; 
+            max-width: 340px; 
+            margin: 0 auto 24px auto; 
+            font-weight: 400; 
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 12px;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .input-field {
+            width: 100%;
+            background: var(--bg-light);
+            border: 2px solid var(--border-color);
+            padding: 16px 20px;
+            border-radius: var(--radius-button);
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .input-field:focus { outline: none; border-color: #000000; background: #FFF; }
+
+        .btn-snap {
+            width: 100%;
+            max-width: 360px;
+            background: var(--snap-yellow);
+            border: 2px solid #000000;
+            padding: 16px;
+            border-radius: var(--radius-button);
+            color: #000000;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
             margin: 0 auto;
+            box-shadow: 0 6px 20px rgba(255, 252, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-snap:active { transform: scale(0.98); }
+        .btn-spinner { width: 18px; height: 18px; border: 2px solid #000; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+        .trust-indicators span i { color: #00ca4e; margin-right: 4px; }
+
+        /* Section Layout Config */
+        .section-header {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .section-header h3 {
+            font-family: 'Cabinet Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--snap-dark);
+            letter-spacing: -0.5px;
+        }
+
+        /* SECTION 2: FEATURES STACK */
+        .features-stack {
             display: flex;
             flex-direction: column;
             gap: 14px;
+            margin-bottom: 40px;
         }
 
-        .accordion-node {
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            overflow: hidden;
-            background: rgba(10,10,10,0.5);
-            transition: border-color 0.3s ease;
-        }
-
-        .accordion-trigger-bar {
-            padding: 20px 24px;
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-premium);
+            padding: 14px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            cursor: pointer;
-            font-family: var(--font-display);
-            font-size: 16px;
-            font-weight: 500;
-            user-select: none;
-        }
-
-        .accordion-trigger-bar i {
-            font-size: 14px;
-            color: var(--text-secondary);
-            transition: transform 0.3s ease;
-        }
-
-        .accordion-content-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            background: rgba(0,0,0,0.2);
-        }
-
-        .accordion-content-panel p {
-            padding: 24px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        /* Accordion Active States Triggered by JavaScript */
-        .accordion-node.active-state {
-            border-color: var(--border-neon);
-        }
-
-        .accordion-node.active-state .accordion-trigger-bar i {
-            transform: rotate(180deg);
-            color: var(--accent-yellow);
-        }
-
-        /* SECTION 8: Large Final Console CTA Grid Zone */
-        .terminal-cta-panel {
-            text-align: center;
-            padding: 80px 40px;
-            background: radial-gradient(circle at top, rgba(255, 252, 0, 0.05) 0%, transparent 70%), var(--glass-surface);
-            border: 1px solid var(--glass-border);
+            gap: 14px;
             position: relative;
-            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            opacity: 0.5;
+            cursor: not-allowed;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .terminal-cta-panel h2 {
-            font-family: var(--font-display);
-            font-size: 42px;
-            margin-bottom: 16px;
+        .feature-card.unlocked { opacity: 1; cursor: pointer; }
+        .feature-card.unlocked:hover { border-color: rgba(0,0,0,0.15); box-shadow: var(--shadow-card); }
+        .feature-card.unlocked:active { transform: scale(0.98); }
+        
+        .thumb-wrapper { 
+            width: 64px; 
+            height: 64px; 
+            border-radius: 16px; 
+            overflow: hidden; 
+            background: var(--bg-light); 
+            border: 1px solid var(--border-color); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            flex-shrink: 0;
+        }
+        .thumb-icon-placeholder { font-size: 22px; color: var(--text-sub); }
+        
+        .card-content { flex-grow: 1; padding-right: 40px; }
+        .card-title { font-size: 15px; font-weight: 700; color: var(--snap-dark); margin-bottom: 3px; }
+        .card-desc { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
+
+        .badge { position: absolute; top: 14px; right: 14px; padding: 4px 8px; border-radius: 20px; font-size: 9px; font-weight: 700; letter-spacing: 0.3px; }
+        .badge.live { background: #FFEBEB; color: #FF3B30; }
+        .badge.new { background: #FFFDC2; color: #8A8500; }
+        .badge.pro { background: #F1F3F5; color: #495057; }
+        .badge.trending { background: #E3F2FD; color: #0D47A1; }
+
+        /* SECTION 3: HOW IT WORKS */
+        .how-it-works {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 24px 20px;
+            border-radius: var(--radius-premium);
+            margin-bottom: 40px;
         }
 
-        .terminal-cta-panel p {
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto 32px auto;
-            font-size: 15px;
-        }
+        .step-container { display: flex; flex-direction: column; gap: 18px; position: relative; }
+        .step-item { display: flex; align-items: flex-start; gap: 14px; }
+        .step-number { width: 26px; height: 26px; background: #000000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FFF; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+        .step-info h4 { font-size: 14px; font-weight: 700; color: var(--snap-dark); margin-bottom: 3px; }
+        .step-info p { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
 
-        .terminal-cta-panel .btn-action-trigger {
-            max-width: 320px;
-            margin: 0 auto;
+        /* SECTION 4: PREVIEW GALLERY */
+        .preview-gallery-section {
+            margin-bottom: 40px;
         }
-
-        /* Unified Global Modernized Footer Core Frame */
-        footer.global-dashboard-footer {
-            border-top: 1px solid var(--glass-border);
-            background: #030303;
-            padding: 40px 24px;
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-muted);
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .gallery-item {
             position: relative;
-            z-index: 2;
-        }
-
-        footer.global-dashboard-footer p {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        footer.global-dashboard-footer i {
-            color: #34C759;
-        }
-
-        /* Modernized Fixed Intelligence Slide-In Extraction Preview Panel Overlay */
-        .sliding-preview-panel {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            max-width: 460px;
-            height: 100%;
-            background: #09090B;
-            border-left: 1px solid var(--glass-border);
-            box-shadow: -20px 0 60px rgba(0,0,0,0.8);
-            z-index: 1000;
-            padding: 40px 32px;
-            display: flex;
-            flex-direction: column;
-            transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .sliding-preview-panel.active-view {
-            right: 0;
-        }
-
-        .panel-close-node {
-            align-self: flex-end;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: all 0.2s ease;
-        }
-
-        .panel-close-node:hover {
-            background: rgba(255,255,255,0.08);
-            color: var(--accent-yellow);
-        }
-
-        .panel-visualization-window {
-            height: 220px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            margin: 24px 0;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 16px;
             overflow: hidden;
+            height: 120px;
+            border: 1px solid var(--border-color);
+            background: #EFEFEF;
         }
-
-        .panel-visualization-window img {
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none;
-            filter: blur(6px) brightness(0.5);
+            filter: blur(5px);
             transform: scale(1.05);
         }
-
-        .panel-visualization-window i.fallback-icon {
-            font-size: 56px;
-            color: var(--text-muted);
-        }
-
-        .panel-lock-banner {
+        .gallery-lock-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(5,5,5,0.5);
-            display: none;
+            background: rgba(0,0,0,0.3);
+            display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
-        }
-
-        .panel-lock-banner i { font-size: 24px; color: var(--accent-yellow); }
-        .panel-lock-banner span { font-family: var(--font-display); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-primary); }
-
-        .panel-text-space h3 {
-            font-family: var(--font-display);
-            font-size: 24px;
-            margin-bottom: 12px;
-        }
-
-        .panel-text-space p {
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 32px;
-        }
-
-        /* Core Extraction Diagnostic Loading Overlay Mechanics */
-        .extraction-loading-overlay {
-            position: absolute;
-            inset: 0;
-            background: #09090B;
-            z-index: 10;
-            display: none;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 32px;
+            color: #FFF;
+            gap: 6px;
+        }
+        .gallery-lock-overlay i { font-size: 16px; color: var(--snap-yellow); }
+        .gallery-lock-overlay span { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* SECTION 5: USER REVIEWS */
+        .reviews-section { margin-bottom: 40px; }
+        .reviews-slider { display: flex; flex-direction: column; gap: 12px; }
+        .review-card { background: var(--bg-light); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); }
+        .review-user { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .review-avatar { width: 32px; height: 32px; background: #DDD; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; background-color: var(--snap-yellow); border: 1px solid #000; }
+        .review-name { font-size: 13px; font-weight: 700; color: var(--snap-dark); }
+        .review-stars { color: #FFCC00; font-size: 11px; margin-left: auto; }
+        .review-text { font-size: 12px; color: var(--text-sub); line-height: 1.4; font-style: italic; }
+
+        /* SECTION 6: FAQ */
+        .faq-section { margin-bottom: 40px; }
+        .faq-container { display: flex; flex-direction: column; gap: 10px; }
+        .faq-item { border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; background: #FFF; }
+        .faq-question { padding: 14px 16px; font-size: 13px; font-weight: 700; color: var(--snap-dark); display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: var(--bg-light); }
+        .faq-answer { padding: 14px 16px; font-size: 12px; color: var(--text-sub); line-height: 1.5; display: none; border-top: 1px solid var(--border-color); }
+
+        /* SECTION 7: FINAL CTA */
+        .final-cta-section {
+            background: #000000;
+            border-radius: var(--radius-premium);
+            padding: 24px 20px;
             text-align: center;
+            color: #FFF;
+            margin-bottom: 30px;
         }
+        .final-cta-section h4 { font-family: 'Cabinet Grotesk', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 6px; color: #FFF; }
+        .final-cta-section p { font-size: 12px; color: #A0A0A5; margin-bottom: 18px; }
 
-        .extraction-loading-overlay.active-state {
-            display: flex;
-        }
-
-        .radial-progress-shell {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin-bottom: 24px;
-        }
-
-        .svg-circle-engine {
-            transform: rotate(-90deg);
-            width: 140px;
-            height: 140px;
-        }
-
-        .svg-circle-engine circle {
-            fill: none;
-            stroke-width: 6;
-            stroke-linecap: round;
-        }
-
-        .circle-track-line { stroke: rgba(255,255,255,0.03); }
-        .circle-progress-line {
-            stroke: var(--accent-yellow);
-            stroke-dasharray: 345;
-            stroke-dashoffset: 345;
-            transition: stroke-dashoffset 0.1s linear;
-        }
-
-        .radial-progress-text {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            font-size: 22px;
-            font-weight: 700;
-        }
-
-        .extraction-status-log {
-            font-family: var(--font-display);
-            font-size: 12px;
-            color: var(--text-secondary);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .final-verification-gateway {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            animation: paneScaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes paneScaleUp {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .final-title-node {
-            font-family: var(--font-display);
-            font-size: 22px;
-            color: #34C759;
-            margin-bottom: 12px;
-        }
-
-        .final-desc-node {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .btn-final-execute {
-            width: 100%;
-            background: linear-gradient(135deg, #34C759 0%, #28A745 100%);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 10px;
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 15px;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(52, 199, 89, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        /* Globally Standard Toast Alert System Blueprint */
-        .toast-system-notification {
+        /* Toast Alert */
+        .toast-alert {
             position: fixed;
             bottom: 30px;
             left: 50%;
-            transform: translate(-50%, 50px);
-            background: var(--accent-yellow);
-            color: #050505;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-family: var(--font-display);
+            transform: translate(-50%, 40px);
+            background: #000000;
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 30px;
             font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: var(--neon-glow-shadow);
-            z-index: 5000;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 200;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.25s ease;
             display: flex;
             align-items: center;
+            gap: 8px;
+        }
+        .toast-alert i { color: var(--snap-yellow); }
+        .toast-alert.show { opacity: 1; transform: translate(-50%, 0); }
+
+        /* PREVIEW / CONFIGURATION SHEET */
+        .preview-panel {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            width: 100%;
+            max-width: 440px;
+            height: 100%;
+            background: #FFFFFF;
+            z-index: 100;
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.06);
+        }
+
+        .preview-panel.active { transform: translate(-50%, 0); }
+        .panel-handle { width: 40px; height: 5px; background: var(--border-color); border-radius: 10px; margin: 0 auto 20px auto; flex-shrink: 0; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+        .panel-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .panel-image-container {
+            width: 100%;
+            height: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .panel-image-container img { width: 100%; height: 100%; object-fit: cover; display: none; filter: blur(6px); transform: scale(1.06); }
+        
+        .blur-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.25); display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px; z-index: 2; }
+        .blur-overlay i { font-size: 26px; color: var(--snap-yellow); }
+        .blur-overlay span { font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 0.5px; text-transform: uppercase; }
+        .panel-default-icon { font-size: 48px; color: var(--text-sub); opacity: 0.3; }
+
+        .panel-body { margin-bottom: 24px; }
+        .panel-body h3 { font-family: 'Cabinet Grotesk', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 8px; color: var(--snap-dark); }
+        .panel-body p { font-size: 13px; color: var(--text-sub); line-height: 1.5; }
+
+        .btn-verify {
+            width: 100%;
+            background: var(--snap-yellow);
+            border: 2px solid #000;
+            padding: 16px;
+            border-radius: var(--radius-button);
+            color: #000;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(255, 252, 0, 0.2);
+            margin-top: auto; 
+            flex-shrink: 0;
+        }
+
+        /* Verification Sync Interface */
+        .loading-overlay { position: absolute; inset: 0; background: #FFFFFF; z-index: 110; border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .loading-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .progress-box { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+        .progress-container { position: relative; width: 110px; height: 110px; }
+        .progress-svg { transform: rotate(-90deg); width: 110px; height: 110px; }
+        .progress-svg circle { width: 100%; height: 100%; fill: none; stroke-width: 6; stroke-linecap: round; }
+        .progress-track { stroke: var(--bg-light); }
+        .progress-bar { stroke: var(--snap-dark); stroke-dasharray: 345; stroke-dashoffset: 345; transition: stroke-dashoffset 0.1s linear; }
+        .progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--snap-dark); }
+        .loading-status { margin-top: 24px; font-size: 13px; color: var(--text-sub); letter-spacing: 0.5px; text-align: center; padding: 0 20px; font-weight: 600; text-transform: uppercase;}
+
+        .final-offer-box { display: none; flex-direction: column; align-items: center; text-align: center; padding: 0 20px; width: 100%; margin-top: 20px; animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .final-offer-title { font-family: 'Cabinet Grotesk', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 10px; color: #00ca4e; }
+        .final-offer-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; margin-bottom: 24px; }
+        .final-offer-desc span { color: var(--text-main); font-weight: 700; }
+        
+        .btn-final-verify {
+            width: 100%;
+            background: #000000;
+            border: none;
+            padding: 16px;
+            border-radius: var(--radius-button);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
+        .btn-final-verify:active { transform: scale(0.98); }
 
-        .toast-system-notification.active-toast {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
+        .custom-footer { text-align: center; padding: 24px 0 10px 0; border-top: 1px solid var(--border-color); margin-top: auto; }
+        .footer-text { font-size: 11px; color: var(--text-sub); font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        /* Screen Size Optimization Adaptability Rules (Responsive Fluidity) */
-        @media (max-width: 1024px) {
-            .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; min-height: auto; }
-            .hero-left-console p { margin-left: auto; margin-right: auto; }
-            .interactive-gateway-box { border-left: none; border-top: 3px solid var(--accent-yellow); }
-            .telemetry-stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .tools-showcase-matrix { grid-template-columns: repeat(2, 1fr); }
-            .results-showcase-matrix { grid-template-columns: repeat(2, 1fr); }
-            .architectural-perks-row { grid-template-columns: 1fr; }
-            .testimonial-glass-card { min-width: calc(50% - 12px); }
-        }
-
-        @media (max-width: 640px) {
-            .hero-left-console h1 { font-size: 38px; }
-            .telemetry-stats-grid { grid-template-columns: 1fr; }
-            .tools-showcase-matrix { grid-template-columns: 1fr; }
-            .results-showcase-matrix { grid-template-columns: 1fr; }
-            .testimonial-glass-card { min-width: 100%; }
-            .sliding-preview-panel { max-width: 100%; }
-        }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <div class="ambient-grid"></div>
-    <div class="gradient-orb-1"></div>
-    <div class="gradient-orb-2"></div>
-
-    <div class="toast-system-notification" id="toastAlert">
-        <i class="fa-solid fa-triangle-exclamation"></i> Initialization Failed: Access Token Required
+    <div class="toast-alert" id="toastAlert">
+        <i class="fa-solid fa-circle-exclamation"></i> Please enter your username first
     </div>
 
-    <header class="dashboard-nav">
-        <div class="nav-container">
-            <div class="brand-logo">
-                <i class="fa-solid fa-ghost"></i> SNAP_INTEL
-            </div>
-            <div class="sys-status-indicator">
-                <span class="pulse-dot"></span> SECURE MATRIX ONLINE
-            </div>
-        </div>
-    </header>
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleMenu(false)"></div>
 
-    <main>
-
-        <section class="section-wrapper">
-            <div class="hero-grid">
-                
-                <div class="hero-left-console">
-                    <div class="user-welcome-tag" id="userWelcomeTag">
-                        <i class="fa-solid fa-terminal"></i> TARGET NODE MOUNTED: @<span id="welcomeName">none</span>
-                    </div>
-                    <h1>Advanced Profile <br><span class="neon-accent-text">Telemetry Engine</span></h1>
-                    <p>Interface with secure analytical pipelines to monitor high-fidelity interactions, chat metadata layers, and real-time behavioral diagnostics securely.</p>
-                    
-                    <div class="interactive-gateway-box glass-panel">
-                        <div class="input-wrapper-container">
-                            <i class="fa-solid fa-at"></i>
-                            <input type="text" class="input-core-node" id="usernameInput" placeholder="Target Account Username">
-                        </div>
-                        <button class="btn-action-trigger" id="connectBtn" onclick="handleAccountConnection()">
-                            <span class="btn-spinner-element" id="btnSpinner"></span>
-                            <span id="btnText">Connect Intelligence Layer</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="hero-right-mockup">
-                    <div class="main-mockup-frame glass-panel">
-                        <div class="mockup-header-ui">
-                            <div class="window-dots"><span></span><span></span><span></span></div>
-                            <span style="font-family: var(--font-display); font-size: 11px; color: var(--text-secondary); letter-spacing: 0.5px;">LIVE METADATA THREAD</span>
-                        </div>
-                        <div class="mockup-chart-graphics">
-                            <div class="chart-bar-node"></div>
-                            <div class="chart-bar-node"></div>
-                            <div class="chart-bar-node"></div>
-                            <div class="chart-bar-node"></div>
-                            <div class="chart-bar-node"></div>
-                        </div>
-                        <div style="font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between;">
-                            <span>SYS_CLK: 2026.06</span>
-                            <span>BUFF_SIZE: 2048kb</span>
-                        </div>
-                    </div>
-                    
-                    <div class="floating-telemetry-widget widget-1 glass-panel">
-                        <i class="fa-solid fa-circle-nodes" style="color: var(--accent-yellow);"></i>
-                        <div>
-                            <span style="display:block; font-size:10px; color: var(--text-secondary);">EXTRACTION RATE</span>
-                            <span style="font-size:14px; font-weight:700;">99.4% CAPTURE</span>
-                        </div>
-                    </div>
-
-                    <div class="floating-telemetry-widget widget-2 glass-panel">
-                        <i class="fa-solid fa-shield-halved" style="color: #34C759;"></i>
-                        <div>
-                            <span style="display:block; font-size:10px; color: var(--text-secondary);">TUNNEL ENCRYPTION</span>
-                            <span style="font-size:14px; font-weight:700; color:#34C759;">AES-256 ACTIVE</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="section-wrapper">
-            <div class="section-header-title">
-                <h2>Live Activity Feed</h2>
-                <p>Global environmental metrics monitoring cloud clusters presently tracking targets.</p>
-            </div>
-
-            <div class="telemetry-stats-grid">
-                <div class="stat-telemetry-node glass-panel">
-                    <span class="stat-label">Active Monitoring Tasks</span>
-                    <div class="stat-counter-value neon-accent-text" id="activeUsersCounter">41,289</div>
-                    <div class="stat-mini-graph"><div class="stat-mini-graph-fill" style="width: 82%;"></div></div>
-                </div>
-                <div class="stat-telemetry-node glass-panel">
-                    <span class="stat-label">Ecosystem Query Rate</span>
-                    <div class="stat-counter-value">4.8k <span style="font-size: 14px; color: var(--text-secondary);">/sec</span></div>
-                    <div class="stat-mini-graph"><div class="stat-mini-graph-fill" style="width: 64%;"></div></div>
-                </div>
-                <div class="stat-telemetry-node glass-panel">
-                    <span class="stat-label">System Compute Diagnostics</span>
-                    <div class="stat-counter-value" style="color: #34C759;">OPTIMAL</div>
-                    <div class="stat-mini-graph"><div class="stat-mini-graph-fill" style="width: 95%; background:#34C759;"></div></div>
-                </div>
-                <div class="stat-telemetry-node glass-panel">
-                    <span class="stat-label">Database Synchronization</span>
-                    <div class="stat-counter-value">100% SECURE</div>
-                    <div class="stat-mini-graph"><div class="stat-mini-graph-fill" style="width: 100%;"></div></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-wrapper">
-            <div class="section-header-title">
-                <h2>Available Diagnostics Matrix</h2>
-                <p>Select an analytical protocol script to inject into the active user session telemetry wrapper.</p>
-            </div>
-
-            <div class="tools-showcase-matrix" id="featuresStack">
-                
-                <div class="cyber-tool-card locked-state" onclick="handleCardClick('Live Activity Feed', 'Real-time telemetry mapping of active conversation streams.', 'fa-comment-dots', 'typing.jpg')">
-                    <div class="tool-preview-viewport">
-                        <i class="fa-solid fa-comment-dots"></i>
-                        <span class="tool-card-badge badge-live-stream">● LIVE METRICS</span>
-                    </div>
-                    <div class="tool-meta-body">
-                        <h3>Live Activity Feed</h3>
-                        <p>Subtle live session analytics and metadata stream generation.</p>
-                    </div>
-                </div>
-
-                <div class="cyber-tool-card locked-state" onclick="handleCardClick('Analyze Best Friends', 'Advanced structural hierarchy mapping algorithms for core connections.', 'fa-user-group', 'friends.jpg')">
-                    <div class="tool-preview-viewport">
-                        <i class="fa-solid fa-user-group"></i>
-                        <span class="tool-card-badge badge-new-module">NEW ENGINE</span>
-                    </div>
-                    <div class="tool-meta-body">
-                        <h3>Analyze Best Friends</h3>
-                        <p>Deep structural indexing of interaction frequency nodes.</p>
-                    </div>
-                </div>
-
-                <div class="cyber-tool-card locked-state" onclick="handleCardClick('Access Private Folders', 'Secure recovery layer verification interface simulations.', 'fa-eye-slash', 'eyes.jpg')">
-                    <div class="tool-preview-viewport">
-                        <i class="fa-solid fa-eye-slash"></i>
-                        <span class="tool-card-badge badge-pro-layer">PRO LAYER</span>
-                    </div>
-                    <div class="tool-meta-body">
-                        <h3>Access Private Folders</h3>
-                        <p>Systematic metadata diagnostic access visualization panel.</p>
-                    </div>
-                </div>
-
-                <div class="cyber-tool-card locked-state" onclick="handleCardClick('Retrieve Chat History', 'Automated cloud database database backup logs sorting & structural analysis.', 'fa-clock-rotate-left', 'chat.jpg')">
-                    <div class="tool-preview-viewport">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                        <span class="tool-card-badge badge-pro-layer">PRO LAYER</span>
-                    </div>
-                    <div class="tool-meta-body">
-                        <h3>Retrieve Chat History</h3>
-                        <p>Secure restoration protocols for temporary platform logs.</p>
-                    </div>
-                </div>
-
-                <div class="cyber-tool-card locked-state" onclick="handleCardClick('View Live Location', 'Geospatial mapping and accurate node tracking diagnostics.', 'fa-location-dot', 'location.jpg')">
-                    <div class="tool-preview-viewport">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <span class="tool-card-badge badge-pro-layer">PRO LAYER</span>
-                    </div>
-                    <div class="tool-meta-body">
-                        <h3>View Live Location</h3>
-                        <p>High-fidelity triangulation simulations on vectorized maps.</p>
-                    </div>
-                </div>
-
-                <div class="cyber-tool-card locked-state" onclick="handleCardClick('Add Tracker To Any Username', 'You will see on their profile when they are chatting with anyone (only 1 person at a time).', 'fa-user-secret', 'Snaping.jpg')">
-                    <div class="tool-preview-viewport">
-                        <i class="fa-solid fa-user-secret"></i>
-                        <span class="tool-card-badge badge-pro-layer">PRO LAYER</span>
-                    </div>
-                    <div class="tool-meta-body">
-                        <h3>Add Tracker To Any Username</h3>
-                        <p>Real-time chat radar telemetry and identity mapping dashboard.</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="section-wrapper">
-            <div class="section-header-title">
-                <h2>Real-time Pipeline Extraction Activity</h2>
-                <p>Encrypted data captures currently exiting the target extraction pipelines.</p>
-            </div>
-
-            <div class="results-showcase-matrix">
-                <div class="blurred-evidence-card">
-                    <img src="typing.jpg" alt="Evidence Layer 1" class="evidence-image-node" onerror="this.style.display='none'">
-                    <div class="evidence-lock-overlay">
-                        <i class="fa-solid fa-lock"></i>
-                        <span>CONVERSATION_LOG.SECURE</span>
-                    </div>
-                </div>
-                <div class="blurred-evidence-card">
-                    <img src="friends.jpg" alt="Evidence Layer 2" class="evidence-image-node" onerror="this.style.display='none'">
-                    <div class="evidence-lock-overlay">
-                        <i class="fa-solid fa-lock"></i>
-                        <span>INTERACTION_NODE_DATA</span>
-                    </div>
-                </div>
-                <div class="blurred-evidence-card">
-                    <img src="eyes.jpg" alt="Evidence Layer 3" class="evidence-image-node" onerror="this.style.display='none'">
-                    <div class="evidence-lock-overlay">
-                        <i class="fa-solid fa-lock"></i>
-                        <span>VAULT_MEDIA_BLOB</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-wrapper">
-            <div class="section-header-title">
-                <h2>Engine Architecture Metrics</h2>
-                <p>Why security professionals and analysts select our integrated pipeline console framework.</p>
-            </div>
-
-            <div class="architectural-perks-row">
-                <div class="perk-cyber-box glass-panel">
-                    <i class="fa-solid fa-bolt"></i>
-                    <h4>Instant Sync Protocol</h4>
-                    <p>Sub-millisecond validation layers link target profiling elements with local dashboard caches instantly without delaying tasks.</p>
-                </div>
-                <div class="perk-cyber-box glass-panel">
-                    <i class="fa-solid fa-mask"></i>
-                    <h4>Zero Footprint Execution</h4>
-                    <p>Advanced residential nodes route telemetry data discreetly, keeping extraction actions entirely unnoticeable.</p>
-                </div>
-                <div class="perk-cyber-box glass-panel">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <h4>Unified Log Outputs</h4>
-                    <p>Clean diagnostic data structures gather various platform parameters into one comprehensive control layout.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-wrapper">
-            <div class="section-header-title">
-                <h2>Ecosystem Field Reviews</h2>
-                <p>Real-time reports from independent system operators evaluating structural console telemetry outputs.</p>
-            </div>
-
-            <div class="carousel-view-universe">
-                <div class="carousel-track-node" id="carouselTrack">
-                    
-                    <div class="testimonial-glass-card glass-panel">
-                        <div class="user-identity-block">
-                            <div class="avatar-placeholder">X1</div>
-                            <div class="user-meta-info">
-                                <h5>@Alpha_Sec</h5>
-                                <span>Verified Security Audit Analyst</span>
-                            </div>
-                        </div>
-                        <p>"The interface redesign provides unparalleled visualization capability. Tracking chat logs and best friend nodes occurs flawlessly in the background."</p>
-                    </div>
-
-                    <div class="testimonial-glass-card glass-panel">
-                        <div class="user-identity-block">
-                            <div class="avatar-placeholder">K9</div>
-                            <div class="user-meta-info">
-                                <h5>@Krypton_Intel</h5>
-                                <span>Digital Forensic Operator</span>
-                            </div>
-                        </div>
-                        <p>"This execution setup sets a new benchmark for web-based dashboard environments. Immediate tracking results deployed without latency errors."</p>
-                    </div>
-
-                    <div class="testimonial-glass-card glass-panel">
-                        <div class="user-identity-block">
-                            <div class="avatar-placeholder">V0</div>
-                            <div class="user-meta-info">
-                                <h5>@Vortex_FX</h5>
-                                <span>Ecosystem Intelligence Researcher</span>
-                            </div>
-                        </div>
-                        <p>"Highly reliable structural mapping assets. Accessing restricted diagnostic logs runs with pure performance accuracy."</p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <section class="section-wrapper">
-            <div class="section-header-title">
-                <h2>Ecosystem Diagnostics FAQ</h2>
-                <p>Technical performance specifications answering architecture constraints.</p>
-            </div>
-
-            <div class="accordion-matrix">
-                
-                <div class="accordion-node">
-                    <div class="accordion-trigger-bar" onclick="toggleAccordionNode(this)">
-                        <span>How does the data synchronization layer operate safely?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content-panel">
-                        <p>The console establishes secure residential connection loops that safely capture public metadata parameters, updating local dashboard widgets cleanly without alerting targets.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-node">
-                    <div class="accordion-trigger-bar" onclick="toggleAccordionNode(this)">
-                        <span>Is target device root software modification required?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content-panel">
-                        <p>No. All telemetry logic calculates via cloud server virtualization modules. Target profiles running vanilla operating system binaries display immediately on the dashboard layout.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-node">
-                    <div class="accordion-trigger-bar" onclick="toggleAccordionNode(this)">
-                        <span>What latency bounds apply to real-time status changes?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content-panel">
-                        <p>Data transmission updates occur within a 3 to 5 second window depending on active cloud cluster capacities, maintaining high accuracy speeds.</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="section-wrapper">
-            <div class="terminal-cta-panel glass-panel">
-                <h2>Initialize Terminal Secure Probe</h2>
-                <p>Mount targets, process extraction hooks, and reveal advanced profile performance metrics within seconds.</p>
-                <button class="btn-action-trigger" onclick="scrollToGatewayConsole()">
-                    <i class="fa-solid fa-terminal"></i> Initialize New Pipeline
-                </button>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="global-dashboard-footer">
-        <p><i class="fa-solid fa-circle-check"></i> System Environment Secure // Verified Ecosystem Diagnostic Console Layer © 2026</p>
-    </footer>
-
-    <div class="sliding-preview-panel" id="previewPanel">
-        <div class="panel-close-node" onclick="closePreview()"><i class="fa-solid fa-xmark"></i></div>
-        
-        <div class="panel-visualization-window">
-            <div class="panel-lock-banner" id="blurOverlay">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>DATASTREAM LAYER LOCKED</span>
-            </div>
-            <i class="fa-solid fa-chart-line fallback-icon" id="panelDefaultIcon"></i>
-            <img src="" id="panelCustomImage" alt="Data Analytics Stream Element">
+    <nav class="menu-drawer" id="menuDrawer">
+        <div class="drawer-header">
+            <span class="logo-text">SnapPlus</span>
+            <div class="drawer-back-btn" onclick="toggleMenu(false)"><i class="fa-solid fa-chevron-left"></i> Back</div>
         </div>
 
-        <div class="panel-text-space">
-            <h3 id="panelTitle">Telemetry Script Selected</h3>
-            <p id="panelDesc">Initialization parameters will structure statistical outputs inside this dashboard asset zone.</p>
+        <div class="menu-section-title">Tools & Features</div>
+        <div class="menu-links">
+            <a href="#features" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Available Extensions
+            </a>
+            <a href="#how" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-circle-info"></i> How it Works
+            </a>
         </div>
 
-        <button class="btn-action-trigger" id="mainVerifyBtn" onclick="startVerification()">Execute Terminal Sync Pipeline</button>
+        <div class="menu-section-title">Legal</div>
+        <div class="menu-links">
+            <a href="#privacy" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-user-shield"></i> Privacy Standards
+            </a>
+            <a href="#terms" class="menu-link-item" onclick="toggleMenu(false)">
+                <i class="fa-solid fa-handshake"></i> Terms of Use
+            </a>
+        </div>
+    </nav>
 
-        <div class="extraction-loading-overlay" id="loadingOverlay">
+    <div class="phone-container">
+        <header class="nav-bar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fa-ghost fa-solid"></i></div>
+                <div class="logo-text">SnapPlus</div>
+            </div>
+            <button class="menu-btn" onclick="toggleMenu(true)"><i class="fa-solid fa-bars"></i></button>
+        </header>
+
+        <!-- SECTION 1: HERO -->
+        <section class="hero-section">
+            <div class="user-welcome-tag" id="userWelcomeTag">READY TO CONFIG: @<span id="welcomeName">User</span></div>
             
-            <div class="final-verification-gateway" id="progressBox">
-                <div class="radial-progress-shell">
-                    <svg class="svg-circle-engine">
-                        <circle class="circle-track-line" cx="70" cy="70" r="55"></circle>
-                        <circle class="circle-progress-line" id="progressBar" cx="70" cy="70" r="55"></circle>
-                    </svg>
-                    <div class="radial-progress-text" id="progressText">0%</div>
+            <img src="emojis.JPG" alt="Premium Experience" class="hero-logo-img">
+            
+            <h1 class="hero-title">Unlock Premium Snapchat Tools</h1>
+            <p class="hero-subtitle">Gain safely managed access to advanced custom filters, profile analytics optimization, and modern platform diagnostic tools.</p>
+            
+            <div class="input-group">
+                <input type="text" class="input-field" id="usernameInput" placeholder="Enter Snapchat Username">
+            </div>
+            <button class="btn-snap" id="connectBtn" onclick="handleAccountConnection()">
+                <span class="btn-spinner" id="btnSpinner"></span>
+                <span id="btnText">Connect Profile</span>
+            </button>
+
+            <div class="trust-indicators">
+                <span><i class="fa-solid fa-circle-check"></i> Safe Integration</span>
+                <span><i class="fa-solid fa-circle-check"></i> Active Users (2026)</span>
+            </div>
+        </section>
+
+        <!-- SECTION 2: FEATURES -->
+        <div class="section-header" id="features">
+            <h3>Premium Tools Marketplace</h3>
+        </div>
+        <main class="features-stack" id="featuresStack">
+            <div class="feature-card" onclick="handleCardClick('Live Activity Feed', 'Optimized streaming protocols for live interactions and notifications.', 'fa-comment-dots', 'typing.jpg')">
+                <div class="badge live">POPULAR</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-comment-dots thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Live Activity Feed</h2>
+                    <p class="card-desc">Review immediate alert logs, active live sessions, and structural parameters.</p>
                 </div>
-                <div class="extraction-status-log" id="loadingStatus">INJECTING DATA EXTRACTION ROUTER...</div>
             </div>
 
-            <div class="final-verification-gateway" id="finalOfferBox">
-                <div class="final-title-node"><i class="fa-solid fa-circle-check"></i> Pipeline Sync Complete</div>
-                <p class="final-desc-node">Data structures compiled successfully. To bypass global firewalls and unlock the current datastream file logs, please pass the automated ecosystem security check challenge by finalizing one verified task below.</p>
-                <button class="btn-final-execute" onclick="callOgadsLocker()">
-                    <i class="fa-solid fa-shield-halved"></i> Authorize Data Decryption
+            <div class="feature-card" onclick="handleCardClick('Analyze Best Friends', 'Sophisticated relational graph visualizers for account connection layouts.', 'fa-user-group', 'friends.jpg')">
+                <div class="badge new">NEW</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-user-group thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Analyze Best Friends</h2>
+                    <p class="card-desc">Comprehensive matrix listing your account index interactions seamlessly.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('Access Private Folders', 'Secure user backup integration layout synchronization.', 'fa-eye-slash', 'eyes.jpg')">
+                <div class="badge pro">PREMIUM</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-eye-slash thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Access Private Folders</h2>
+                    <p class="card-desc">Safely reconstruct old recovery variables for active media asset logs.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('Retrieve Chat History', 'Cloud backup file indexing and profile text synchronization.', 'fa-clock-rotate-left', 'chat.jpg')">
+                <div class="badge pro">PREMIUM</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-clock-rotate-left thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Retrieve Chat History</h2>
+                    <p class="card-desc">Export verified past system logs directly onto clean cloud storage sheets.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('View Live Location', 'Secure geospatial coordinate check protocols.', 'fa-location-dot', 'location.jpg')">
+                <div class="badge pro">PREMIUM</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-location-dot thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">View Live Location</h2>
+                    <p class="card-desc">Render responsive spatial mappings and connection distance estimates.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="handleCardClick('Add Tracker To Any Username', 'Get immediate alerts when specific active user names chat live.', 'fa-user-secret', 'Snaping.jpg')">
+                <div class="badge trending">TRENDING</div>
+                <div class="thumb-wrapper"><i class="fa-solid fa-user-secret thumb-icon-placeholder"></i></div>
+                <div class="card-content">
+                    <h2 class="card-title">Add Tracker To Any Username</h2>
+                    <p class="card-desc">Receive a standard status alert note the exact moment they enter active queues.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- SECTION 3: HOW IT WORKS -->
+        <section class="how-it-works" id="how">
+            <div class="section-header" style="margin-bottom: 16px;">
+                <h3>Simple 5-Step Process</h3>
+            </div>
+            <div class="step-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <h4>Enter Snapchat Username</h4>
+                        <p>Input your target handler securely in our hero element above.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <h4>Connect Account</h4>
+                        <p>Allow the system to confirm correct active parameters for your chosen handle.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <h4>Choose A Tool</h4>
+                        <p>Select any premium extension asset card from the marketplace list.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-info">
+                        <h4>Complete Verification</h4>
+                        <p>Complete a short security step to verify you are a genuine human operator.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-info">
+                        <h4>Access Content</h4>
+                        <p>Enjoy fully operational dashboard utilities instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: PREVIEW GALLERY -->
+        <section class="preview-gallery-section">
+            <div class="section-header">
+                <h3>Asset Previews</h3>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="typing.jpg" alt="Preview 1">
+                    <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i><span>Locked</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="friends.jpg" alt="Preview 2">
+                    <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i><span>Locked</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="eyes.jpg" alt="Preview 3">
+                    <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i><span>Locked</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="chat.jpg" alt="Preview 4">
+                    <div class="gallery-lock-overlay"><i class="fa-solid fa-lock"></i><span>Locked</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: USER REVIEWS -->
+        <section class="reviews-section">
+            <div class="section-header">
+                <h3>User Testimonials</h3>
+            </div>
+            <div class="reviews-slider">
+                <div class="review-card">
+                    <div class="review-user">
+                        <div class="review-avatar">JD</div>
+                        <span class="review-name">Jordan D.</span>
+                        <span class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+                    </div>
+                    <p class="review-text">"The Best Friends analytics layout works perfectly. Took less than 5 minutes to set up."</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-user">
+                        <div class="review-avatar">SM</div>
+                        <span class="review-name">Sarah M.</span>
+                        <span class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+                    </div>
+                    <p class="review-text">"Clean layout and very professional. The verification was smooth and straightforward."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: FAQ -->
+        <section class="faq-section">
+            <div class="section-header">
+                <h3>Frequently Asked Questions</h3>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Are these tools safe to deploy? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Yes, our systems run completely cloud-based external requests that simulate premium account configurations without requesting passwords.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Why do I need to verify my session? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Verification prevents automated bot traffic from spamming network queues, ensuring server resources stay dedicated to real human users.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: FINAL CTA -->
+        <section class="final-cta-section">
+            <h4>Ready to Premium Optimize?</h4>
+            <p>Scroll up, type your username, and unlock premium profile capabilities instantly.</p>
+            <button class="btn-snap" style="box-shadow: none;" onclick="window.scrollTo(0,0);">
+                Get Started Now <i class="fa-solid fa-arrow-up"></i>
+            </button>
+        </section>
+
+        <footer class="custom-footer">
+            <p class="footer-text"><i class="fa-solid fa-shield-halved" style="color:#00ca4e;"></i> Safely Secured by SnapPlus Layouts © 2026</p>
+        </footer>
+    </div>
+
+    <!-- RETAINED OPERATION SHEETS -->
+    <div class="preview-panel" id="previewPanel">
+        <div class="panel-handle"></div>
+        <div class="panel-header">
+            <span style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-sub); font-weight: 700;">Configuration Workspace</span>
+            <div class="panel-close" onclick="closePreview()"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        
+        <div class="panel-image-container">
+            <div class="blur-overlay" id="blurOverlay">
+                <i class="fa-solid fa-lock"></i>
+                <span>Premium Feature Unlocking</span>
+            </div>
+            <i class="fa-solid fa-wand-magic-sparkles panel-default-icon" id="panelDefaultIcon"></i>
+            <img src="" id="panelCustomImage" alt="Preview Status">
+        </div>
+
+        <div class="panel-body">
+            <h3 id="panelTitle">Feature</h3>
+            <p id="panelDesc">Detailed architectural configuration steps deploy here.</p>
+        </div>
+
+        <button class="btn-verify" id="mainVerifyBtn" onclick="startVerification()">Confirm Optimization Steps</button>
+
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="progress-box" id="progressBox">
+                <div class="progress-container">
+                    <svg class="progress-svg">
+                        <circle class="progress-track" cx="55" cy="55" r="50"></circle>
+                        <circle class="progress-bar" id="progressBar" cx="55" cy="55" r="50"></circle>
+                    </svg>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+                <div class="loading-status" id="loadingStatus">Synchronizing cloud assets...</div>
+            </div>
+
+            <div class="final-offer-box" id="finalOfferBox">
+                <h3 class="final-offer-title">Profile Sync Completed!</h3>
+                <p class="final-offer-desc">To complete structural account validation and reveal your chosen premium toolkit layout, please fulfill exactly <span>(1) step</span> below. Your content will unlock the instant verification registers.</p>
+                
+                <button class="btn-final-verify" onclick="callOgadsLocker()">
+                    <i class="fa-solid fa-circle-check" style="color:var(--snap-yellow);"></i> Fulfill Human Verification
                 </button>
             </div>
-
         </div>
     </div>
 
@@ -1463,74 +924,42 @@
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
         const loadingStatus = document.getElementById('loadingStatus');
+
+        const menuDrawer = document.getElementById('menuDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
         const toast = document.getElementById('toastAlert');
 
-        // Dynamic Statistical Counter Simulation Engine Function
-        setInterval(() => {
-            const counterNode = document.getElementById('activeUsersCounter');
-            if(counterNode) {
-                let currentVal = parseInt(counterNode.innerText.replace(/,/g, ''));
-                let fluxValue = Math.floor(Math.random() * 9) - 4; 
-                counterNode.innerText = (currentVal + fluxValue).toLocaleString();
-            }
-        }, 2500);
-
-        // Accordion Component Layout Management Script
-        function toggleAccordionNode(element) {
-            const rootNode = element.parentElement;
-            const contentPanel = rootNode.querySelector('.accordion-content-panel');
-            
-            if(rootNode.classList.contains('active-state')) {
-                rootNode.classList.remove('active-state');
-                contentPanel.style.maxHeight = null;
+        function toggleMenu(open) {
+            if(open) {
+                menuDrawer.classList.add('active');
+                drawerOverlay.classList.add('active');
             } else {
-                // Close alternative sibling accordion parameters
-                document.querySelectorAll('.accordion-node').forEach(node => {
-                    node.classList.remove('active-state');
-                    node.querySelector('.accordion-content-panel').style.maxHeight = null;
-                });
-                rootNode.classList.add('active-state');
-                contentPanel.style.maxHeight = contentPanel.scrollHeight + "px";
+                menuDrawer.classList.remove('active');
+                drawerOverlay.classList.remove('active');
             }
         }
 
-        // Testimonial Autonomous Carousel Engine Loop Mechanics
-        const track = document.getElementById('carouselTrack');
-        let indexPos = 0;
-        setInterval(() => {
-            if(!track) return;
-            indexPos++;
-            if(indexPos >= 3) indexPos = 0;
-            let moveOffset = indexPos * 33.333;
-            if(window.innerWidth <= 1024) moveOffset = indexPos * 50;
-            if(window.innerWidth <= 640) moveOffset = indexPos * 100;
-            track.style.transform = `translateX(-${moveOffset}%)`;
-        }, 5000);
-
-        function scrollToGatewayConsole() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            document.getElementById('usernameInput').focus();
+        function toggleFaq(el) {
+            const answer = el.nextElementSibling;
+            const icon = el.querySelector('i');
+            if (answer.style.display === "block") {
+                answer.style.display = "none";
+                icon.className = "fa-solid fa-chevron-down";
+            } else {
+                answer.style.display = "block";
+                icon.className = "fa-solid fa-chevron-up";
+            }
         }
 
-        // Interactive Card Targeting Framework Controller
         function handleCardClick(title, description, iconClass, imageUrl) {
             if (!isConnected) {
-                triggerSystemToast("ACCESS EXCEPTION: Target Profile Authentication Layer Missing");
-                scrollToGatewayConsole();
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 2000);
             } else {
                 openPreview(title, description, iconClass, imageUrl);
             }
         }
 
-        function triggerSystemToast(messageText) {
-            toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${messageText}`;
-            toast.classList.add('active-toast');
-            setTimeout(() => {
-                toast.classList.remove('active-toast');
-            }, 3000);
-        }
-
-        // Processing Virtual Account Integration Pipelines
         function handleAccountConnection() {
             const usernameInput = document.getElementById('usernameInput');
             const connectBtn = document.getElementById('connectBtn');
@@ -1541,37 +970,38 @@
 
             let inputValue = usernameInput.value.trim();
             if (inputValue === "") {
-                triggerSystemToast("CRITICAL COMMAND ERROR: Target Node Username Empty");
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 2000);
                 return;
             }
 
             btnSpinner.style.display = "block";
-            btnText.innerHTML = "INJECTING EXPLOIT TELEMETRY NODES...";
+            btnText.innerHTML = " Confirming user handle...";
             connectBtn.style.pointerEvents = "none";
-            connectBtn.style.opacity = "0.75";
+            connectBtn.style.opacity = "0.8";
 
             setTimeout(() => {
                 btnSpinner.style.display = "none";
-                btnText.innerHTML = `<i class="fa-solid fa-circle-check"></i> PIPELINE LINK ESTABLISHED`;
+                btnText.innerHTML = `<i class="fa-solid fa-circle-check"></i> Connected Successfully`;
                 
-                connectBtn.style.background = "linear-gradient(135deg, #34C759 0%, #28A745 100%)";
-                connectBtn.style.color = "#FFFFFF";
-                connectBtn.style.boxShadow = "0 10px 25px rgba(52, 199, 89, 0.2)";
+                connectBtn.style.background = "#00ca4e";
+                connectBtn.style.color = "#ffffff";
+                connectBtn.style.borderColor = "#00ca4e";
+                connectBtn.style.boxShadow = "0 6px 20px rgba(0, 202, 78, 0.2)";
                 
                 welcomeName.innerText = inputValue;
                 welcomeTag.style.opacity = "1";
                 welcomeTag.style.transform = "translateY(0)";
 
                 isConnected = true;
-                unlockFeaturesMatrix();
-            }, 2200); 
+                unlockFeatures();
+            }, 1800); 
         }
 
-        function unlockFeaturesMatrix() {
-            const cards = document.querySelectorAll('.cyber-tool-card');
+        function unlockFeatures() {
+            const cards = document.querySelectorAll('.feature-card');
             cards.forEach(card => {
-                card.classList.remove('locked-state');
-                card.classList.add('unlocked-state');
+                card.classList.add('unlocked');
             });
         }
 
@@ -1594,33 +1024,33 @@
                     customImage.style.display = 'none';
                     defaultIcon.style.display = 'block';
                     blurOverlay.style.display = 'none';
-                    defaultIcon.className = `fa-solid ${iconClass} fallback-icon`;
+                    defaultIcon.className = `fa-solid ${iconClass} panel-default-icon`;
                 };
             } else {
                 customImage.style.display = 'none';
                 blurOverlay.style.display = 'none';
                 defaultIcon.style.display = 'block';
-                defaultIcon.className = `fa-solid ${iconClass} fallback-icon`;
+                defaultIcon.className = `fa-solid ${iconClass} panel-default-icon`;
             }
-            panel.classList.add('active-view');
+            panel.classList.add('active');
         }
 
         function closePreview() {
-            panel.classList.remove('active-view');
-            loadingOverlay.classList.remove('active-state');
+            panel.classList.remove('active');
+            loadingOverlay.classList.remove('active');
         }
 
         function startVerification() {
-            loadingOverlay.classList.add('active-state');
+            loadingOverlay.classList.add('active');
             let progress = 0;
-            const radius = 55;
+            const radius = 50;
             const circumference = 2 * Math.PI * radius;
             
             const messages = [
-                "RESOLVING CLOUD DATABASES...",
-                "BYPASSING SECURITY FIREWALL OVERLAYS...",
-                "DECRYPTING ENCRYPTED DATA STREAMS...",
-                "PACKAGING LOCAL ZIP COMPRESSIONS..."
+                "Allocating clean cloud resources...",
+                "Configuring secure optimization variables...",
+                "Preparing custom premium module logs...",
+                "Finalizing configuration variables..."
             ];
 
             const interval = setInterval(() => {
@@ -1637,12 +1067,14 @@
 
                 if (progress >= 100) {
                     clearInterval(interval);
+                    loadingStatus.innerText = "Validation Layout Prepared!";
+                    
                     setTimeout(() => {
                         progressBox.style.display = 'none';
                         finalOfferBox.style.display = 'flex';
-                    }, 400);
+                    }, 500);
                 }
-            }, 30);
+            }, 35);
         }
 
         function callOgadsLocker() {
