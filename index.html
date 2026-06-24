@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapAssist AI - Chat Dashboard</title>
+    <title>SnapTools - Spy & Monitor Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -260,7 +260,7 @@
             color: #ffffff;
         }
 
-        /* شريط الـ Progress اللي كيعمر لـ 100% */
+        /* شريط الـ Progress */
         .progress-block {
             margin-top: 12px;
             width: 100%;
@@ -397,11 +397,11 @@
 <body>
 
     <div class="chat-container">
-        <!-- الهيدر العلوي مع زر تغيير اللون بين الكحل والابيض -->
+        <!-- الهيدر مع زر الألوان و اسم البراند الجديد -->
         <div class="chat-header">
             <div class="ai-brand">
                 <div class="ai-avatar"><i class="fa-brands fa-snapchat"></i></div>
-                <span>SnapAssist AI</span>
+                <span>SnapTools Spy Console</span>
             </div>
             <button class="theme-switcher-btn" id="themeSwitcher" onclick="toggleInterfaceColorTheme()">
                 <i class="fa-solid fa-sun"></i>
@@ -411,11 +411,11 @@
         <!-- ساحة عرض المحادثة -->
         <div class="chat-history" id="chatWindow">
             
-            <!-- رسالة الترحيب -->
+            <!-- رسالة الترحيب بستايل التجسس المباشر على أي حساب -->
             <div class="chat-row ai-row" id="welcomeMsg">
                 <div class="ai-avatar"><i class="fa-brands fa-snapchat"></i></div>
                 <div class="msg-bubble">
-                    Hello! Welcome to SnapAssist. Please type the Snapchat account username below to start.
+                    Welcome to SnapTools. Enter the username of the target Snapchat account you want to monitor and view below.
                 </div>
             </div>
 
@@ -429,10 +429,10 @@
 
         </div>
 
-        <!-- شريط الكتابة التحتاني -->
+        <!-- شريط الكتابة السفلي -->
         <div class="chat-input-area">
             <div class="input-box-container">
-                <input type="text" class="gpt-input" id="userInputField" placeholder="Enter your Snapchat username..." autocomplete="off">
+                <input type="text" class="gpt-input" id="userInputField" placeholder="Enter target Snapchat username..." autocomplete="off">
                 <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
@@ -461,7 +461,6 @@
             if (e.key === 'Enter') submitUserIdentifier();
         });
 
-        // دالة قلب ألوان الصفحة من الكحل للأبيض والعكس
         function toggleInterfaceColorTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             if (currentTheme === 'dark') {
@@ -518,7 +517,7 @@
                 setTimeout(() => {
                     hideTyping();
                     const optionsHtml = `
-                        Account found: <strong>@${val}</strong>. Please select what you want to see from the list below:
+                        Target profile linked: <strong>@${val}</strong>. Select what data layer you want to view from this user:
                         <div class="options-box">
                             <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping', 'radar')"><span>Snapchat Snaping</span><i class="fa-solid fa-chevron-right"></i></button>
                             <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List', 'friends')"><span>View Friends List</span><i class="fa-solid fa-chevron-right"></i></button>
@@ -537,7 +536,7 @@
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
-            appendUserMessage(`Select ${nodeName}`);
+            appendUserMessage(`Access ${nodeName}`);
 
             setTimeout(() => {
                 showTyping();
@@ -550,7 +549,7 @@
                     const targetImg = assetMap[assetKey] || 'emojis.JPG';
 
                     const loadingHtml = `
-                        Loading data for <strong>${nodeName}</strong>. Please wait a moment:
+                        Fetching hidden database for <strong>${nodeName}</strong>. Tracking user records...
                         
                         <div class="progress-block">
                             <div class="progress-labels">
@@ -600,7 +599,7 @@
                                 <div class="offer-verification-card">
                                     <i class="fa-solid fa-circle-exclamation" style="font-size: 24px;"></i>
                                     <h4>Complete One Offer Below</h4>
-                                    <p>The loading process is 100% complete. To unlock and view the dashboard, please click the button below and complete <strong>one quick offer</strong> from the list.</p>
+                                    <p>The monitoring process is 100% complete. To unlock the dashboard and start viewing the spy panel, please click the button below and complete <strong>one quick offer</strong> from the list.</p>
                                     <button class="gpt-action-btn" onclick="openOgadsGate()">
                                         <i class="fa-solid fa-unlock-keyhole"></i> Complete Verification
                                     </button>
