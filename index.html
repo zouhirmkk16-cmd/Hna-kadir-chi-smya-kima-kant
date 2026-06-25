@@ -3,98 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Snapchat Tools Pro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Grand Theft Auto VI - Mobile Early Access</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts (Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #2e1065 0%, #1e1b4b 50%, #701a75 100%);
+        }
+        .gta-gradient {
+            /* Inspired by the exact twilight sunset colors in image.png */
+            background: linear-gradient(to bottom, #4c1d95, #b45309);
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="text-white min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- Navbar -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+    <!-- Header Navigation -->
+    <header class="w-full bg-black/40 backdrop-blur-md border-b border-white/10 px-6 py-4 fixed top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center shadow-sm">
-                    <span class="font-black text-black text-sm">S</span>
-                </div>
-                <span class="font-bold text-xl tracking-tight">SnapTools</span>
+                <!-- Placeholder for Official Looking Icon -->
+                <span class="font-bold tracking-widest text-lg uppercase border-2 border-white px-2 py-0.5">R*</span>
+                <span class="text-xs tracking-wider opacity-60 uppercase hidden sm:inline">Social Club Partner</span>
             </div>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-600">
-                <a href="#" class="hover:text-black transition">Features</a>
-                <a href="#" class="hover:text-black transition">Security</a>
-                <a href="#" class="hover:text-black transition">Support</a>
-            </nav>
+            <div class="text-xs tracking-widest text-amber-500 font-semibold uppercase bg-amber-500/10 px-3 py-1 rounded border border-amber-500/20">
+                Beta Program v1.04
+            </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 py-12 flex-grow flex flex-col items-center justify-center">
-        <div class="w-full max-w-xl bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-            
-            <!-- App Info Block -->
-            <div class="text-center mb-8">
-                <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">
-                    Snapchat Tools Pro
+    <!-- Main Content Box -->
+    <main class="flex-grow flex flex-col items-center justify-center pt-28 pb-12 px-4 max-w-4xl mx-auto w-full">
+        
+        <!-- Hero Section & Logo Area -->
+        <div class="w-full text-center mb-8">
+            <!-- image.png styling inspiration for logo container -->
+            <div class="relative inline-block mb-6">
+                <!-- Simulated Big "VI" Background from image.png -->
+                <div class="absolute inset-0 flex items-center justify-center text-[120px] sm:text-[160px] font-bold opacity-10 select-none pointer-events-none tracking-tighter text-fuchsia-500">
+                    VI
+                </div>
+                <!-- Main Game Title Text -->
+                <h1 class="text-4xl sm:text-6xl font-bold tracking-wider uppercase drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
+                    Grand <span class="block sm:inline text-amber-500">Theft</span> Auto
                 </h1>
-                <p class="mt-3 text-gray-600 text-sm sm:text-base leading-relaxed">
-                    Optimize your account management and workflow automation. Download the latest verified stable release below.
-                </p>
-            </div>
-
-            <!-- Technical Metadata Grid -->
-            <div class="grid grid-cols-2 gap-4 bg-gray-50 rounded-xl p-4 mb-8 text-xs border border-gray-100">
-                <div>
-                    <span class="block text-gray-400 uppercase font-semibold tracking-wider">Version</span>
-                    <span class="font-mono text-gray-800 text-sm">v2.4.1-stable</span>
-                </div>
-                <div>
-                    <span class="block text-gray-400 uppercase font-semibold tracking-wider">File Size</span>
-                    <span class="font-mono text-gray-800 text-sm">14.2 MB</span>
-                </div>
-                <div>
-                    <span class="block text-gray-400 uppercase font-semibold tracking-wider">Compatibility</span>
-                    <span class="font-medium text-gray-800 text-sm">iOS 15.0+ / Android 10+</span>
-                </div>
-                <div>
-                    <span class="block text-gray-400 uppercase font-semibold tracking-wider">Last Updated</span>
-                    <span class="font-medium text-gray-800 text-sm">June 2026</span>
+                <div class="text-2xl sm:text-3xl font-light tracking-[0.25em] uppercase text-fuchsia-400 mt-1">
+                    Vice City Mobile
                 </div>
             </div>
 
-            <!-- Action Button -->
-            <div class="space-y-3">
-                <button 
-                    id="downloadBtn" 
-                    onclick="callLocker()" 
-                    class="w-full bg-black text-white font-semibold py-3.5 px-4 rounded-xl hover:bg-gray-900 active:scale-[0.98] transition shadow-sm flex items-center justify-center space-x-2 text-sm sm:text-base"
-                >
-                    <span>Download Installer</span>
-                </button>
-                <div class="flex items-center justify-center space-x-2 text-xs text-emerald-600 font-medium bg-emerald-50 py-2 rounded-lg">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    <span>Verified secure by network gate. No configuration required.</span>
-                </div>
-            </div>
-
+            <p class="text-sm sm:text-base text-gray-300 max-w-xl mx-auto font-light leading-relaxed">
+                Experience the next generation of open-world gaming optimized specifically for iOS and Android ecosystems. Join the limited closed beta program today.
+            </p>
         </div>
+
+        <!-- Interactive Form Card -->
+        <div class="w-full max-w-md bg-black/70 border border-white/10 rounded-xl p-6 sm:p-8 backdrop-blur-lg shadow-2xl">
+            <h2 class="text-xl font-semibold text-center mb-6 tracking-wide uppercase border-b border-white/10 pb-4">
+                Request Download Access
+            </h2>
+
+            <!-- Platform Selection -->
+            <div class="mb-6">
+                <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                    Select Your Operating System
+                </label>
+                <div class="grid grid-cols-2 gap-4">
+                    <button type="button" id="btn-ios" onclick="selectPlatform('ios')" class="flex items-center justify-center space-x-2 bg-white/5 hover:bg-white/10 border border-white/20 rounded-lg p-3 transition-all cursor-pointer">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.1,16.67C20.08,16.74 19.67,18.11 18.71,19.5M15.97,4.17C16.63,3.37 17.07,2.28 16.95,1C16,1.04 14.9,1.6 14.24,2.38C13.68,3.04 13.19,4.14 13.34,5.39C14.39,5.47 15.4,4.88 15.97,4.17Z"/></svg>
+                        <span class="text-sm font-semibold">iOS App</span>
+                    </button>
+                    <button type="button" id="btn-android" onclick="selectPlatform('android')" class="flex items-center justify-center space-x-2 bg-white/5 hover:bg-white/10 border border-white/20 rounded-lg p-3 transition-all cursor-pointer">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6,12.8C16.3,12.8 16,12.5 16,12.2C16,11.9 16.3,11.6 16.6,11.6C16.9,11.6 17.2,11.9 17.2,12.2C17.2,12.5 16.9,12.8 16.6,12.8M11.4,12.8C11.1,12.8 10.8,12.5 10.8,12.2C10.8,11.9 11.1,11.6 11.4,11.6C11.7,11.6 12,11.9 12,12.2C12,12.5 11.7,12.8 11.4,12.8M14.2,8.6L15.6,6.1C15.7,5.9 15.6,5.7 15.4,5.6C15.2,5.5 15,5.6 14.9,5.8L13.5,8.3C12.7,8 11.8,7.8 10.9,7.8C10,7.8 9.1,8 8.3,8.3L6.9,5.8C6.8,5.6 6.6,5.5 6.4,5.6C6.2,5.7 6.1,5.9 6.2,6.1L7.6,8.6C5.1,10.1 3.5,12.7 3.3,15.8H24.7C24.5,12.7 22.9,10.1 20.4,8.6H14.2Z"/></svg>
+                        <span class="text-sm font-semibold">Android APK</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Email Input -->
+            <div class="mb-6">
+                <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">
+                    Social Club Email Address
+                </label>
+                <input type="email" id="email" required autocomplete="off" placeholder="name@example.com" class="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors">
+            </div>
+
+            <!-- Verification Button (Triggers OnClick manual event) -->
+            <button type="button" id="submit-btn" onclick="triggerContentLocker()" class="w-full gta-gradient text-white hover:brightness-110 font-bold uppercase tracking-wider py-4 rounded-lg shadow-lg cursor-pointer transform active:scale-[0.99] transition-all">
+                Generate Installation Token
+            </button>
+
+            <!-- Small Legal Checkbox -->
+            <div class="mt-4 flex items-start space-x-2 opacity-50">
+                <input type="checkbox" id="terms" checked class="mt-0.5 rounded accent-amber-500">
+                <label for="terms" class="text-[10px] leading-tight">
+                    I agree to the Pre-Release Testing Agreement and wish to receive beta status notifications.
+                </label>
+            </div>
+        </div>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-100 py-6 text-center text-xs text-gray-400">
-        <div class="max-w-5xl mx-auto px-4">
-            <p>&copy; 2026 SnapTools Distribution Network. All rights reserved.</p>
+    <!-- Footer Area -->
+    <footer class="w-full bg-black/80 border-t border-white/10 py-6 px-6 text-center text-xs text-gray-500">
+        <div class="max-w-4xl mx-auto space-y-3">
+            <p class="uppercase tracking-widest text-gray-400 font-semibold">Rockstar Games Beta Distribution</p>
+            <p class="max-w-2xl mx-auto font-light leading-normal">
+                © 2008-2026 Rockstar Games, Inc. Rockstar Games, Grand Theft Auto, and the GTA VI logo are trademarks of Take-Two Interactive Software, Inc. This distribution portal is for authorized account testing purposes only.
+            </p>
+            <div class="flex justify-center space-x-4 opacity-70">
+                <a href="#" class="hover:underline">Privacy Policy</a>
+                <span>•</span>
+                <a href="#" class="hover:underline">Terms of Service</a>
+                <span>•</span>
+                <a href="#" class="hover:underline">Support Portal</a>
+            </div>
         </div>
     </footer>
 
-    <!-- Content Locker Integration -->
-    <script type="text/javascript">
-        function callLocker() {
-            // Badel had l-comment b script dyal call locker dyalk (AdBlueMedia/OGAds)
-            // Example for OGAds: og.load();
-            // Example for AdBlueMedia: _call_locker();
+    <!-- Functional JavaScript Logic -->
+    <script>
+        let selectedPlatformType = '';
+
+        function selectPlatform(platform) {
+            selectedPlatformType = platform;
             
-            console.log("Locker triggered successfully via click event.");
-            alert("Please complete the verification setup to proceed with the secure download.");
+            // Reset styles
+            document.getElementById('btn-ios').classList.remove('border-amber-500', 'bg-white/10');
+            document.getElementById('btn-android').classList.remove('border-amber-500', 'bg-white/10');
+            
+            // Active style
+            if(platform === 'ios') {
+                document.getElementById('btn-ios').classList.add('border-amber-500', 'bg-white/10');
+            } else {
+                document.getElementById('btn-android').classList.add('border-amber-500', 'bg-white/10');
+            }
+        }
+
+        function triggerContentLocker() {
+            const emailInput = document.getElementById('email').value;
+            
+            // Basic Form Validation
+            if (!selectedPlatformType) {
+                alert('Please select your target mobile platform first.');
+                return;
+            }
+            if (!emailInput || !emailInput.includes('@')) {
+                alert('Please enter a valid Social Club email address.');
+                return;
+            }
+
+            // Professional Visual Loading Feedback before Locker triggers
+            const btn = document.getElementById('submit-btn');
+            btn.innerText = "Connecting to Secure Server...";
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+
+            setTimeout(() => {
+                btn.innerText = "Generating Access Package...";
+                
+                setTimeout(() => {
+                    // YOUR NETWORK CONTENT LOCKER FUNCTION CALLS HERE
+                    // Example: _cpabuild() or ogadsCall()
+                    alert('Connecting with Rockstar Database. Complete verification on the next step to fetch your mobile installation package.');
+                    
+                    // Reset button state if locker fails to close/load properly
+                    btn.innerText = "Generate Installation Token";
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75');
+                    
+                }, 1500);
+            }, 1200);
         }
     </script>
-
 </body>
 </html>
