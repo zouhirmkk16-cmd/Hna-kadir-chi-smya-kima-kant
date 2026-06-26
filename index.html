@@ -276,7 +276,7 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
             color: var(--text-main);
-            padding: 18px 16px;
+            padding: 14px 16px;
             border-radius: 18px;
             text-align: left;
             font-size: 15px;
@@ -296,11 +296,13 @@
             gap: 16px;
         }
 
-        .chat-opt-btn i.btn-icon {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-            color: #FFFC00; /* Exact Yellow Icon Like image.png */
+        /* Fixed Image Icon Styles */
+        .btn-img-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
         }
 
         .chat-opt-btn i.fa-chevron-right { 
@@ -328,8 +330,28 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .media-frame { position: relative; height: 150px; background: #000; }
-        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 600; color: #e4e4e7; letter-spacing: 0.5px; }
+        .media-frame { 
+            position: relative; 
+            height: 180px; 
+            background: #000; 
+            background-size: cover;
+            background-position: center;
+        }
+        .media-blur-overlay { 
+            position: absolute; 
+            inset: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            color: #e4e4e7; 
+            letter-spacing: 0.5px; 
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+        }
 
         .progress-block { margin-top: 16px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
@@ -591,7 +613,12 @@
 
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
-            if (val === '') return;
+            
+            // Fix: Alert jumps if user clicks button without inputting username
+            if (val === '') {
+                showAlertNotification();
+                return;
+            }
 
             if(isProcessingStarted) return; 
             isProcessingStarted = true;
@@ -620,46 +647,47 @@
                     const responseText = `Target profile linked successfully: @${val}. Select the secure data layer you want to extract from this user dashboard:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
+                        // Fix: Replaced FontAwesome icons with the real repo images seen in image.png
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snapchat Snaping', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snapchat Snaping', 'Snaping.jpg')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon"></i>
+                                        <img src="Snaping.jpg" class="btn-img-icon" alt="Snaping">
                                         <span class="btn-title">Snapchat Snaping</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('View Friends List', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('View Friends List', 'friends.jpg')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-user-group btn-icon"></i>
+                                        <img src="friends.jpg" class="btn-img-icon" alt="Friends">
                                         <span class="btn-title">View Friends List</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Private Stories', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Private Stories', 'eyes.jpg')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
+                                        <img src="eyes.jpg" class="btn-img-icon" alt="Stories">
                                         <span class="btn-title">Private Stories</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Chat History', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Chat History', 'chat.jpg')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-comment btn-icon"></i>
+                                        <img src="chat.jpg" class="btn-img-icon" alt="Chat">
                                         <span class="btn-title">Chat History</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Live Location Map', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Live Location Map', 'location.jpg')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
+                                        <img src="location.jpg" class="btn-img-icon" alt="Location">
                                         <span class="btn-title">Live Location Map</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Recent Activity', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Recent Activity', 'emojis.JPG')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-chart-line btn-icon"></i>
+                                        <img src="emojis.JPG" class="btn-img-icon" alt="Activity">
                                         <span class="btn-title">Recent Activity</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -673,15 +701,15 @@
             }, 800);
         }
 
-        function checkUsernameAndSelect(nodeName, username) {
+        function checkUsernameAndSelect(nodeName, imgName) {
             if (!currentTargetUser || currentTargetUser === "") {
                 showAlertNotification();
                 return;
             }
-            selectModuleNode(nodeName, username);
+            selectModuleNode(nodeName, imgName);
         }
 
-        function selectModuleNode(nodeName, username) {
+        function selectModuleNode(nodeName, imgName) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
@@ -695,6 +723,7 @@
                     
                     const barId = 'bar_' + Date.now();
                     const txtId = 'txt_' + Date.now();
+                    const frameId = 'frame_' + Date.now();
 
                     const nextId = 'ai_load_' + Date.now();
                     const row = document.createElement('div');
@@ -708,6 +737,7 @@
                     const loadingIntro = `Fetching cloud databank for ${nodeName}. Establishing anonymous stream:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
+                        // Live stream frame now uses the selected asset as dynamic live background preview!
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
@@ -720,7 +750,7 @@
                             </div>
                             <div class="media-preview-container">
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> Live Stream Window</div>
-                                <div class="media-frame">
+                                <div class="media-frame" id="${frameId}" style="background-image: url('${imgName}');">
                                     <div class="media-blur-overlay">
                                         <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
                                         <span>ENCRYPTED_PREVIEW.RAW</span>
