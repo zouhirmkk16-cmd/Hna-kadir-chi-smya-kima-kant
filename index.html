@@ -37,10 +37,16 @@
             overflow: hidden;
         }
 
+        /* Container with subtle dark chat pattern (WhatsApp style) */
         .chat-container {
             width: 100%;
             max-width: 480px;
             background: var(--bg-chat);
+            background-image: 
+                radial-gradient(rgba(33, 33, 33, 0.3) 1px, transparent 0),
+                radial-gradient(rgba(33, 33, 33, 0.3) 1px, transparent 0);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -48,7 +54,7 @@
         }
 
         .live-banner {
-            background: #09090b;
+            background: #000000;
             border-bottom: 1px solid var(--border-color);
             padding: 8px 16px;
             font-size: 11px;
@@ -57,6 +63,7 @@
             align-items: center;
             gap: 8px;
             font-weight: 500;
+            z-index: 10;
         }
         
         .live-dot {
@@ -74,7 +81,9 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            background: var(--bg-chat);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 999;
             position: relative;
         }
@@ -97,7 +106,6 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            transition: background 0.2s;
         }
         .menu-toggle-btn:hover { background: var(--bg-bubble-user); }
 
@@ -121,7 +129,7 @@
             letter-spacing: -0.2px;
         }
 
-        /* Professional ChatGPT Dropdown Menu */
+        /* Dropdown Menu */
         .nav-dropdown {
             position: absolute;
             top: 100%;
@@ -147,7 +155,6 @@
             align-items: center;
             justify-content: space-between;
             font-weight: 500;
-            transition: background 0.15s;
         }
         .dropdown-item:hover { background: #212121; }
         .dropdown-item .item-left { display: flex; align-items: center; gap: 12px; }
@@ -162,6 +169,7 @@
             flex-direction: column;
             gap: 24px;
             scroll-behavior: smooth;
+            z-index: 5;
         }
 
         .chat-row {
@@ -174,7 +182,6 @@
             flex-direction: row-reverse; 
         }
 
-        /* Yellow Snapchat Style Bot Avatar */
         .bot-avatar {
             width: 32px;
             height: 32px;
@@ -226,30 +233,32 @@
         .options-box {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             margin-top: 14px;
             width: 100%;
         }
 
+        /* Original Yellow Option Buttons style */
         .chat-opt-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 14px;
-            border-radius: 12px;
+            background: var(--snap-yellow);
+            border: none;
+            color: var(--snap-black);
+            padding: 14px 16px;
+            border-radius: 14px;
             text-align: left;
-            font-size: 13.5px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: background 0.2s;
+            box-shadow: 0 4px 12px rgba(255, 252, 0, 0.15);
+            transition: transform 0.1s ease, opacity 0.2s;
         }
-        .chat-opt-btn:hover { background: var(--bg-bubble-user); }
+        .chat-opt-btn:active { transform: scale(0.98); }
         .chat-opt-btn .btn-title { flex-grow: 1; }
-        .chat-opt-btn i.fa-chevron-right { font-size: 10px; color: #555; }
-        .chat-opt-btn i.btn-icon { color: var(--text-muted); font-size: 14px; width: 16px; text-align: center; }
+        .chat-opt-btn i.fa-chevron-right { font-size: 11px; color: rgba(0,0,0,0.4); }
+        .chat-opt-btn i.btn-icon { color: var(--snap-black); font-size: 15px; width: 16px; text-align: center; }
 
         .media-preview-container {
             border: 1px solid var(--border-color);
@@ -278,7 +287,7 @@
         .progress-block { margin-top: 12px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
         .progress-bar-bg { width: 100%; background: #171717; height: 4px; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--text-main); width: 0%; transition: width 0.05s linear; }
+        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; transition: width 0.05s linear; }
 
         .offer-verification-card {
             border: 1px solid var(--border-color);
@@ -291,6 +300,7 @@
             align-items: center;
             text-align: center;
             gap: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .offer-verification-card h4 { font-size: 16px; font-weight: 600; color: var(--text-main); }
@@ -298,25 +308,27 @@
 
         .gpt-action-btn {
             width: 100%;
-            background: var(--text-main);
-            color: #000;
+            background: var(--snap-yellow);
+            color: var(--snap-black);
             border: none;
-            padding: 12px;
+            padding: 13px;
             border-radius: 24px;
-            font-size: 13.5px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
-            transition: opacity 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 252, 0, 0.2);
         }
-        .gpt-action-btn:hover { opacity: 0.9; }
 
         .chat-input-area { 
             padding: 12px 16px 24px 16px; 
-            background: var(--bg-chat); 
+            background: transparent;
+            z-index: 10;
         }
         
         .input-box-container {
-            background: var(--bg-bubble-user);
+            background: rgba(23, 23, 23, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
             border-radius: 26px;
             display: flex;
@@ -346,11 +358,13 @@
 <body>
 
     <div class="chat-container">
+        <!-- System Line -->
         <div class="live-banner">
             <span class="live-dot"></span>
             <span id="liveStatusText">Secure session status ready</span>
         </div>
 
+        <!-- Clean Header with Working Links -->
         <div class="chat-header">
             <div class="header-left">
                 <button class="menu-toggle-btn" id="menuBtn">
@@ -362,8 +376,9 @@
                 </div>
             </div>
             
+            <!-- Fixed Official Snapchat Redirection Nodes -->
             <div class="nav-dropdown" id="menuDropdown">
-                <a class="dropdown-item" href="https://values.snapchat.com/privacy" target="_blank">
+                <a class="dropdown-item" href="https://www.snapchat.com/privacy" target="_blank">
                     <div class="item-left"><i class="fa-solid fa-user-shield item-icon"></i> Privacy Center</div>
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
@@ -413,7 +428,6 @@
         const typingBubble = document.getElementById('typingBubble');
         const menuBtn = document.getElementById('menuBtn');
         const menuDropdown = document.getElementById('menuDropdown');
-        const liveStatusText = document.getElementById('liveStatusText');
 
         let isProcessingStarted = false;
 
@@ -422,7 +436,6 @@
             'chat': 'chat.jpg', 'location': 'location.jpg', 'feed': 'typing.jpg'
         };
 
-        // Standard event handler to guarantee privacy link clicks pass clean
         menuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             menuDropdown.classList.toggle('show');
