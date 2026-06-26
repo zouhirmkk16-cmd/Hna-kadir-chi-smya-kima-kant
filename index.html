@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SnapTools AI</title>
+    <title>SnapTools Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -11,22 +11,22 @@
         :root {
             --snap-yellow: #FFFC00;
             --snap-black: #000000;
-            --bg-chat: #000000;
-            --bg-workspace: #050505;
-            --bg-bubble-user: #171717;
-            --border-color: #1f1f1f;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --bg-chat: #09090b;
+            --bg-workspace: #020202;
+            --bg-bubble-user: #18181b;
+            --border-color: #27272a;
+            --text-main: #fafafa;
+            --text-muted: #a1a1aa;
             --font-main: 'Plus Jakarta Sans', sans-serif;
         }
 
         [data-theme="light"] {
             --bg-chat: #ffffff;
-            --bg-workspace: #f3f4f6;
-            --bg-bubble-user: #e5e7eb;
-            --border-color: #e5e7eb;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
+            --bg-workspace: #f4f4f5;
+            --bg-bubble-user: #e4e4e7;
+            --border-color: #e4e4e7;
+            --text-main: #09090b;
+            --text-muted: #71717a;
         }
 
         * {
@@ -47,41 +47,30 @@
             transition: background 0.3s;
         }
 
-        /* Luxury Dark Pattern Design (WhatsApp & ChatGPT Blend) */
+        /* High Quality WhatsApp Luxury Chat Doodle Pattern */
         .chat-container {
             width: 100%;
             max-width: 480px;
             background: var(--bg-chat);
             background-image: 
-                linear-gradient(rgba(255, 252, 0, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 252, 0, 0.015) 1px, transparent 1px);
-            background-size: 20px 20px;
+                radial-gradient(var(--border-color) 1px, transparent 0),
+                linear-gradient(to right, rgba(255,252,0,0.01) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,252,0,0.01) 1px, transparent 1px);
+            background-size: 24px 24px, 40px 40px, 40px 40px;
             display: flex;
             flex-direction: column;
             height: 100vh;
             position: relative;
         }
 
-        .live-banner {
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 1px solid var(--border-color);
-            padding: 8px 16px;
-            font-size: 11px;
-            color: #9ca3af;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            z-index: 10;
-        }
-        
-        .live-dot {
-            width: 6px;
-            height: 6px;
-            background: #22c55e;
-            border-radius: 50%;
-            display: inline-block;
-            flex-shrink: 0;
+        /* Ambient subtle shapes background glow overlay */
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%2327272a' fill-opacity='0.15'%3E%3Cpath d='M10 15h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zM15 45h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2z'/%3E%3Ccircle cx='40' cy='40' r='1'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
         }
 
         .chat-header {
@@ -90,9 +79,9 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 999;
             position: relative;
         }
@@ -123,28 +112,38 @@
             gap: 10px;
         }
 
-        .page-logo {
-            width: 26px;
-            height: 26px;
-            border-radius: 6px;
-            object-fit: cover;
-            border: 1px solid var(--border-color);
-        }
-
         .ai-brand {
-            font-weight: 600;
-            font-size: 16px;
-            letter-spacing: -0.2px;
+            font-weight: 700;
+            font-size: 19px;
+            letter-spacing: -0.4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .theme-toggle-btn {
-            background: transparent;
-            border: none;
+        .brand-badge {
+            background: #6366f1;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 800;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle-btn, .config-btn {
+            background: #18181b;
+            border: 1px solid var(--border-color);
             color: var(--text-main);
             cursor: pointer;
-            font-size: 16px;
-            width: 36px;
-            height: 36px;
+            font-size: 14px;
+            width: 34px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -156,11 +155,11 @@
             position: absolute;
             top: 100%;
             left: 16px;
-            background: #111111;
+            background: #09090b;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             width: 220px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             display: none;
             flex-direction: column;
             padding: 8px 0;
@@ -178,7 +177,7 @@
             justify-content: space-between;
             font-weight: 500;
         }
-        .dropdown-item:hover { background: #1f1f1f; }
+        .dropdown-item:hover { background: #18181b; }
         .dropdown-item .item-left { display: flex; align-items: center; gap: 12px; }
         .dropdown-item i.item-icon { width: 16px; text-align: center; color: var(--text-muted); font-size: 14px; }
 
@@ -214,25 +213,25 @@
             justify-content: center;
             font-size: 15px;
             flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(255, 252, 0, 0.2);
         }
 
         .msg-bubble {
             padding: 4px 0;
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 15px;
+            line-height: 1.5;
             max-width: 85%;
             color: var(--text-main);
         }
 
         .user-row .msg-bubble {
             background: var(--bg-bubble-user);
-            padding: 12px 16px;
-            border-radius: 20px;
+            padding: 10px 16px;
+            border-radius: 18px;
             max-width: 75%;
+            font-weight: 500;
         }
 
-        .error-bubble { color: #ef4444; }
+        .error-bubble { color: #f43f5e; }
 
         .typing-dots {
             display: inline-flex;
@@ -259,63 +258,63 @@
             width: 100%;
         }
 
-        /* High Conversion Original Yellow Buttons style */
+        /* Exact Layout matching image_3.png and image_4.png options styling */
         .chat-opt-btn {
-            background: var(--snap-yellow);
-            border: none;
-            color: var(--snap-black);
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             padding: 14px 16px;
             border-radius: 14px;
             text-align: left;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 14.5px;
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 4px 12px rgba(255, 252, 0, 0.15);
-            transition: transform 0.1s ease;
+            transition: background 0.2s, transform 0.1s ease;
         }
-        .chat-opt-btn:active { transform: scale(0.98); }
+        .chat-opt-btn:active { transform: scale(0.99); }
         .chat-opt-btn .btn-title { flex-grow: 1; }
-        .chat-opt-btn i.fa-chevron-right { font-size: 11px; color: rgba(0,0,0,0.4); }
-        .chat-opt-btn i.btn-icon { color: var(--snap-black); font-size: 15px; width: 16px; text-align: center; }
+        .chat-opt-btn i.fa-chevron-right { font-size: 11px; color: var(--text-muted); }
+        .chat-opt-btn i.btn-icon { color: var(--snap-yellow); font-size: 15px; width: 16px; text-align: center; }
 
         .media-preview-container {
             border: 1px solid var(--border-color);
             background: var(--bg-bubble-user);
-            border-radius: 12px;
-            margin-top: 12px;
+            border-radius: 14px;
+            margin-top: 14px;
             overflow: hidden;
-            max-width: 280px;
+            max-width: 320px;
         }
 
         .media-header-label {
-            padding: 8px 12px;
-            font-size: 11px;
+            padding: 10px 14px;
+            font-size: 12px;
             color: var(--text-muted);
-            font-weight: 600;
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .media-frame { position: relative; height: 140px; background: #000; }
-        .media-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.15; filter: blur(2px); }
-        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; font-weight: 600; color: #666; }
+        .media-frame { position: relative; height: 160px; background: #000; }
+        .media-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.18; filter: blur(3px); }
+        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 600; color: #a1a1aa; letter-spacing: 0.5px; }
 
-        .progress-block { margin-top: 12px; width: 100%; }
-        .progress-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
-        .progress-bar-bg { width: 100%; background: var(--bg-bubble-user); height: 4px; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; transition: width 0.05s linear; }
+        .progress-block { margin-top: 14px; width: 100%; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
+        .progress-bar-bg { width: 100%; background: var(--border-color); height: 5px; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: #ffffff; width: 0%; transition: width 0.05s linear; }
 
+        /* Exact card match for image_5.png and image_6.png */
         .offer-verification-card {
-            border: 1px solid var(--border-color);
-            background: var(--bg-bubble-user);
-            border-radius: 16px;
-            padding: 24px 16px;
-            margin-top: 12px;
+            border: 1px dashed var(--text-muted);
+            background: transparent;
+            border-radius: 20px;
+            padding: 28px 20px;
+            margin-top: 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -323,20 +322,25 @@
             gap: 14px;
         }
 
-        .offer-verification-card h4 { font-size: 16px; font-weight: 600; color: var(--text-main); }
-        .offer-verification-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+        .offer-verification-card h4 { font-size: 18px; font-weight: 700; color: var(--text-main); }
+        .offer-verification-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+        .verification-icon { color: var(--snap-yellow); font-size: 32px; margin-bottom: 4px; }
 
         .gpt-action-btn {
             width: 100%;
             background: var(--snap-yellow);
             color: var(--snap-black);
             border: none;
-            padding: 13px;
+            padding: 14px;
             border-radius: 24px;
-            font-size: 14px;
+            font-size: 14.5px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 252, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(255, 252, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .chat-input-area { 
@@ -346,28 +350,38 @@
         }
         
         .input-box-container {
-            background: var(--bg-bubble-user);
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
-            border-radius: 26px;
+            border-radius: 28px;
             display: flex;
             align-items: center;
-            padding: 6px 8px 6px 18px;
+            padding: 6px 8px 6px 20px;
         }
-        .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 14px; flex-grow: 1; padding: 6px 0; }
-        .gpt-input::placeholder { color: #555; }
+        .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 14.5px; flex-grow: 1; padding: 8px 0; }
+        .gpt-input::placeholder { color: #52525b; }
         
         .send-btn {
-            width: 32px;
-            height: 32px;
-            background: var(--text-main);
-            color: var(--bg-chat);
+            width: 36px;
+            height: 36px;
+            background: #ffffff;
+            color: #000000;
             border: none;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 14px;
+        }
+
+        .footer-banner {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            letter-spacing: 0.2px;
         }
 
         .hidden-row { display: none !important; }
@@ -376,30 +390,27 @@
 <body>
 
     <div class="chat-container">
-        <!-- System Banner -->
-        <div class="live-banner">
-            <span class="live-dot"></span>
-            <span id="liveStatusText">System core initialized. Secure session status ready.</span>
-        </div>
-
-        <!-- Header Controls -->
+        <!-- Header Controls matching image_3.png -->
         <div class="chat-header">
             <div class="header-left">
                 <button class="menu-toggle-btn" id="menuBtn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="brand-wrapper">
-                    <img src="Logo.JPG" alt="Logo" class="page-logo">
-                    <span class="ai-brand">SnapTools AI</span>
+                    <span class="ai-brand">SnapTools <span class="brand-badge"><i class="fa-solid fa-star"></i></span></span>
                 </div>
             </div>
             
-            <!-- Real Working Theme Switcher -->
-            <button class="theme-toggle-btn" id="themeToggleBtn">
-                <i class="fa-regular fa-moon"></i>
-            </button>
+            <div class="header-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+                <button class="config-btn">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
 
-            <!-- Dropdown Navigation -->
+            <!-- Dropdown Menu Options -->
             <div class="nav-dropdown" id="menuDropdown">
                 <a class="dropdown-item" href="https://www.snapchat.com/privacy" target="_blank">
                     <div class="item-left"><i class="fa-solid fa-user-shield item-icon"></i> Privacy Center</div>
@@ -409,15 +420,11 @@
                     <div class="item-left"><i class="fa-solid fa-file-contract item-icon"></i> Terms of Service</div>
                     <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px; color:#555;"></i>
                 </a>
-                <a class="dropdown-item" href="https://support.snapchat.com/i-need-help" target="_blank">
-                    <div class="item-left"><i class="fa-solid fa-triangle-exclamation item-icon"></i> Report a Concern</div>
-                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px; color:#555;"></i>
-                </a>
             </div>
         </div>
 
         <div class="chat-history" id="chatWindow">
-            <!-- Professional Educational Explainer -->
+            <!-- Exact Text layout matching image_3.png -->
             <div class="chat-row ai-row" id="welcomeMsg">
                 <div class="bot-avatar"><i class="fa-brands fa-snapchat"></i></div>
                 <div class="msg-bubble" id="welcomeText"></div>
@@ -431,11 +438,12 @@
 
         <div class="chat-input-area">
             <div class="input-box-container">
-                <input type="text" class="gpt-input" id="userInputField" placeholder="Enter target profile username..." autocomplete="off">
+                <input type="text" class="gpt-input" id="userInputField" placeholder="Enter target Snapchat username..." autocomplete="off">
                 <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
             </div>
+            <div class="footer-banner">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
         </div>
     </div>
 
@@ -451,11 +459,11 @@
         let isProcessingStarted = false;
 
         const assetMap = {
-            'radar': 'Snaping.jpg', 'friends': 'friends.jpg', 'vault': 'eyes.jpg',
-            'chat': 'chat.jpg', 'location': 'location.jpg', 'feed': 'typing.jpg'
+            'snaping': 'Snaping.jpg', 'friends': 'friends.jpg', 'stories': 'eyes.jpg',
+            'chat': 'chat.jpg', 'location': 'location.jpg', 'activity': 'typing.jpg'
         };
 
-        // Theme Toggle Functionality
+        // Real Theme Selector Node Switching
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             if (currentTheme === 'light') {
@@ -476,7 +484,7 @@
             menuDropdown.classList.remove('show');
         });
 
-        function typeWriterEffect(elementId, text, speed = 12, callback = null) {
+        function typeWriterEffect(elementId, text, speed = 10, callback = null) {
             let i = 0;
             const element = document.getElementById(elementId);
             element.innerHTML = '';
@@ -494,9 +502,8 @@
         }
 
         window.onload = () => {
-            // Highly professional explanation that details the surveillance mapping parameters cleanly.
-            const explanation = "Welcome to SnapTools AI. Our engine executes decentralized cloud-based database structural routing. Input a verified database user identifier below to map remote servers, active data logs, communications, and live telemetry tracking sequences safely.";
-            typeWriterEffect("welcomeText", explanation, 10);
+            const explanation = "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.";
+            typeWriterEffect("welcomeText", explanation, 12);
         };
 
         userInputField.addEventListener('keydown', (e) => { 
@@ -523,7 +530,7 @@
             const row = document.createElement('div');
             row.className = 'chat-row ai-row';
             row.innerHTML = `
-                <div class="bot-avatar" style="background:#171717; color:#ef4444;"><i class="fa-solid fa-circle-exclamation"></i></div>
+                <div class="bot-avatar" style="background:#18181b; color:#f43f5e;"><i class="fa-solid fa-circle-exclamation"></i></div>
                 <div class="msg-bubble error-bubble">${text}</div>
             `;
             chatWindow.appendChild(row);
@@ -533,7 +540,7 @@
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
             if (val === '') {
-                appendErrorMessage("Please enter a valid target profile username.");
+                appendErrorMessage("Please enter a target account name.");
                 return;
             }
 
@@ -560,17 +567,17 @@
                     `;
                     chatWindow.appendChild(row);
                     
-                    const responseText = `Database structural routing index mapped successfully for target profile: @${val}. Choose a direct partition block parameter to deploy tracing:`;
+                    const responseText = `Target profile linked successfully: @${val}. Select the secure data layer you want to extract from this user dashboard:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Overview Matrix Extraction', 'radar')"><i class="fa-solid fa-chart-pie btn-icon"></i><span class="btn-title">Overview Matrix Extraction</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Contact Index Logs', 'friends')"><i class="fa-solid fa-address-book btn-icon"></i><span class="btn-title">Contact Index Logs</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Vault Storage Decryption', 'vault')"><i class="fa-solid fa-folder-open btn-icon"></i><span class="btn-title">Vault Storage Decryption</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Communication Streams Mirroring', 'chat')"><i class="fa-solid fa-receipt btn-icon"></i><span class="btn-title">Communication Streams Mirroring</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Telemetry Coordinates Tracking', 'location')"><i class="fa-solid fa-earth-americas btn-icon"></i><span class="btn-title">Telemetry Coordinates Tracking</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Activity Timelines Capture', 'feed')"><i class="fa-solid fa-list-check btn-icon"></i><span class="btn-title">Activity Timelines Capture</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping', 'snaping', '${val}')"><i class="fa-solid fa-bolt btn-icon"></i><span class="btn-title">Snapchat Snaping</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List', 'friends', '${val}')"><i class="fa-solid fa-user-group btn-icon"></i><span class="btn-title">View Friends List</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories', 'stories', '${val}')"><i class="fa-solid fa-eye-slash btn-icon"></i><span class="btn-title">Private Stories</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Chat History', 'chat', '${val}')"><i class="fa-solid fa-comment-dots btn-icon"></i><span class="btn-title">Chat History</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map', 'location', '${val}')"><i class="fa-solid fa-map-location-dot btn-icon"></i><span class="btn-title">Live Location Map</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity', 'activity', '${val}')"><i class="fa-solid fa-chart-line btn-icon"></i><span class="btn-title">Recent Activity</span><i class="fa-solid fa-chevron-right"></i></button>
                             </div>
                         `;
                         document.getElementById(nextId).innerHTML += optionsHtml;
@@ -580,11 +587,11 @@
             }, 800);
         }
 
-        function selectModuleNode(nodeName, assetKey) {
+        function selectModuleNode(nodeName, assetKey, username) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
-            appendUserMessage(`Execute Node: ${nodeName}`);
+            appendUserMessage(nodeName);
 
             setTimeout(() => {
                 showTyping();
@@ -605,13 +612,14 @@
                     `;
                     chatWindow.appendChild(row);
 
-                    const loadingIntro = `Syncing encrypted protocol buffers for ${nodeName}:`;
+                    // Exact matching loading statement layout from image_5.png
+                    const loadingIntro = `Fetching cloud databank for ${nodeName}. Establishing anonymous stream:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
-                                    <span>Compiling structural directories...</span>
+                                    <span>Downloading remote assets...</span>
                                     <span id="${txtId}" style="font-weight:600;">0%</span>
                                 </div>
                                 <div class="progress-bar-bg">
@@ -619,12 +627,12 @@
                                 </div>
                             </div>
                             <div class="media-preview-container">
-                                <div class="media-header-label"><i class="fa-solid fa-network-wired"></i> Server Remote Feed Image</div>
+                                <div class="media-header-label"><i class="fa-regular fa-eye"></i> Live Stream Window</div>
                                 <div class="media-frame">
-                                    <img src="${targetImg}" alt="Stream">
+                                    <img src="${targetImg}" alt="Feed Window">
                                     <div class="media-blur-overlay">
-                                        <i class="fa-solid fa-lock" style="font-size:14px; margin-bottom: 2px;"></i>
-                                        <span>ENCRYPTED_FRAME</span>
+                                        <i class="fa-solid fa-lock" style="font-size:16px; margin-bottom: 4px;"></i>
+                                        <span>ENCRYPTED_PREVIEW.RAW</span>
                                     </div>
                                 </div>
                             </div>
@@ -663,12 +671,14 @@
                             `;
                             chatWindow.appendChild(row);
 
+                            // Exact match from image_6.png layout script card
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
-                                    <h4>Final Client Verification Required</h4>
-                                    <p>The parameter mapping has finished successfully. To display the tracked server parameters and decrypted data feed logs, please complete the verification script pass form below.</p>
+                                    <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
+                                    <h4>Human Verification Required</h4>
+                                    <p>The network protocol achieved 100% stable connection. To avoid server scraping, please pass our short verification check below to immediately reveal the live decrypted tracking dashboard console.</p>
                                     <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
-                                        Continue to Decrypted Feed
+                                        <i class="fa-solid fa-key"></i> Pass Verification
                                     </button>
                                 </div>
                             `;
@@ -677,7 +687,7 @@
                         }, 1000);
                     }, 400);
                 }
-            }, 25);
+            }, 30);
         }
 
         function redirectToOgadsLocker() {
