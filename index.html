@@ -154,9 +154,8 @@
             border-bottom: 1px solid var(--border-color);
         }
         .menu-item:last-child { border-bottom: none; }
-        .menu-item:hover { background: var(--bg-bubble-user); }
+        .menu-item:hover { background: var(--bg-bubble-user); color: var(--snap-yellow); }
 
-        /* Absolute alert banner fix to prevent screen lagging */
         .custom-alert {
             position: absolute;
             top: 0;
@@ -264,7 +263,6 @@
             gap: 14px;
         }
 
-        /* Pristine clean images matching image_7.png names */
         .btn-img-icon {
             width: 24px;
             height: 24px;
@@ -302,7 +300,30 @@
         }
 
         .media-frame { position: relative; height: 150px; background: #000; }
-        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 600; color: #e4e4e7; letter-spacing: 0.5px; }
+        
+        /* Clear image structure in stage 2 with a neat blur + lock overlay */
+        .media-frame-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(12px);
+            opacity: 0.4;
+        }
+
+        .media-blur-overlay { 
+            position: absolute; 
+            inset: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            color: #e4e4e7; 
+            letter-spacing: 0.5px; 
+            background: rgba(0, 0, 0, 0.4);
+        }
 
         .offer-verification-card {
             border: 1px dashed var(--text-muted);
@@ -396,7 +417,6 @@
 
         <div class="chat-header">
             <div class="header-left">
-                <!-- Restored working menu bars functionality -->
                 <button class="menu-bars-btn" onclick="toggleSnapMenu(event)">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -412,8 +432,8 @@
         </div>
 
         <div class="snap-dropdown-menu" id="snapMenu">
-            <div class="menu-item"><i class="fa-solid fa-shield"></i> Privacy Console</div>
-            <div class="menu-item"><i class="fa-solid fa-server"></i> System Status</div>
+            <div class="menu-item" onclick="window.open('https://snapchat.com', '_blank')"><i class="fa-solid fa-shield"></i> Privacy Console</div>
+            <div class="menu-item" onclick="window.open('https://snapchat.com', '_blank')"><i class="fa-solid fa-server"></i> System Status</div>
         </div>
 
         <div class="chat-history" id="chatWindow">
@@ -450,6 +470,17 @@
         let isProcessingStarted = false;
         let currentTargetUser = "";
         let alertTimeout = null;
+
+        // Image dictionary for dynamic stage-2 preview blurring
+        const imageFileMapping = {
+            'Snapchat Snaping': 'Snaping.jpg',
+            'View Friends List': 'friends.jpg',
+            'Private Stories': 'eyes.jpg',
+            'Chat History': 'chat.jpg',
+            'Live Location Map': 'location.jpg',
+            'Recent Activity': 'typing.jpg',
+            'Camera Access': 'Camera.JPG'
+        };
 
         document.body.setAttribute('data-theme', 'dark');
         
@@ -533,7 +564,6 @@
                     const responseText = `Target profile linked successfully: @${val}. Select the secure data layer you want to extract from this user dashboard:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
-                        // Restored explicit image mapping from image_7.png
                         const optionsHtml = `
                             <div class="options-box">
                                 <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping')">
@@ -578,6 +608,13 @@
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Camera Access')">
+                                    <div class="btn-left-content">
+                                        <img src="Camera.JPG" class="btn-img-icon" alt="Camera">
+                                        <span class="btn-title">Camera Access</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
                             </div>
                         `;
                         document.getElementById(nextId).innerHTML += optionsHtml;
@@ -618,6 +655,7 @@
                     chatWindow.appendChild(row);
 
                     const loadingIntro = `Fetching cloud databank for ${nodeName}. Establishing anonymous stream:`;
+                    const selectedImg = imageFileMapping[nodeName] || 'Logo.JPG';
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
                         const loadingHtml = `
@@ -633,8 +671,9 @@
                             <div class="media-preview-container">
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> Live Stream Window</div>
                                 <div class="media-frame">
+                                    <img src="${selectedImg}" class="media-frame-img" alt="Preview Background">
                                     <div class="media-blur-overlay">
-                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
+                                        <i class="fa-solid fa-lock" style="font-size:20px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
                                         <span>ENCRYPTED_PREVIEW.RAW</span>
                                     </div>
                                 </div>
