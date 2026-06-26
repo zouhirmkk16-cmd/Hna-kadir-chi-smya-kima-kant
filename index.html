@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Built-in strict viewport bounds to fully resolve dynamic zoom shifts and screen lagging -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SnapTools</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome fixed layout link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -184,7 +186,6 @@
         .menu-item:last-child { border-bottom: none; }
         .menu-item:hover, .menu-item:active { background: var(--bg-bubble-user); }
         .menu-item i { color: var(--snap-yellow); width: 16px; text-align: center; font-size: 14px; }
-        [data-theme="light"] .menu-item i { color: #000000; }
 
         .chat-history {
             flex: 1;
@@ -262,7 +263,7 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-        /* Exact design layout matching your uploaded image dashboard look */
+        /* Exact design layout matching image.png dashboard look */
         .options-box {
             display: flex;
             flex-direction: column;
@@ -295,15 +296,12 @@
             gap: 16px;
         }
 
-        /* Direct specific colors matching the unique screenshot items */
         .chat-opt-btn i.btn-icon {
             font-size: 16px;
             width: 20px;
             text-align: center;
+            color: #FFFC00; /* Exact Yellow Icon Like image.png */
         }
-        
-        /* Yellow tone specific styling for matching icons inside dark theme container */
-        .icon-yellow { color: #FFFC00; }
 
         .chat-opt-btn i.fa-chevron-right { 
             font-size: 13px; 
@@ -417,9 +415,40 @@
         }
 
         .hidden-row { display: none !important; }
+
+        /* Custom Notification Alert Modal */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #ff4444;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            z-index: 9999;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .custom-alert.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Notification Top Alert Box -->
+    <div class="custom-alert" id="errorAlert">
+        <i class="fa-solid fa-circle-exclamation"></i> Please enter target Snapchat username first!
+    </div>
 
     <div class="chat-container">
         <div class="chat-header">
@@ -480,6 +509,7 @@
         const typingBubble = document.getElementById('typingBubble');
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const snapMenu = document.getElementById('snapMenu');
+        const errorAlert = document.getElementById('errorAlert');
 
         let isProcessingStarted = false;
         let currentTargetUser = "";
@@ -552,6 +582,13 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
+        function showAlertNotification() {
+            errorAlert.classList.add('show');
+            setTimeout(() => {
+                errorAlert.classList.remove('show');
+            }, 3000);
+        }
+
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
             if (val === '') return;
@@ -583,47 +620,46 @@
                     const responseText = `Target profile linked successfully: @${val}. Select the secure data layer you want to extract from this user dashboard:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
-                        // The exact matching choices dashboard items as viewed on image template
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snapchat Snaping', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon icon-yellow"></i>
+                                        <i class="fa-solid fa-bolt btn-icon"></i>
                                         <span class="btn-title">Snapchat Snaping</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('View Friends List', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-user-group btn-icon icon-yellow"></i>
+                                        <i class="fa-solid fa-user-group btn-icon"></i>
                                         <span class="btn-title">View Friends List</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Private Stories', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-eye-slash btn-icon icon-yellow"></i>
+                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
                                         <span class="btn-title">Private Stories</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Chat History', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Chat History', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-comment btn-icon icon-yellow"></i>
+                                        <i class="fa-solid fa-comment btn-icon"></i>
                                         <span class="btn-title">Chat History</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Live Location Map', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-map-location-dot btn-icon icon-yellow"></i>
+                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
                                         <span class="btn-title">Live Location Map</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity', '${val}')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Recent Activity', '${val}')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-chart-line btn-icon icon-yellow"></i>
+                                        <i class="fa-solid fa-chart-line btn-icon"></i>
                                         <span class="btn-title">Recent Activity</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -637,12 +673,15 @@
             }, 800);
         }
 
-        function selectModuleNode(nodeName, username) {
+        function checkUsernameAndSelect(nodeName, username) {
             if (!currentTargetUser || currentTargetUser === "") {
-                alert("Please enter the target Snapchat username first!");
+                showAlertNotification();
                 return;
             }
+            selectModuleNode(nodeName, username);
+        }
 
+        function selectModuleNode(nodeName, username) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
