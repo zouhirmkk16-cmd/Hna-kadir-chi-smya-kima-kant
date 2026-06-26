@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Built-in strict viewport bounds to fully resolve dynamic zoom shifts and screen lagging -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SnapTools Pro</title>
+    <title>SnapTools</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -13,20 +14,11 @@
             --snap-black: #000000;
             --bg-chat: #09090b;
             --bg-workspace: #020202;
-            --bg-bubble-user: #18181b;
+            --bg-bubble-user: #1c1c1e;
             --border-color: #27272a;
             --text-main: #fafafa;
-            --text-muted: #a1a1aa;
-            --font-main: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        [data-theme="light"] {
-            --bg-chat: #ffffff;
-            --bg-workspace: #f4f4f5;
-            --bg-bubble-user: #e4e4e7;
-            --border-color: #e4e4e7;
-            --text-main: #09090b;
             --text-muted: #71717a;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
         }
 
         * {
@@ -35,6 +27,7 @@
             padding: 0;
             font-family: var(--font-main);
             -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         body {
@@ -44,10 +37,9 @@
             justify-content: center;
             height: 100vh;
             overflow: hidden;
-            transition: background 0.3s;
         }
 
-        /* High Quality WhatsApp Luxury Chat Doodle Pattern */
+        /* Fixed viewport wrapper ensuring zero layout shifting or dynamic device lags on tap events */
         .chat-container {
             width: 100%;
             max-width: 480px;
@@ -61,135 +53,93 @@
             flex-direction: column;
             height: 100vh;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Ambient subtle shapes background glow overlay */
+        /* Subtle luxury chat background overlay */
         .chat-container::before {
             content: '';
             position: absolute;
             inset: 0;
-            opacity: 0.4;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%2327272a' fill-opacity='0.15'%3E%3Cpath d='M10 15h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zM15 45h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2z'/%3E%3Ccircle cx='40' cy='40' r='1'/%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%2327272a' fill-opacity='0.12'%3E%3Cpath d='M10 15h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zM15 45h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2z'/%3E%3C/g%3E%3C/svg%3E");
             pointer-events: none;
         }
 
+        /* Exact layout match for Top Bar Header from image_3.png */
         .chat-header {
-            padding: 14px 16px;
+            padding: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(9, 9, 11, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            z-index: 999;
+            background: #09090b;
+            z-index: 99;
             position: relative;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-
-        .menu-toggle-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            cursor: pointer;
-            font-size: 18px;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
         }
 
         .brand-wrapper {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .ai-brand {
             font-weight: 700;
-            font-size: 19px;
-            letter-spacing: -0.4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .brand-badge {
-            background: #6366f1;
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 6px;
-            font-weight: 800;
-        }
-
-        .header-actions {
+            font-size: 22px;
+            letter-spacing: -0.5px;
+            color: #ffffff;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .theme-toggle-btn, .config-btn {
-            background: #18181b;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            cursor: pointer;
-            font-size: 14px;
-            width: 34px;
-            height: 34px;
+        /* Premium star layout element matching exact layout bounds */
+        .brand-badge {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            color: white;
+            font-size: 11px;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
         }
 
-        /* Dropdown Node Menu */
-        .nav-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 16px;
-            background: #09090b;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            width: 220px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            display: none;
-            flex-direction: column;
-            padding: 8px 0;
-            z-index: 9999;
-        }
-        .nav-dropdown.show { display: flex; }
-        
-        .dropdown-item {
-            padding: 12px 16px;
-            font-size: 13.5px;
-            color: #ffffff;
-            text-decoration: none;
+        .header-actions {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            font-weight: 500;
         }
-        .dropdown-item:hover { background: #18181b; }
-        .dropdown-item .item-left { display: flex; align-items: center; gap: 12px; }
-        .dropdown-item i.item-icon { width: 16px; text-align: center; color: var(--text-muted); font-size: 14px; }
+
+        .config-btn {
+            background: #1c1c1e;
+            border: none;
+            color: #a1a1aa;
+            font-size: 16px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
 
         .chat-history {
             flex: 1;
             overflow-y: auto;
-            padding: 20px 16px;
+            padding: 10px 16px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            scroll-behavior: smooth;
+            gap: 22px;
             z-index: 5;
+            -webkit-overflow-scrolling: touch;
         }
 
         .chat-row {
@@ -203,46 +153,44 @@
         }
 
         .bot-avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             background: var(--snap-yellow);
             color: var(--snap-black);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 18px;
             flex-shrink: 0;
         }
 
         .msg-bubble {
-            padding: 4px 0;
             font-size: 15px;
             line-height: 1.5;
             max-width: 85%;
-            color: var(--text-main);
+            color: #ffffff;
+            padding-top: 6px;
         }
 
         .user-row .msg-bubble {
-            background: var(--bg-bubble-user);
-            padding: 10px 16px;
+            background: #2c2c2e;
+            padding: 12px 18px;
             border-radius: 18px;
             max-width: 75%;
             font-weight: 500;
         }
 
-        .error-bubble { color: #f43f5e; }
-
         .typing-dots {
             display: inline-flex;
             gap: 4px;
             align-items: center;
-            padding: 6px 0;
+            padding: 8px 0;
         }
         .typing-dots span {
             width: 6px;
             height: 6px;
-            background: var(--text-muted);
+            background: #a1a1aa;
             border-radius: 50%;
             animation: bounceDot 1.4s infinite ease-in-out both;
         }
@@ -253,45 +201,46 @@
         .options-box {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 14px;
+            gap: 12px;
+            margin-top: 16px;
             width: 100%;
         }
 
-        /* Exact Layout matching image_3.png and image_4.png options styling */
+        /* High-conversion dashboard menu options layout match */
         .chat-opt-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 14px 16px;
-            border-radius: 14px;
+            background: #111111;
+            border: 1px solid #222222;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 16px;
             text-align: left;
-            font-size: 14.5px;
+            font-size: 15px;
             font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             transition: background 0.2s, transform 0.1s ease;
+            width: 100%;
         }
-        .chat-opt-btn:active { transform: scale(0.99); }
+        .chat-opt-btn:active { transform: scale(0.98); background: #1c1c1e; }
         .chat-opt-btn .btn-title { flex-grow: 1; }
-        .chat-opt-btn i.fa-chevron-right { font-size: 11px; color: var(--text-muted); }
-        .chat-opt-btn i.btn-icon { color: var(--snap-yellow); font-size: 15px; width: 16px; text-align: center; }
+        .chat-opt-btn i.fa-chevron-right { font-size: 12px; color: #52525b; }
+        .chat-opt-btn i.btn-icon { color: var(--snap-yellow); font-size: 16px; width: 20px; text-align: center; }
 
         .media-preview-container {
             border: 1px solid var(--border-color);
-            background: var(--bg-bubble-user);
-            border-radius: 14px;
-            margin-top: 14px;
+            background: #111111;
+            border-radius: 16px;
+            margin-top: 16px;
             overflow: hidden;
-            max-width: 320px;
+            max-width: 100%;
         }
 
         .media-header-label {
-            padding: 10px 14px;
-            font-size: 12px;
-            color: var(--text-muted);
+            padding: 12px 16px;
+            font-size: 13px;
+            color: #a1a1aa;
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -299,72 +248,70 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .media-frame { position: relative; height: 160px; background: #000; }
-        .media-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.18; filter: blur(3px); }
-        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 600; color: #a1a1aa; letter-spacing: 0.5px; }
+        .media-frame { position: relative; height: 150px; background: #000; }
+        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 600; color: #e4e4e7; letter-spacing: 0.5px; }
 
-        .progress-block { margin-top: 14px; width: 100%; }
-        .progress-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
-        .progress-bar-bg { width: 100%; background: var(--border-color); height: 5px; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: #ffffff; width: 0%; transition: width 0.05s linear; }
+        .progress-block { margin-top: 16px; width: 100%; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: #ffffff; margin-bottom: 8px; font-weight: 500; }
+        .progress-bar-bg { width: 100%; background: #27272a; height: 4px; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: #ffffff; width: 0%; }
 
-        /* Exact card match for image_5.png and image_6.png */
+        /* Exact structural element for verification screen card component */
         .offer-verification-card {
-            border: 1px dashed var(--text-muted);
+            border: 1px dashed #3f3f46;
             background: transparent;
             border-radius: 20px;
-            padding: 28px 20px;
-            margin-top: 14px;
+            padding: 32px 20px;
+            margin-top: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 14px;
+            gap: 16px;
+            width: 100%;
         }
 
-        .offer-verification-card h4 { font-size: 18px; font-weight: 700; color: var(--text-main); }
-        .offer-verification-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
-        .verification-icon { color: var(--snap-yellow); font-size: 32px; margin-bottom: 4px; }
+        .offer-verification-card h4 { font-size: 19px; font-weight: 700; color: #ffffff; }
+        .offer-verification-card p { font-size: 14px; color: #a1a1aa; line-height: 1.6; }
+        .verification-icon { color: var(--snap-yellow); font-size: 36px; }
 
         .gpt-action-btn {
             width: 100%;
             background: var(--snap-yellow);
             color: var(--snap-black);
             border: none;
-            padding: 14px;
-            border-radius: 24px;
-            font-size: 14.5px;
+            padding: 16px;
+            border-radius: 28px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 252, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            margin-top: 8px;
         }
 
         .chat-input-area { 
-            padding: 12px 16px 24px 16px; 
-            background: transparent;
+            padding: 12px 16px 20px 16px; 
+            background: #09090b;
             z-index: 10;
         }
         
         .input-box-container {
-            background: rgba(24, 24, 27, 0.8);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: #111111;
             border: 1px solid var(--border-color);
-            border-radius: 28px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             padding: 6px 8px 6px 20px;
         }
-        .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 14.5px; flex-grow: 1; padding: 8px 0; }
+        .gpt-input { background: transparent; border: none; outline: none; color: #ffffff; font-size: 15px; flex-grow: 1; padding: 10px 0; }
         .gpt-input::placeholder { color: #52525b; }
         
         .send-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             background: #ffffff;
             color: #000000;
             border: none;
@@ -373,15 +320,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 16px;
+            flex-shrink: 0;
         }
 
         .footer-banner {
             text-align: center;
             font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 10px;
-            letter-spacing: 0.2px;
+            color: #52525b;
+            margin-top: 14px;
+            font-weight: 400;
         }
 
         .hidden-row { display: none !important; }
@@ -390,41 +338,21 @@
 <body>
 
     <div class="chat-container">
-        <!-- Header Controls matching image_3.png -->
+        <!-- Reverted Layout Top Header from original image references -->
         <div class="chat-header">
             <div class="header-left">
-                <button class="menu-toggle-btn" id="menuBtn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
                 <div class="brand-wrapper">
                     <span class="ai-brand">SnapTools <span class="brand-badge"><i class="fa-solid fa-star"></i></span></span>
                 </div>
             </div>
-            
             <div class="header-actions">
-                <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme">
-                    <i class="fa-regular fa-moon"></i>
-                </button>
                 <button class="config-btn">
                     <i class="fa-solid fa-gear"></i>
                 </button>
             </div>
-
-            <!-- Dropdown Menu Options -->
-            <div class="nav-dropdown" id="menuDropdown">
-                <a class="dropdown-item" href="https://www.snapchat.com/privacy" target="_blank">
-                    <div class="item-left"><i class="fa-solid fa-user-shield item-icon"></i> Privacy Center</div>
-                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px; color:#555;"></i>
-                </a>
-                <a class="dropdown-item" href="https://snap.com/terms" target="_blank">
-                    <div class="item-left"><i class="fa-solid fa-file-contract item-icon"></i> Terms of Service</div>
-                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px; color:#555;"></i>
-                </a>
-            </div>
         </div>
 
         <div class="chat-history" id="chatWindow">
-            <!-- Exact Text layout matching image_3.png -->
             <div class="chat-row ai-row" id="welcomeMsg">
                 <div class="bot-avatar"><i class="fa-brands fa-snapchat"></i></div>
                 <div class="msg-bubble" id="welcomeText"></div>
@@ -443,6 +371,7 @@
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
             </div>
+            <!-- Restored original exact dashboard layout string -->
             <div class="footer-banner">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
         </div>
     </div>
@@ -452,39 +381,10 @@
         const userInputField = document.getElementById('userInputField');
         const sendBtn = document.getElementById('sendBtn');
         const typingBubble = document.getElementById('typingBubble');
-        const menuBtn = document.getElementById('menuBtn');
-        const menuDropdown = document.getElementById('menuDropdown');
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
 
         let isProcessingStarted = false;
 
-        const assetMap = {
-            'snaping': 'Snaping.jpg', 'friends': 'friends.jpg', 'stories': 'eyes.jpg',
-            'chat': 'chat.jpg', 'location': 'location.jpg', 'activity': 'typing.jpg'
-        };
-
-        // Real Theme Selector Node Switching
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                themeToggleBtn.innerHTML = '<i class="fa-regular fa-moon"></i>';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-            }
-        });
-
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            menuDropdown.classList.toggle('show');
-        });
-
-        document.addEventListener('click', () => {
-            menuDropdown.classList.remove('show');
-        });
-
-        function typeWriterEffect(elementId, text, speed = 10, callback = null) {
+        function typeWriterEffect(elementId, text, speed = 12, callback = null) {
             let i = 0;
             const element = document.getElementById(elementId);
             element.innerHTML = '';
@@ -526,23 +426,9 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        function appendErrorMessage(text) {
-            const row = document.createElement('div');
-            row.className = 'chat-row ai-row';
-            row.innerHTML = `
-                <div class="bot-avatar" style="background:#18181b; color:#f43f5e;"><i class="fa-solid fa-circle-exclamation"></i></div>
-                <div class="msg-bubble error-bubble">${text}</div>
-            `;
-            chatWindow.appendChild(row);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
-            if (val === '') {
-                appendErrorMessage("Please enter a target account name.");
-                return;
-            }
+            if (val === '') return;
 
             if(isProcessingStarted) return; 
             isProcessingStarted = true;
@@ -572,12 +458,12 @@
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping', 'snaping', '${val}')"><i class="fa-solid fa-bolt btn-icon"></i><span class="btn-title">Snapchat Snaping</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List', 'friends', '${val}')"><i class="fa-solid fa-user-group btn-icon"></i><span class="btn-title">View Friends List</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories', 'stories', '${val}')"><i class="fa-solid fa-eye-slash btn-icon"></i><span class="btn-title">Private Stories</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Chat History', 'chat', '${val}')"><i class="fa-solid fa-comment-dots btn-icon"></i><span class="btn-title">Chat History</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map', 'location', '${val}')"><i class="fa-solid fa-map-location-dot btn-icon"></i><span class="btn-title">Live Location Map</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity', 'activity', '${val}')"><i class="fa-solid fa-chart-line btn-icon"></i><span class="btn-title">Recent Activity</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping', '${val}')"><i class="fa-solid fa-bolt btn-icon"></i><span class="btn-title">Snapchat Snaping</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List', '${val}')"><i class="fa-solid fa-user-group btn-icon"></i><span class="btn-title">View Friends List</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories', '${val}')"><i class="fa-solid fa-eye-slash btn-icon"></i><span class="btn-title">Private Stories</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Chat History', '${val}')"><i class="fa-solid fa-comment-dots btn-icon"></i><span class="btn-title">Chat History</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map', '${val}')"><i class="fa-solid fa-map-location-dot btn-icon"></i><span class="btn-title">Live Location Map</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity', '${val}')"><i class="fa-solid fa-chart-line btn-icon"></i><span class="btn-title">Recent Activity</span><i class="fa-solid fa-chevron-right"></i></button>
                             </div>
                         `;
                         document.getElementById(nextId).innerHTML += optionsHtml;
@@ -587,7 +473,7 @@
             }, 800);
         }
 
-        function selectModuleNode(nodeName, assetKey, username) {
+        function selectModuleNode(nodeName, username) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
@@ -601,7 +487,6 @@
                     
                     const barId = 'bar_' + Date.now();
                     const txtId = 'txt_' + Date.now();
-                    const targetImg = assetMap[assetKey] || 'emojis.JPG';
 
                     const nextId = 'ai_load_' + Date.now();
                     const row = document.createElement('div');
@@ -612,7 +497,6 @@
                     `;
                     chatWindow.appendChild(row);
 
-                    // Exact matching loading statement layout from image_5.png
                     const loadingIntro = `Fetching cloud databank for ${nodeName}. Establishing anonymous stream:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
@@ -629,9 +513,8 @@
                             <div class="media-preview-container">
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> Live Stream Window</div>
                                 <div class="media-frame">
-                                    <img src="${targetImg}" alt="Feed Window">
                                     <div class="media-blur-overlay">
-                                        <i class="fa-solid fa-lock" style="font-size:16px; margin-bottom: 4px;"></i>
+                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
                                         <span>ENCRYPTED_PREVIEW.RAW</span>
                                     </div>
                                 </div>
@@ -671,7 +554,6 @@
                             `;
                             chatWindow.appendChild(row);
 
-                            // Exact match from image_6.png layout script card
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
                                     <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
@@ -687,7 +569,7 @@
                         }, 1000);
                     }, 400);
                 }
-            }, 30);
+            }, 35);
         }
 
         function redirectToOgadsLocker() {
