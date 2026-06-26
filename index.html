@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Built-in strict viewport bounds to fully resolve dynamic zoom shifts and screen lagging -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SnapTools</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome fixed layout link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -23,6 +25,7 @@
             --menu-bg: rgba(9, 9, 11, 0.95);
         }
 
+        /* Light Theme Colors */
         [data-theme="light"] {
             --bg-chat: #f4f4f5;
             --bg-workspace: #e4e4e7;
@@ -51,19 +54,33 @@
             justify-content: center;
             height: 100vh;
             overflow: hidden;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .chat-container {
             width: 100%;
             max-width: 480px;
             background: var(--bg-chat);
-            background-image: radial-gradient(var(--border-color) 1px, transparent 0);
-            background-size: 24px 24px;
+            background-image: 
+                radial-gradient(var(--border-color) 1px, transparent 0),
+                linear-gradient(to right, rgba(255,252,0,0.01) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,252,0,0.01) 1px, transparent 1px);
+            background-size: 24px 24px, 40px 40px, 40px 40px;
             display: flex;
             flex-direction: column;
             height: 100vh;
             position: relative;
             overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%2327272a' fill-opacity='0.12'%3E%3Cpath d='M10 15h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zM15 45h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
         }
 
         .chat-header {
@@ -75,6 +92,7 @@
             z-index: 99;
             position: relative;
             border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .header-left {
@@ -104,12 +122,16 @@
             font-weight: 700;
             font-size: 22px;
             letter-spacing: -0.5px;
-        }
-        .ai-brand .snap-part {
-            color: var(--snap-yellow);
-        }
-        .ai-brand .tools-part {
             color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .theme-btn {
@@ -124,6 +146,7 @@
             justify-content: center;
             border-radius: 10px;
             cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .snap-dropdown-menu {
@@ -140,6 +163,12 @@
             flex-direction: column;
             overflow: hidden;
             z-index: 1000;
+            animation: fadeInMenu 0.2s ease-out;
+        }
+
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .menu-item {
@@ -152,37 +181,16 @@
             align-items: center;
             gap: 10px;
             border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
         }
         .menu-item:last-child { border-bottom: none; }
-        .menu-item:hover { background: var(--bg-bubble-user); color: var(--snap-yellow); }
-
-        .custom-alert {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #ff4444;
-            color: #fff;
-            padding: 14px 16px;
-            font-weight: 600;
-            font-size: 14px;
-            z-index: 99999;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            animation: slideDownAlert 0.25s ease-out;
-        }
-
-        @keyframes slideDownAlert {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
-        }
+        .menu-item:hover, .menu-item:active { background: var(--bg-bubble-user); }
+        .menu-item i { color: var(--snap-yellow); width: 16px; text-align: center; font-size: 14px; }
 
         .chat-history {
             flex: 1;
             overflow-y: auto;
-            padding: 16px;
+            padding: 10px 16px;
             display: flex;
             flex-direction: column;
             gap: 22px;
@@ -209,6 +217,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: var(--snap-yellow);
         }
 
         .bot-avatar img {
@@ -233,6 +242,28 @@
             font-weight: 500;
         }
 
+        [data-theme="dark"] .user-row .msg-bubble {
+            background: #2c2c2e;
+        }
+
+        .typing-dots {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+            padding: 8px 0;
+        }
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            animation: bounceDot 1.4s infinite ease-in-out both;
+        }
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+        /* Exact design layout matching image_2.png dashboard look */
         .options-box {
             display: flex;
             flex-direction: column;
@@ -245,8 +276,8 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
             color: var(--text-main);
-            padding: 16px;
-            border-radius: 16px;
+            padding: 18px 16px;
+            border-radius: 18px;
             text-align: left;
             font-size: 15px;
             font-weight: 500;
@@ -254,19 +285,23 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: background 0.2s, transform 0.1s ease;
             width: 100%;
         }
+        .chat-opt-btn:active { transform: scale(0.99); background: #16161a; }
         
         .btn-left-content {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
-        .btn-img-icon {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
+        /* Restored FontAwesome icons as requested */
+        .chat-opt-btn i.btn-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+            color: #FFFC00; /* Yellow icons like image_2.png */
         }
 
         .chat-opt-btn i.fa-chevron-right { 
@@ -274,18 +309,13 @@
             color: #71717a; 
         }
 
-        .progress-block { margin-top: 16px; width: 100%; }
-        .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
-        .progress-bar-bg { width: 100%; background: var(--border-color); height: 4px; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--text-main); width: 0%; }
-
         .media-preview-container {
             border: 1px solid var(--border-color);
             background: var(--chat-btn-bg);
             border-radius: 16px;
             margin-top: 16px;
             overflow: hidden;
-            width: 100%;
+            max-width: 100%;
         }
 
         .media-header-label {
@@ -300,30 +330,12 @@
         }
 
         .media-frame { position: relative; height: 150px; background: #000; }
-        
-        /* Clear image structure in stage 2 with a neat blur + lock overlay */
-        .media-frame-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(12px);
-            opacity: 0.4;
-        }
+        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 600; color: #e4e4e7; letter-spacing: 0.5px; }
 
-        .media-blur-overlay { 
-            position: absolute; 
-            inset: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 8px; 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #e4e4e7; 
-            letter-spacing: 0.5px; 
-            background: rgba(0, 0, 0, 0.4);
-        }
+        .progress-block { margin-top: 16px; width: 100%; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
+        .progress-bar-bg { width: 100%; background: var(--border-color); height: 4px; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--text-main); width: 0%; }
 
         .offer-verification-card {
             border: 1px dashed var(--text-muted);
@@ -364,6 +376,7 @@
             padding: 12px 16px 20px 16px; 
             background: var(--bg-chat);
             z-index: 10;
+            transition: background-color 0.3s;
         }
         
         .input-box-container {
@@ -373,6 +386,7 @@
             display: flex;
             align-items: center;
             padding: 6px 8px 6px 20px;
+            transition: background-color 0.3s, border-color 0.3s;
         }
         .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 15px; flex-grow: 1; padding: 10px 0; }
         .gpt-input::placeholder { color: var(--text-muted); }
@@ -390,6 +404,7 @@
             justify-content: center;
             font-size: 16px;
             flex-shrink: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .footer-banner {
@@ -397,53 +412,83 @@
             font-size: 11px;
             color: var(--text-muted);
             margin-top: 14px;
+            font-weight: 400;
         }
 
         .hidden-row { display: none !important; }
 
-        .typing-dots { display: inline-flex; gap: 4px; align-items: center; padding: 8px 0; }
-        .typing-dots span { width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%; animation: bounceDot 1.4s infinite ease-in-out both; }
-        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        /* Custom Notification Alert Modal - Fixed Lag & Sticking Issue */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #ff4444;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            z-index: 9999;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            pointer-events: none; /* Prevents the page or notification from locking up user touches */
+        }
+        .custom-alert.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <div class="custom-alert" id="errorAlert">
-            <i class="fa-solid fa-circle-exclamation"></i> Please enter target Snapchat username first!
-        </div>
+    <!-- Notification Top Alert Box -->
+    <div class="custom-alert" id="errorAlert">
+        <i class="fa-solid fa-circle-exclamation"></i> Please enter target Snapchat username first!
+    </div>
 
+    <div class="chat-container">
         <div class="chat-header">
             <div class="header-left">
                 <button class="menu-bars-btn" onclick="toggleSnapMenu(event)">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="brand-wrapper">
-                    <span class="ai-brand"><span class="snap-part">Snap</span><span class="tools-part">Tools</span></span>
+                    <span class="ai-brand">SnapTools</span>
                 </div>
             </div>
             <div class="header-actions">
-                <button class="theme-btn" onclick="toggleThemeNode()">
+                <button class="theme-btn" id="themeToggleBtn" onclick="toggleThemeNode()">
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>
         </div>
 
         <div class="snap-dropdown-menu" id="snapMenu">
-            <div class="menu-item" onclick="window.open('https://snapchat.com', '_blank')"><i class="fa-solid fa-shield"></i> Privacy Console</div>
-            <div class="menu-item" onclick="window.open('https://snapchat.com', '_blank')"><i class="fa-solid fa-server"></i> System Status</div>
+            <a href="https://snapchat.com/privacy" target="_blank" class="menu-item">
+                <i class="fa-solid fa-user-shield"></i> Privacy Policy
+            </a>
+            <a href="https://snapchat.com/community" target="_blank" class="menu-item">
+                <i class="fa-solid fa-scale-balanced"></i> Community Rules
+            </a>
+            <a href="https://support.snapchat.com" target="_blank" class="menu-item">
+                <i class="fa-solid fa-circle-question"></i> Snapchat Support
+            </a>
         </div>
 
         <div class="chat-history" id="chatWindow">
             <div class="chat-row ai-row" id="welcomeMsg">
-                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                 <div class="msg-bubble" id="welcomeText"></div>
             </div>
 
             <div class="chat-row ai-row hidden-row" id="typingBubble">
-                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                 <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
             </div>
         </div>
@@ -464,37 +509,39 @@
         const userInputField = document.getElementById('userInputField');
         const sendBtn = document.getElementById('sendBtn');
         const typingBubble = document.getElementById('typingBubble');
-        const errorAlert = document.getElementById('errorAlert');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
         const snapMenu = document.getElementById('snapMenu');
+        const errorAlert = document.getElementById('errorAlert');
 
         let isProcessingStarted = false;
         let currentTargetUser = "";
         let alertTimeout = null;
 
-        // Image dictionary for dynamic stage-2 preview blurring
-        const imageFileMapping = {
-            'Snapchat Snaping': 'Snaping.jpg',
-            'View Friends List': 'friends.jpg',
-            'Private Stories': 'eyes.jpg',
-            'Chat History': 'chat.jpg',
-            'Live Location Map': 'location.jpg',
-            'Recent Activity': 'typing.jpg',
-            'Camera Access': 'Camera.JPG'
-        };
-
         document.body.setAttribute('data-theme', 'dark');
         
         function toggleThemeNode() {
             const currentTheme = document.body.getAttribute('data-theme');
-            document.body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+            if(currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+                themeToggleBtn.innerHTML = `<i class="fa-solid fa-sun"></i>`;
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggleBtn.innerHTML = `<i class="fa-solid fa-moon"></i>`;
+            }
         }
 
         function toggleSnapMenu(event) {
             event.stopPropagation();
-            snapMenu.style.display = snapMenu.style.display === 'flex' ? 'none' : 'flex';
+            if (snapMenu.style.display === 'flex') {
+                snapMenu.style.display = 'none';
+            } else {
+                snapMenu.style.display = 'flex';
+            }
         }
 
-        document.addEventListener('click', () => { snapMenu.style.display = 'none'; });
+        document.addEventListener('click', () => {
+            snapMenu.style.display = 'none';
+        });
 
         function typeWriterEffect(elementId, text, speed = 12, callback = null) {
             let i = 0;
@@ -514,18 +561,44 @@
         }
 
         window.onload = () => {
-            const intro = "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.";
-            typeWriterEffect("welcomeText", intro, 12);
+            const explanation = "Welcome to SnapTools Pro. Enter the username of the target Snapchat account you want to monitor and view below.";
+            typeWriterEffect("welcomeText", explanation, 12);
         };
 
+        userInputField.addEventListener('keydown', (e) => { 
+            if (e.key === 'Enter') submitUserIdentifier(); 
+        });
+
+        function showTyping() {
+            chatWindow.appendChild(typingBubble);
+            typingBubble.classList.remove('hidden-row');
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function hideTyping() { typingBubble.classList.add('hidden-row'); }
+
+        function appendUserMessage(text) {
+            const row = document.createElement('div');
+            row.className = 'chat-row user-row';
+            row.innerHTML = `<div class="msg-bubble">${text}</div>`;
+            chatWindow.appendChild(row);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
         function showAlertNotification() {
+            // Clear any active sticky timeouts first to completely prevent lagging or freeze
             if(alertTimeout) clearTimeout(alertTimeout);
-            errorAlert.style.display = 'flex';
-            alertTimeout = setTimeout(() => { errorAlert.style.display = 'none'; }, 2500);
+            
+            errorAlert.classList.add('show');
+            alertTimeout = setTimeout(() => {
+                errorAlert.classList.remove('show');
+            }, 2500);
         }
 
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
+            
+            // Fixed: Returns custom alert notification instantly if empty and stops freeze
             if (val === '') {
                 showAlertNotification();
                 return;
@@ -539,24 +612,18 @@
             userInputField.disabled = true;
             sendBtn.disabled = true;
 
-            const uRow = document.createElement('div');
-            uRow.className = 'chat-row user-row';
-            uRow.innerHTML = `<div class="msg-bubble">${val}</div>`;
-            chatWindow.appendChild(uRow);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            appendUserMessage(val);
 
             setTimeout(() => {
-                chatWindow.appendChild(typingBubble);
-                typingBubble.classList.remove('hidden-row');
-                chatWindow.scrollTop = chatWindow.scrollHeight;
+                showTyping();
                 
                 setTimeout(() => {
-                    typingBubble.classList.add('hidden-row');
+                    hideTyping();
                     const nextId = 'ai_' + Date.now();
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
@@ -566,52 +633,45 @@
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snapchat Snaping', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="Snaping.jpg" class="btn-img-icon" alt="Snaping">
+                                        <i class="fa-solid fa-bolt btn-icon"></i>
                                         <span class="btn-title">Snapchat Snaping</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('View Friends List', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="friends.jpg" class="btn-img-icon" alt="Friends">
+                                        <i class="fa-solid fa-user-group btn-icon"></i>
                                         <span class="btn-title">View Friends List</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Private Stories', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="eyes.jpg" class="btn-img-icon" alt="Stories">
+                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
                                         <span class="btn-title">Private Stories</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Chat History')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Chat History', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="chat.jpg" class="btn-img-icon" alt="Chat">
+                                        <i class="fa-solid fa-comment btn-icon"></i>
                                         <span class="btn-title">Chat History</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Live Location Map', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="location.jpg" class="btn-img-icon" alt="Location">
+                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
                                         <span class="btn-title">Live Location Map</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Recent Activity', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="typing.jpg" class="btn-img-icon" alt="Activity">
+                                        <i class="fa-solid fa-chart-line btn-icon"></i>
                                         <span class="btn-title">Recent Activity</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Camera Access')">
-                                    <div class="btn-left-content">
-                                        <img src="Camera.JPG" class="btn-img-icon" alt="Camera">
-                                        <span class="btn-title">Camera Access</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
@@ -624,38 +684,39 @@
             }, 800);
         }
 
-        function selectModuleNode(nodeName) {
+        function checkUsernameAndSelect(nodeName, username) {
+            if (!currentTargetUser || currentTargetUser === "") {
+                showAlertNotification();
+                return;
+            }
+            selectModuleNode(nodeName, username);
+        }
+
+        function selectModuleNode(nodeName, username) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
-            const uRow = document.createElement('div');
-            uRow.className = 'chat-row user-row';
-            uRow.innerHTML = `<div class="msg-bubble">${nodeName}</div>`;
-            chatWindow.appendChild(uRow);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            appendUserMessage(nodeName);
 
             setTimeout(() => {
-                chatWindow.appendChild(typingBubble);
-                typingBubble.classList.remove('hidden-row');
-                chatWindow.scrollTop = chatWindow.scrollHeight;
+                showTyping();
 
                 setTimeout(() => {
-                    typingBubble.classList.add('hidden-row');
+                    hideTyping();
                     
                     const barId = 'bar_' + Date.now();
                     const txtId = 'txt_' + Date.now();
+
                     const nextId = 'ai_load_' + Date.now();
-                    
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
                     row.innerHTML = `
-                        <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                        <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
 
                     const loadingIntro = `Fetching cloud databank for ${nodeName}. Establishing anonymous stream:`;
-                    const selectedImg = imageFileMapping[nodeName] || 'Logo.JPG';
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
                         const loadingHtml = `
@@ -671,9 +732,8 @@
                             <div class="media-preview-container">
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> Live Stream Window</div>
                                 <div class="media-frame">
-                                    <img src="${selectedImg}" class="media-frame-img" alt="Preview Background">
                                     <div class="media-blur-overlay">
-                                        <i class="fa-solid fa-lock" style="font-size:20px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
+                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
                                         <span>ENCRYPTED_PREVIEW.RAW</span>
                                     </div>
                                 </div>
@@ -682,7 +742,8 @@
                         document.getElementById(nextId).innerHTML += loadingHtml;
                         animateProgressBarNode(barId, txtId);
                     });
-                }, 1000);
+
+                }, 800);
             }, 600);
         }
 
@@ -699,18 +760,15 @@
                 if(percentage >= 100) {
                     clearInterval(loop);
                     setTimeout(() => {
-                        chatWindow.appendChild(typingBubble);
-                        typingBubble.classList.remove('hidden-row');
-                        chatWindow.scrollTop = chatWindow.scrollHeight;
-                        
+                        showTyping();
                         setTimeout(() => {
-                            typingBubble.classList.add('hidden-row');
+                            hideTyping();
                             
                             const finalCardId = 'final_' + Date.now();
                             const row = document.createElement('div');
                             row.className = 'chat-row ai-row';
                             row.innerHTML = `
-                                <div class="bot-avatar"><img src="Logo.JPG" alt="Logo"></div>
+                                <div class="bot-avatar"><img src="Logo.JPG" alt="Snapchat Logo"></div>
                                 <div class="msg-bubble" id="${finalCardId}"></div>
                             `;
                             chatWindow.appendChild(row);
