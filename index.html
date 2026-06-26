@@ -89,9 +89,17 @@
             color: var(--text-main);
             font-size: 20px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Snap (Yellow) Tools (White) Style */
+        .brand-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .ai-brand {
             font-weight: 700;
             font-size: 22px;
@@ -118,7 +126,37 @@
             cursor: pointer;
         }
 
-        /* Fix: Absolute dropdown alert banner (No page blockage, no sticking layout) */
+        .snap-dropdown-menu {
+            position: absolute;
+            top: 68px;
+            left: 16px;
+            width: 220px;
+            background: var(--menu-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .menu-item {
+            padding: 14px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:hover { background: var(--bg-bubble-user); }
+
+        /* Absolute alert banner fix to prevent screen lagging */
         .custom-alert {
             position: absolute;
             top: 0;
@@ -172,8 +210,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #111;
-            border: 1px solid var(--border-color);
         }
 
         .bot-avatar img {
@@ -187,6 +223,7 @@
             line-height: 1.5;
             max-width: 85%;
             color: var(--text-main);
+            padding-top: 6px;
         }
 
         .user-row .msg-bubble {
@@ -209,8 +246,8 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
             color: var(--text-main);
-            padding: 18px 16px;
-            border-radius: 18px;
+            padding: 16px;
+            border-radius: 16px;
             text-align: left;
             font-size: 15px;
             font-weight: 500;
@@ -219,22 +256,19 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            transition: transform 0.1s ease;
         }
-        .chat-opt-btn:active { transform: scale(0.99); }
         
         .btn-left-content {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
-        /* Pristine FontAwesome Yellow Icons from image_2.png */
-        .chat-opt-btn i.btn-icon {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-            color: #FFFC00;
+        /* Pristine clean images matching image_7.png names */
+        .btn-img-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
 
         .chat-opt-btn i.fa-chevron-right { 
@@ -242,7 +276,6 @@
             color: #71717a; 
         }
 
-        /* Progress Bar & Frame matching image_5.png perfectly */
         .progress-block { margin-top: 16px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
         .progress-bar-bg { width: 100%; background: var(--border-color); height: 4px; border-radius: 10px; overflow: hidden; }
@@ -357,14 +390,14 @@
 <body>
 
     <div class="chat-container">
-        <!-- Error Dropdown Banner -->
         <div class="custom-alert" id="errorAlert">
             <i class="fa-solid fa-circle-exclamation"></i> Please enter target Snapchat username first!
         </div>
 
         <div class="chat-header">
             <div class="header-left">
-                <button class="menu-bars-btn">
+                <!-- Restored working menu bars functionality -->
+                <button class="menu-bars-btn" onclick="toggleSnapMenu(event)">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="brand-wrapper">
@@ -376,6 +409,11 @@
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>
+        </div>
+
+        <div class="snap-dropdown-menu" id="snapMenu">
+            <div class="menu-item"><i class="fa-solid fa-shield"></i> Privacy Console</div>
+            <div class="menu-item"><i class="fa-solid fa-server"></i> System Status</div>
         </div>
 
         <div class="chat-history" id="chatWindow">
@@ -407,6 +445,7 @@
         const sendBtn = document.getElementById('sendBtn');
         const typingBubble = document.getElementById('typingBubble');
         const errorAlert = document.getElementById('errorAlert');
+        const snapMenu = document.getElementById('snapMenu');
 
         let isProcessingStarted = false;
         let currentTargetUser = "";
@@ -418,6 +457,13 @@
             const currentTheme = document.body.getAttribute('data-theme');
             document.body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
         }
+
+        function toggleSnapMenu(event) {
+            event.stopPropagation();
+            snapMenu.style.display = snapMenu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        document.addEventListener('click', () => { snapMenu.style.display = 'none'; });
 
         function typeWriterEffect(elementId, text, speed = 12, callback = null) {
             let i = 0;
@@ -444,10 +490,7 @@
         function showAlertNotification() {
             if(alertTimeout) clearTimeout(alertTimeout);
             errorAlert.style.display = 'flex';
-            
-            alertTimeout = setTimeout(() => {
-                errorAlert.style.display = 'none';
-            }, 2500);
+            alertTimeout = setTimeout(() => { errorAlert.style.display = 'none'; }, 2500);
         }
 
         function submitUserIdentifier() {
@@ -490,46 +533,47 @@
                     const responseText = `Target profile linked successfully: @${val}. Select the secure data layer you want to extract from this user dashboard:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
+                        // Restored explicit image mapping from image_7.png
                         const optionsHtml = `
                             <div class="options-box">
                                 <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon"></i>
+                                        <img src="Snaping.jpg" class="btn-img-icon" alt="Snaping">
                                         <span class="btn-title">Snapchat Snaping</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                                 <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-user-group btn-icon"></i>
+                                        <img src="friends.jpg" class="btn-img-icon" alt="Friends">
                                         <span class="btn-title">View Friends List</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                                 <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
+                                        <img src="eyes.jpg" class="btn-img-icon" alt="Stories">
                                         <span class="btn-title">Private Stories</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                                 <button class="chat-opt-btn" onclick="selectModuleNode('Chat History')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-comment btn-icon"></i>
+                                        <img src="chat.jpg" class="btn-img-icon" alt="Chat">
                                         <span class="btn-title">Chat History</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                                 <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
+                                        <img src="location.jpg" class="btn-img-icon" alt="Location">
                                         <span class="btn-title">Live Location Map</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                                 <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-chart-line btn-icon"></i>
+                                        <img src="typing.jpg" class="btn-img-icon" alt="Activity">
                                         <span class="btn-title">Recent Activity</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
