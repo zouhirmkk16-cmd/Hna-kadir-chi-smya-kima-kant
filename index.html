@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,7 +11,7 @@
         :root {
             --snap-yellow: #FFFC00;
             --snap-black: #000000;
-            --bg-chat: #0d0d0d;
+            --bg-chat: #000000;
             --bg-workspace: #000000;
             --bg-bubble-user: #171717;
             --border-color: #212121;
@@ -48,7 +48,7 @@
         }
 
         .live-banner {
-            background: #050505;
+            background: #09090b;
             border-bottom: 1px solid var(--border-color);
             padding: 8px 16px;
             font-size: 11px;
@@ -75,17 +75,14 @@
             align-items: center;
             border-bottom: 1px solid var(--border-color);
             background: var(--bg-chat);
-            z-index: 9999;
+            z-index: 999;
             position: relative;
         }
 
-        .ai-brand {
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 14px;
-            font-weight: 600;
-            font-size: 16px;
-            letter-spacing: -0.2px;
+            gap: 12px;
         }
 
         .menu-toggle-btn {
@@ -100,10 +97,31 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
+            transition: background 0.2s;
         }
         .menu-toggle-btn:hover { background: var(--bg-bubble-user); }
 
-        /* Dropdown ChatGPT Style */
+        .brand-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-logo {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .ai-brand {
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: -0.2px;
+        }
+
+        /* Professional ChatGPT Dropdown Menu */
         .nav-dropdown {
             position: absolute;
             top: 100%;
@@ -111,30 +129,30 @@
             background: #171717;
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            width: 210px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            width: 220px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
             display: none;
             flex-direction: column;
-            padding: 6px 0;
-            z-index: 99999;
+            padding: 8px 0;
+            z-index: 9999;
         }
         .nav-dropdown.show { display: flex; }
         
         .dropdown-item {
             padding: 12px 16px;
-            font-size: 13px;
+            font-size: 13.5px;
             color: var(--text-main);
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-weight: 500;
-            cursor: pointer;
+            transition: background 0.15s;
         }
         .dropdown-item:hover { background: #212121; }
-        .dropdown-item .item-left { display: flex; align-items: center; gap: 10px; }
+        .dropdown-item .item-left { display: flex; align-items: center; gap: 12px; }
         .dropdown-item i.item-icon { width: 16px; text-align: center; color: var(--text-muted); font-size: 14px; }
-        .dropdown-item i.fa-arrow-up-right-from-square { font-size: 10px; color: #666; }
+        .dropdown-item i.fa-arrow-up-right-from-square { font-size: 10px; color: #555; }
 
         .chat-history {
             flex: 1;
@@ -142,7 +160,7 @@
             padding: 20px 16px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
             scroll-behavior: smooth;
         }
 
@@ -156,18 +174,19 @@
             flex-direction: row-reverse; 
         }
 
+        /* Yellow Snapchat Style Bot Avatar */
         .bot-avatar {
-            width: 30px;
-            height: 30px;
-            background: var(--bg-bubble-user);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
+            width: 32px;
+            height: 32px;
+            background: var(--snap-yellow);
+            color: var(--snap-black);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 15px;
             flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(255, 252, 0, 0.2);
         }
 
         .msg-bubble {
@@ -180,9 +199,9 @@
 
         .user-row .msg-bubble {
             background: var(--bg-bubble-user);
-            padding: 10px 16px;
-            border-radius: 18px;
-            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 20px;
+            max-width: 75%;
         }
 
         .error-bubble { color: #ef4444; }
@@ -191,7 +210,7 @@
             display: inline-flex;
             gap: 4px;
             align-items: center;
-            padding: 4px 0;
+            padding: 6px 0;
         }
         .typing-dots span {
             width: 6px;
@@ -208,7 +227,7 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-top: 12px;
+            margin-top: 14px;
             width: 100%;
         }
 
@@ -333,11 +352,14 @@
         </div>
 
         <div class="chat-header">
-            <div class="ai-brand">
+            <div class="header-left">
                 <button class="menu-toggle-btn" id="menuBtn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <span>SnapTools</span>
+                <div class="brand-wrapper">
+                    <img src="Logo.JPG" alt="Logo" class="page-logo">
+                    <span class="ai-brand">SnapTools</span>
+                </div>
             </div>
             
             <div class="nav-dropdown" id="menuDropdown">
@@ -359,7 +381,8 @@
                 </a>
             </div>
 
-            <div style="width: 36px;"></div> </div>
+            <div style="width: 36px;"></div>
+        </div>
 
         <div class="chat-history" id="chatWindow">
             <div class="chat-row ai-row" id="welcomeMsg">
@@ -399,7 +422,7 @@
             'chat': 'chat.jpg', 'location': 'location.jpg', 'feed': 'typing.jpg'
         };
 
-        // Standard JS toggle that avoids anchor collision
+        // Standard event handler to guarantee privacy link clicks pass clean
         menuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             menuDropdown.classList.toggle('show');
@@ -455,7 +478,7 @@
             const row = document.createElement('div');
             row.className = 'chat-row ai-row';
             row.innerHTML = `
-                <div class="bot-avatar" style="color:#ef4444;"><i class="fa-solid fa-circle-exclamation"></i></div>
+                <div class="bot-avatar" style="background:#171717; color:#ef4444;"><i class="fa-solid fa-circle-exclamation"></i></div>
                 <div class="msg-bubble error-bubble">${text}</div>
             `;
             chatWindow.appendChild(row);
