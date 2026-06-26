@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Built-in strict viewport bounds to fully resolve dynamic zoom shifts and screen lagging -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SnapTools</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome fixed layout link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -329,8 +327,29 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .media-frame { position: relative; height: 150px; background: #000; }
-        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 600; color: #e4e4e7; letter-spacing: 0.5px; }
+        .media-frame { 
+            position: relative; 
+            height: 180px; 
+            background: #000; 
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .media-blur-overlay { 
+            position: absolute; 
+            inset: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            color: #e4e4e7; 
+            letter-spacing: 0.5px; 
+            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.4);
+        }
 
         .progress-block { margin-top: 16px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
@@ -447,7 +466,6 @@
 </head>
 <body>
 
-    <!-- Notification Top Alert Box -->
     <div class="custom-alert" id="errorAlert">
         <i class="fa-solid fa-circle-exclamation"></i> Please enter target Snapchat username first!
     </div>
@@ -516,6 +534,17 @@
         let isProcessingStarted = false;
         let currentTargetUser = "";
         let alertTimeout = null;
+
+        // Map each choice to its custom background image filename
+        const optionImages = {
+            'Snapchat Snaping': 'Snaping.jpg',
+            'Snap Camera': 'Camera.JPG',
+            'View Friends List': 'friends.jpg',
+            'Private Stories': 'eyes.jpg',
+            'Chat History': 'chat.jpg',
+            'Live Location Map': 'location.jpg',
+            'Recent Activity': 'typing.jpg'
+        };
 
         document.body.setAttribute('data-theme', 'dark');
         
@@ -586,7 +615,6 @@
         }
 
         function showAlertNotification() {
-            // Clear any active sticky timeouts first to completely prevent lagging or freeze
             if(alertTimeout) clearTimeout(alertTimeout);
             
             errorAlert.classList.add('show');
@@ -598,7 +626,6 @@
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
             
-            // Fixed: Returns custom alert notification instantly if empty and stops freeze
             if (val === '') {
                 showAlertNotification();
                 return;
@@ -637,6 +664,13 @@
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-bolt btn-icon"></i>
                                         <span class="btn-title">Snapchat Snaping</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snap Camera', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-camera btn-icon"></i>
+                                        <span class="btn-title">Snap Camera</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
@@ -706,6 +740,7 @@
                     
                     const barId = 'bar_' + Date.now();
                     const txtId = 'txt_' + Date.now();
+                    const frameId = 'frame_' + Date.now();
 
                     const nextId = 'ai_load_' + Date.now();
                     const row = document.createElement('div');
@@ -719,6 +754,9 @@
                     const loadingIntro = `Fetching cloud databank for ${nodeName}. Establishing anonymous stream:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
+                        // Get the mapped image file or fallback to black background
+                        const bgImage = optionImages[nodeName] || "";
+                        
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
@@ -731,7 +769,7 @@
                             </div>
                             <div class="media-preview-container">
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> Live Stream Window</div>
-                                <div class="media-frame">
+                                <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
                                     <div class="media-blur-overlay">
                                         <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
                                         <span>ENCRYPTED_PREVIEW.RAW</span>
