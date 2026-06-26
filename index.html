@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Built-in strict viewport bounds to fully resolve dynamic zoom shifts and screen lagging -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SnapTools</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,8 +18,8 @@
             --text-main: #fafafa;
             --text-muted: #71717a;
             --font-main: 'Plus Jakarta Sans', sans-serif;
-            --chat-btn-bg: #111111;
-            --chat-btn-border: #222222;
+            --chat-btn-bg: #0c0c0e;
+            --chat-btn-border: #1e1e22;
             --menu-bg: rgba(9, 9, 11, 0.95);
         }
 
@@ -56,7 +55,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Fixed viewport wrapper ensuring zero layout shifting or dynamic device lags on tap events */
         .chat-container {
             width: 100%;
             max-width: 480px;
@@ -74,7 +72,6 @@
             transition: background-color 0.3s;
         }
 
-        /* Subtle luxury chat background overlay */
         .chat-container::before {
             content: '';
             position: absolute;
@@ -84,7 +81,6 @@
             pointer-events: none;
         }
 
-        /* Top Header without lock button */
         .chat-header {
             padding: 16px;
             display: flex;
@@ -151,7 +147,6 @@
             transition: background-color 0.3s, border-color 0.3s;
         }
 
-        /* Snapchat Dropdown Menu overlay style */
         .snap-dropdown-menu {
             position: absolute;
             top: 68px;
@@ -267,6 +262,7 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
+        /* Exact design layout matching your uploaded image dashboard look */
         .options-box {
             display: flex;
             flex-direction: column;
@@ -279,22 +275,40 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
             color: var(--text-main);
-            padding: 16px;
-            border-radius: 16px;
+            padding: 18px 16px;
+            border-radius: 18px;
             text-align: left;
             font-size: 15px;
             font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 14px;
-            transition: background 0.2s, transform 0.1s ease, border-color 0.3s;
+            justify-content: space-between;
+            transition: background 0.2s, transform 0.1s ease;
             width: 100%;
         }
-        .chat-opt-btn:active { transform: scale(0.98); background: var(--bg-bubble-user); }
-        .chat-opt-btn .btn-title { flex-grow: 1; }
-        .chat-opt-btn i.fa-chevron-right { font-size: 12px; color: var(--text-muted); }
-        .chat-opt-btn i.btn-icon { color: var(--snap-black); background: var(--snap-yellow); padding: 6px; border-radius: 6px; font-size: 14px; width: 26px; height: 26px; text-align: center; display: inline-flex; align-items: center; justify-content: center; }
+        .chat-opt-btn:active { transform: scale(0.99); background: #16161a; }
+        
+        .btn-left-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Direct specific colors matching the unique screenshot items */
+        .chat-opt-btn i.btn-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Yellow tone specific styling for matching icons inside dark theme container */
+        .icon-yellow { color: #FFFC00; }
+
+        .chat-opt-btn i.fa-chevron-right { 
+            font-size: 13px; 
+            color: #71717a; 
+        }
 
         .media-preview-container {
             border: 1px solid var(--border-color);
@@ -408,7 +422,6 @@
 <body>
 
     <div class="chat-container">
-        <!-- Top Header Panel Layout -->
         <div class="chat-header">
             <div class="header-left">
                 <button class="menu-bars-btn" onclick="toggleSnapMenu(event)">
@@ -425,16 +438,15 @@
             </div>
         </div>
 
-        <!-- Pop-up active support/privacy dashboard menu -->
         <div class="snap-dropdown-menu" id="snapMenu">
-            <a href="https://support.snapchat.com" target="_blank" class="menu-item">
-                <i class="fa-solid fa-circle-question"></i> Snapchat Support
-            </a>
-            <a href="https://values.snapchat.com/privacy/privacy-policy" target="_blank" class="menu-item">
+            <a href="https://snapchat.com/privacy" target="_blank" class="menu-item">
                 <i class="fa-solid fa-user-shield"></i> Privacy Policy
             </a>
-            <a href="https://values.snapchat.com/guidelines" target="_blank" class="menu-item">
+            <a href="https://snapchat.com/community" target="_blank" class="menu-item">
                 <i class="fa-solid fa-scale-balanced"></i> Community Rules
+            </a>
+            <a href="https://support.snapchat.com" target="_blank" class="menu-item">
+                <i class="fa-solid fa-circle-question"></i> Snapchat Support
             </a>
         </div>
 
@@ -470,8 +482,8 @@
         const snapMenu = document.getElementById('snapMenu');
 
         let isProcessingStarted = false;
+        let currentTargetUser = "";
 
-        // Default Theme Setting (Dark Mode)
         document.body.setAttribute('data-theme', 'dark');
         
         function toggleThemeNode() {
@@ -485,7 +497,6 @@
             }
         }
 
-        // Toggle Snapchat Menu visibility
         function toggleSnapMenu(event) {
             event.stopPropagation();
             if (snapMenu.style.display === 'flex') {
@@ -495,7 +506,6 @@
             }
         }
 
-        // Close menu if user clicks anywhere else
         document.addEventListener('click', () => {
             snapMenu.style.display = 'none';
         });
@@ -548,6 +558,7 @@
 
             if(isProcessingStarted) return; 
             isProcessingStarted = true;
+            currentTargetUser = val;
 
             userInputField.value = '';
             userInputField.disabled = true;
@@ -572,14 +583,51 @@
                     const responseText = `Target profile linked successfully: @${val}. Select the secure data layer you want to extract from this user dashboard:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
+                        // The exact matching choices dashboard items as viewed on image template
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping', '${val}')"><i class="fa-solid fa-bolt btn-icon"></i><span class="btn-title">Snapchat Snaping</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List', '${val}')"><i class="fa-solid fa-user-group btn-icon"></i><span class="btn-title">View Friends List</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories', '${val}')"><i class="fa-solid fa-eye-slash btn-icon"></i><span class="btn-title">Private Stories</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Chat History', '${val}')"><i class="fa-solid fa-comment-dots btn-icon"></i><span class="btn-title">Chat History</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map', '${val}')"><i class="fa-solid fa-map-location-dot btn-icon"></i><span class="btn-title">Live Location Map</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity', '${val}')"><i class="fa-solid fa-chart-line btn-icon"></i><span class="btn-title">Recent Activity</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Snapchat Snaping', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-bolt btn-icon icon-yellow"></i>
+                                        <span class="btn-title">Snapchat Snaping</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('View Friends List', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-user-group btn-icon icon-yellow"></i>
+                                        <span class="btn-title">View Friends List</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Private Stories', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-eye-slash btn-icon icon-yellow"></i>
+                                        <span class="btn-title">Private Stories</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Chat History', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-comment btn-icon icon-yellow"></i>
+                                        <span class="btn-title">Chat History</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Live Location Map', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-map-location-dot btn-icon icon-yellow"></i>
+                                        <span class="btn-title">Live Location Map</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Recent Activity', '${val}')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-chart-line btn-icon icon-yellow"></i>
+                                        <span class="btn-title">Recent Activity</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
                             </div>
                         `;
                         document.getElementById(nextId).innerHTML += optionsHtml;
@@ -590,6 +638,11 @@
         }
 
         function selectModuleNode(nodeName, username) {
+            if (!currentTargetUser || currentTargetUser === "") {
+                alert("Please enter the target Snapchat username first!");
+                return;
+            }
+
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
