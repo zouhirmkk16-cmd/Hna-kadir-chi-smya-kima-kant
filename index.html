@@ -263,7 +263,7 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-        /* Exact design layout matching image.png dashboard look */
+        /* Exact design layout matching image_2.png dashboard look */
         .options-box {
             display: flex;
             flex-direction: column;
@@ -276,7 +276,7 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
             color: var(--text-main);
-            padding: 14px 16px;
+            padding: 18px 16px;
             border-radius: 18px;
             text-align: left;
             font-size: 15px;
@@ -296,13 +296,12 @@
             gap: 16px;
         }
 
-        /* Fixed Image Icon Styles */
-        .btn-img-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            object-fit: cover;
-            border: 1px solid var(--border-color);
+        /* Restored FontAwesome icons as requested */
+        .chat-opt-btn i.btn-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+            color: #FFFC00; /* Yellow icons like image_2.png */
         }
 
         .chat-opt-btn i.fa-chevron-right { 
@@ -330,28 +329,8 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .media-frame { 
-            position: relative; 
-            height: 180px; 
-            background: #000; 
-            background-size: cover;
-            background-position: center;
-        }
-        .media-blur-overlay { 
-            position: absolute; 
-            inset: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 8px; 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #e4e4e7; 
-            letter-spacing: 0.5px; 
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(4px);
-        }
+        .media-frame { position: relative; height: 150px; background: #000; }
+        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 600; color: #e4e4e7; letter-spacing: 0.5px; }
 
         .progress-block { margin-top: 16px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
@@ -438,7 +417,7 @@
 
         .hidden-row { display: none !important; }
 
-        /* Custom Notification Alert Modal */
+        /* Custom Notification Alert Modal - Fixed Lag & Sticking Issue */
         .custom-alert {
             position: fixed;
             top: 20px;
@@ -452,12 +431,13 @@
             font-size: 14px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             z-index: 9999;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
             opacity: 0;
             display: flex;
             align-items: center;
             gap: 10px;
             white-space: nowrap;
+            pointer-events: none; /* Prevents the page or notification from locking up user touches */
         }
         .custom-alert.show {
             transform: translateX(-50%) translateY(0);
@@ -535,6 +515,7 @@
 
         let isProcessingStarted = false;
         let currentTargetUser = "";
+        let alertTimeout = null;
 
         document.body.setAttribute('data-theme', 'dark');
         
@@ -605,16 +586,19 @@
         }
 
         function showAlertNotification() {
+            // Clear any active sticky timeouts first to completely prevent lagging or freeze
+            if(alertTimeout) clearTimeout(alertTimeout);
+            
             errorAlert.classList.add('show');
-            setTimeout(() => {
+            alertTimeout = setTimeout(() => {
                 errorAlert.classList.remove('show');
-            }, 3000);
+            }, 2500);
         }
 
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
             
-            // Fix: Alert jumps if user clicks button without inputting username
+            // Fixed: Returns custom alert notification instantly if empty and stops freeze
             if (val === '') {
                 showAlertNotification();
                 return;
@@ -647,47 +631,46 @@
                     const responseText = `Target profile linked successfully: @${val}. Select the secure data layer you want to extract from this user dashboard:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
-                        // Fix: Replaced FontAwesome icons with the real repo images seen in image.png
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snapchat Snaping', 'Snaping.jpg')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Snapchat Snaping', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="Snaping.jpg" class="btn-img-icon" alt="Snaping">
+                                        <i class="fa-solid fa-bolt btn-icon"></i>
                                         <span class="btn-title">Snapchat Snaping</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('View Friends List', 'friends.jpg')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('View Friends List', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="friends.jpg" class="btn-img-icon" alt="Friends">
+                                        <i class="fa-solid fa-user-group btn-icon"></i>
                                         <span class="btn-title">View Friends List</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Private Stories', 'eyes.jpg')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Private Stories', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="eyes.jpg" class="btn-img-icon" alt="Stories">
+                                        <i class="fa-solid fa-eye-slash btn-icon"></i>
                                         <span class="btn-title">Private Stories</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Chat History', 'chat.jpg')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Chat History', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="chat.jpg" class="btn-img-icon" alt="Chat">
+                                        <i class="fa-solid fa-comment btn-icon"></i>
                                         <span class="btn-title">Chat History</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Live Location Map', 'location.jpg')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Live Location Map', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="location.jpg" class="btn-img-icon" alt="Location">
+                                        <i class="fa-solid fa-map-location-dot btn-icon"></i>
                                         <span class="btn-title">Live Location Map</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Recent Activity', 'emojis.JPG')">
+                                <button class="chat-opt-btn" onclick="checkUsernameAndSelect('Recent Activity', '${val}')">
                                     <div class="btn-left-content">
-                                        <img src="emojis.JPG" class="btn-img-icon" alt="Activity">
+                                        <i class="fa-solid fa-chart-line btn-icon"></i>
                                         <span class="btn-title">Recent Activity</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -701,15 +684,15 @@
             }, 800);
         }
 
-        function checkUsernameAndSelect(nodeName, imgName) {
+        function checkUsernameAndSelect(nodeName, username) {
             if (!currentTargetUser || currentTargetUser === "") {
                 showAlertNotification();
                 return;
             }
-            selectModuleNode(nodeName, imgName);
+            selectModuleNode(nodeName, username);
         }
 
-        function selectModuleNode(nodeName, imgName) {
+        function selectModuleNode(nodeName, username) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
@@ -723,7 +706,6 @@
                     
                     const barId = 'bar_' + Date.now();
                     const txtId = 'txt_' + Date.now();
-                    const frameId = 'frame_' + Date.now();
 
                     const nextId = 'ai_load_' + Date.now();
                     const row = document.createElement('div');
@@ -737,7 +719,6 @@
                     const loadingIntro = `Fetching cloud databank for ${nodeName}. Establishing anonymous stream:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
-                        // Live stream frame now uses the selected asset as dynamic live background preview!
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
@@ -750,7 +731,7 @@
                             </div>
                             <div class="media-preview-container">
                                 <div class="media-header-label"><i class="fa-regular fa-eye"></i> Live Stream Window</div>
-                                <div class="media-frame" id="${frameId}" style="background-image: url('${imgName}');">
+                                <div class="media-frame">
                                     <div class="media-blur-overlay">
                                         <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
                                         <span>ENCRYPTED_PREVIEW.RAW</span>
