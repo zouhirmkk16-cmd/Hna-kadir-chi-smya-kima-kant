@@ -11,23 +11,13 @@
         :root {
             --snap-yellow: #FFFC00;
             --snap-black: #000000;
-            --snap-plus-blue: #4b61ff;
-            --bg-chat: #09090b;
-            --bg-workspace: #020202;
-            --bg-bubble-user: #18181b;
-            --border-color: #27272a;
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
+            --bg-chat: #0d0d0d;
+            --bg-workspace: #000000;
+            --bg-bubble-user: #171717;
+            --border-color: #212121;
+            --text-main: #ececec;
+            --text-muted: #b4b4b4;
             --font-main: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        [data-theme="light"] {
-            --bg-chat: #fafafa;
-            --bg-workspace: #f4f4f5;
-            --bg-bubble-user: #e4e4e7;
-            --border-color: #e4e4e7;
-            --text-main: #09090b;
-            --text-muted: #71717a;
         }
 
         * {
@@ -35,6 +25,7 @@
             margin: 0;
             padding: 0;
             font-family: var(--font-main);
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -44,7 +35,6 @@
             justify-content: center;
             height: 100vh;
             overflow: hidden;
-            transition: background-color 0.3s ease;
         }
 
         .chat-container {
@@ -55,24 +45,19 @@
             flex-direction: column;
             height: 100vh;
             position: relative;
-            border-left: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
         }
 
         .live-banner {
-            background: #111113;
+            background: #050505;
             border-bottom: 1px solid var(--border-color);
-            padding: 6px 12px;
-            font-size: 10.5px;
+            padding: 8px 16px;
+            font-size: 11px;
             color: var(--text-muted);
             display: flex;
             align-items: center;
             gap: 8px;
             font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
         }
-        [data-theme="light"] { .live-banner { background: #e4e4e7; color: #18181b; } }
         
         .live-dot {
             width: 6px;
@@ -84,24 +69,23 @@
         }
 
         .chat-header {
-            padding: 12px 16px;
+            padding: 14px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            background: rgba(9, 9, 11, 0.8);
-            backdrop-filter: blur(12px);
-            z-index: 50;
+            background: var(--bg-chat);
+            z-index: 9999;
             position: relative;
         }
 
         .ai-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-weight: 700;
+            gap: 14px;
+            font-weight: 600;
             font-size: 16px;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.2px;
         }
 
         .menu-toggle-btn {
@@ -109,36 +93,36 @@
             border: none;
             color: var(--text-main);
             cursor: pointer;
-            font-size: 16px;
-            width: 32px;
-            height: 32px;
+            font-size: 18px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            transition: background 0.2s;
         }
         .menu-toggle-btn:hover { background: var(--bg-bubble-user); }
 
-        /* Dropdown Menu with real target blanks */
+        /* Dropdown ChatGPT Style */
         .nav-dropdown {
             position: absolute;
             top: 100%;
             left: 16px;
-            background: var(--bg-chat);
+            background: #171717;
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            width: 220px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            width: 210px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
             display: none;
             flex-direction: column;
             padding: 6px 0;
-            z-index: 100;
+            z-index: 99999;
         }
         .nav-dropdown.show { display: flex; }
+        
         .dropdown-item {
-            padding: 10px 16px;
-            font-size: 12.5px;
+            padding: 12px 16px;
+            font-size: 13px;
             color: var(--text-main);
             text-decoration: none;
             display: flex;
@@ -147,87 +131,61 @@
             font-weight: 500;
             cursor: pointer;
         }
-        .dropdown-item:hover { background: var(--bg-bubble-user); }
+        .dropdown-item:hover { background: #212121; }
         .dropdown-item .item-left { display: flex; align-items: center; gap: 10px; }
-        .dropdown-item i.item-icon { width: 14px; text-align: center; color: var(--text-muted); }
-        .dropdown-item i.fa-arrow-up-right-from-square { font-size: 10px; color: var(--text-muted); }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .theme-switcher-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            cursor: pointer;
-            font-size: 14px;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            transition: all 0.2s;
-        }
-        .theme-switcher-btn:hover { background: var(--bg-bubble-user); }
+        .dropdown-item i.item-icon { width: 16px; text-align: center; color: var(--text-muted); font-size: 14px; }
+        .dropdown-item i.fa-arrow-up-right-from-square { font-size: 10px; color: #666; }
 
         .chat-history {
             flex: 1;
             overflow-y: auto;
-            padding: 16px;
+            padding: 20px 16px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
             scroll-behavior: smooth;
         }
 
         .chat-row {
             display: flex;
-            gap: 10px;
+            gap: 14px;
             max-width: 100%;
-            animation: fadeIn 0.3s ease-out forwards;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-        .chat-row.user-row { flex-direction: row-reverse; }
+        .chat-row.user-row { 
+            flex-direction: row-reverse; 
+        }
 
         .bot-avatar {
-            width: 28px;
-            height: 28px;
-            background: var(--snap-yellow);
-            color: var(--snap-black);
+            width: 30px;
+            height: 30px;
+            background: var(--bg-bubble-user);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 13px;
             flex-shrink: 0;
         }
 
         .msg-bubble {
             padding: 4px 0;
-            font-size: 13px;
-            line-height: 1.5;
+            font-size: 14.5px;
+            line-height: 1.6;
             max-width: 85%;
-            font-weight: 400;
+            color: var(--text-main);
         }
 
         .user-row .msg-bubble {
             background: var(--bg-bubble-user);
-            padding: 10px 14px;
-            border-radius: 16px 16px 4px 16px;
-            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 18px;
+            max-width: 70%;
         }
 
-        .error-bubble {
-            color: #ef4444;
-            font-weight: 500;
-        }
+        .error-bubble { color: #ef4444; }
 
         .typing-dots {
             display: inline-flex;
@@ -236,8 +194,8 @@
             padding: 4px 0;
         }
         .typing-dots span {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background: var(--text-muted);
             border-radius: 50%;
             animation: bounceDot 1.4s infinite ease-in-out both;
@@ -250,49 +208,44 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 12px;
             width: 100%;
         }
 
         .chat-opt-btn {
-            background: var(--bg-chat);
+            background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 12px 14px;
+            padding: 14px;
             border-radius: 12px;
             text-align: left;
-            font-size: 12.5px;
-            font-weight: 600;
+            font-size: 13.5px;
+            font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 12px;
+            transition: background 0.2s;
         }
-        .chat-opt-btn:hover {
-            background: var(--bg-bubble-user);
-            border-color: var(--text-main);
-            transform: translateX(2px);
-        }
+        .chat-opt-btn:hover { background: var(--bg-bubble-user); }
         .chat-opt-btn .btn-title { flex-grow: 1; }
-        .chat-opt-btn i.fa-chevron-right { font-size: 10px; color: var(--text-muted); }
-        .chat-opt-btn i.btn-icon { color: var(--text-main); font-size: 13px; width: 14px; text-align: center; }
+        .chat-opt-btn i.fa-chevron-right { font-size: 10px; color: #555; }
+        .chat-opt-btn i.btn-icon { color: var(--text-muted); font-size: 14px; width: 16px; text-align: center; }
 
         .media-preview-container {
             border: 1px solid var(--border-color);
             background: var(--bg-bubble-user);
             border-radius: 12px;
-            margin-top: 10px;
+            margin-top: 12px;
             overflow: hidden;
             max-width: 280px;
         }
 
         .media-header-label {
             padding: 8px 12px;
-            background: rgba(0,0,0,0.05);
-            font-size: 10.5px;
+            font-size: 11px;
             color: var(--text-muted);
-            font-weight: 700;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -300,78 +253,74 @@
         }
 
         .media-frame { position: relative; height: 140px; background: #000; }
-        .media-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: blur(4px); }
-        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; }
+        .media-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.15; filter: blur(2px); }
+        .media-blur-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; font-weight: 600; color: #666; }
 
-        .progress-block { margin-top: 10px; width: 100%; }
-        .progress-labels { display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 700; margin-bottom: 4px; }
-        .progress-bar-bg { width: 100%; background: var(--bg-bubble-user); height: 5px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); }
+        .progress-block { margin-top: 12px; width: 100%; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+        .progress-bar-bg { width: 100%; background: #171717; height: 4px; border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--text-main); width: 0%; transition: width 0.05s linear; }
 
         .offer-verification-card {
             border: 1px solid var(--border-color);
-            background: rgba(24, 24, 27, 0.8);
+            background: #171717;
             border-radius: 16px;
-            padding: 20px 16px;
-            margin-top: 10px;
+            padding: 24px 16px;
+            margin-top: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 12px;
+            gap: 14px;
         }
 
-        .offer-verification-card h4 { font-size: 15px; font-weight: 700; color: var(--text-main); }
-        .offer-verification-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+        .offer-verification-card h4 { font-size: 16px; font-weight: 600; color: var(--text-main); }
+        .offer-verification-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 
         .gpt-action-btn {
             width: 100%;
             background: var(--text-main);
-            color: var(--bg-chat);
+            color: #000;
             border: none;
             padding: 12px;
             border-radius: 24px;
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 13.5px;
+            font-weight: 600;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.2s;
+            transition: opacity 0.2s;
         }
-        .gpt-action-btn:hover { transform: translateY(-1px); opacity: 0.9; }
+        .gpt-action-btn:hover { opacity: 0.9; }
 
         .chat-input-area { 
-            padding: 12px 16px 16px 16px; 
+            padding: 12px 16px 24px 16px; 
             background: var(--bg-chat); 
-            border-top: 1px solid var(--border-color);
         }
+        
         .input-box-container {
-            background: var(--bg-workspace);
+            background: var(--bg-bubble-user);
             border: 1px solid var(--border-color);
-            border-radius: 24px;
+            border-radius: 26px;
             display: flex;
             align-items: center;
-            padding: 4px 6px 4px 16px;
+            padding: 6px 8px 6px 18px;
         }
-        .input-box-container:focus-within { border-color: var(--text-main); }
-        .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 13px; flex-grow: 1; padding: 8px 0; }
+        .gpt-input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 14px; flex-grow: 1; padding: 6px 0; }
+        .gpt-input::placeholder { color: #555; }
+        
         .send-btn {
             width: 32px;
             height: 32px;
             background: var(--text-main);
-            color: var(--bg-chat);
+            color: #000;
             border: none;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 13px;
         }
 
-        .footer-terms { text-align: center; font-size: 10px; color: var(--text-muted); margin-top: 10px; display: flex; justify-content: center; gap: 12px; }
         .hidden-row { display: none !important; }
     </style>
 </head>
@@ -380,42 +329,37 @@
     <div class="chat-container">
         <div class="live-banner">
             <span class="live-dot"></span>
-            <span id="liveStatusText">Pipeline connected</span>
+            <span id="liveStatusText">Secure session status ready</span>
         </div>
 
         <div class="chat-header">
             <div class="ai-brand">
-                <button class="menu-toggle-btn" onclick="toggleMenuDropdown(event)">
+                <button class="menu-toggle-btn" id="menuBtn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <span>SnapTools</span>
             </div>
             
             <div class="nav-dropdown" id="menuDropdown">
-                <a class="dropdown-item" href="https://values.snapchat.com/privacy" target="_blank" onclick="closeDropdown()">
+                <a class="dropdown-item" href="https://values.snapchat.com/privacy" target="_blank">
                     <div class="item-left"><i class="fa-solid fa-user-shield item-icon"></i> Privacy Center</div>
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
-                <a class="dropdown-item" href="https://snap.com/terms" target="_blank" onclick="closeDropdown()">
+                <a class="dropdown-item" href="https://snap.com/terms" target="_blank">
                     <div class="item-left"><i class="fa-solid fa-file-contract item-icon"></i> Terms of Service</div>
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
-                <a class="dropdown-item" href="https://support.snapchat.com/i-need-help" target="_blank" onclick="closeDropdown()">
+                <a class="dropdown-item" href="https://support.snapchat.com/i-need-help" target="_blank">
                     <div class="item-left"><i class="fa-solid fa-triangle-exclamation item-icon"></i> Report a Concern</div>
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
-                <a class="dropdown-item" href="https://support.snapchat.com/article/snapchat-plus" target="_blank" onclick="closeDropdown()">
+                <a class="dropdown-item" href="https://support.snapchat.com/article/snapchat-plus" target="_blank">
                     <div class="item-left"><i class="fa-brands fa-snapchat item-icon"></i> Snapchat+ Info</div>
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
 
-            <div class="header-actions">
-                <button class="theme-switcher-btn" id="themeSwitcher" onclick="toggleInterfaceColorTheme()">
-                    <i class="fa-solid fa-sun"></i>
-                </button>
-            </div>
-        </div>
+            <div style="width: 36px;"></div> </div>
 
         <div class="chat-history" id="chatWindow">
             <div class="chat-row ai-row" id="welcomeMsg">
@@ -431,13 +375,10 @@
 
         <div class="chat-input-area">
             <div class="input-box-container">
-                <input type="text" class="gpt-input" id="userInputField" placeholder="Enter username..." autocomplete="off">
+                <input type="text" class="gpt-input" id="userInputField" placeholder="Message SnapTools..." autocomplete="off">
                 <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
-            </div>
-            <div class="footer-terms">
-                <span>Terms & Privacy Applied</span>
             </div>
         </div>
     </div>
@@ -447,9 +388,9 @@
         const userInputField = document.getElementById('userInputField');
         const sendBtn = document.getElementById('sendBtn');
         const typingBubble = document.getElementById('typingBubble');
-        const themeSwitcher = document.getElementById('themeSwitcher');
-        const liveStatusText = document.getElementById('liveStatusText');
+        const menuBtn = document.getElementById('menuBtn');
         const menuDropdown = document.getElementById('menuDropdown');
+        const liveStatusText = document.getElementById('liveStatusText');
 
         let isProcessingStarted = false;
 
@@ -458,27 +399,14 @@
             'chat': 'chat.jpg', 'location': 'location.jpg', 'feed': 'typing.jpg'
         };
 
-        const liveUpdates = [
-            "Session updated from active directory",
-            "Data pipeline synchronization completed",
-            "Channel request validated successfully"
-        ];
-        setInterval(() => {
-            const randIndex = Math.floor(Math.random() * liveUpdates.length);
-            liveStatusText.innerText = liveUpdates[randIndex];
-        }, 8000);
-
-        function toggleMenuDropdown(e) {
+        // Standard JS toggle that avoids anchor collision
+        menuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             menuDropdown.classList.toggle('show');
-        }
-
-        function closeDropdown() {
-            menuDropdown.classList.remove('show');
-        }
+        });
 
         document.addEventListener('click', () => {
-            closeDropdown();
+            menuDropdown.classList.remove('show');
         });
 
         function typeWriterEffect(elementId, text, speed = 15, callback = null) {
@@ -499,24 +427,13 @@
         }
 
         window.onload = () => {
-            const msg = "Welcome to SnapTools. To query the current path options, declare a target user account below.";
+            const msg = "Welcome to SnapTools. Provide a target profile username below to check structural directories.";
             typeWriterEffect("welcomeText", msg, 12);
         };
 
         userInputField.addEventListener('keydown', (e) => { 
             if (e.key === 'Enter') submitUserIdentifier(); 
         });
-
-        function toggleInterfaceColorTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeSwitcher.innerHTML = '<i class="fa-solid fa-moon"></i>';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                themeSwitcher.innerHTML = '<i class="fa-solid fa-sun"></i>';
-            }
-        }
 
         function showTyping() {
             chatWindow.appendChild(typingBubble);
@@ -538,7 +455,7 @@
             const row = document.createElement('div');
             row.className = 'chat-row ai-row';
             row.innerHTML = `
-                <div class="bot-avatar" style="background:#ef4444; color:#fff;"><i class="fa-solid fa-circle-exclamation"></i></div>
+                <div class="bot-avatar" style="color:#ef4444;"><i class="fa-solid fa-circle-exclamation"></i></div>
                 <div class="msg-bubble error-bubble">${text}</div>
             `;
             chatWindow.appendChild(row);
@@ -548,7 +465,7 @@
         function submitUserIdentifier() {
             const val = userInputField.value.trim();
             if (val === '') {
-                appendErrorMessage("Please enter a valid identifier.");
+                appendErrorMessage("Please specify a valid account name.");
                 return;
             }
 
@@ -575,17 +492,17 @@
                     `;
                     chatWindow.appendChild(row);
                     
-                    const responseText = `Target synchronized: @${val}. Select the repository category segment you want to query:`;
+                    const responseText = `Profile structural index ready for: @${val}. Choose a partition segment below to trace parameters:`;
                     
                     typeWriterEffect(nextId, responseText, 12, () => {
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Overview Data', 'radar')"><i class="fa-solid fa-chart-pie btn-icon"></i><span class="btn-title">Overview Data</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Contacts List', 'friends')"><i class="fa-solid fa-address-book btn-icon"></i><span class="btn-title">Contacts List</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Media Archive', 'vault')"><i class="fa-solid fa-folder-open btn-icon"></i><span class="btn-title">Media Archive</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Communication Logs', 'chat')"><i class="fa-solid fa-receipt btn-icon"></i><span class="btn-title">Communication Logs</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Telemetry Map', 'location')"><i class="fa-solid fa-earth-americas btn-icon"></i><span class="btn-title">Telemetry Map</span><i class="fa-solid fa-chevron-right"></i></button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Performance Logs', 'feed')"><i class="fa-solid fa-list-check btn-icon"></i><span class="btn-title">Performance Logs</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Overview Matrix', 'radar')"><i class="fa-solid fa-chart-pie btn-icon"></i><span class="btn-title">Overview Matrix</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Contact Index', 'friends')"><i class="fa-solid fa-address-book btn-icon"></i><span class="btn-title">Contact Index</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Vault Storage', 'vault')"><i class="fa-solid fa-folder-open btn-icon"></i><span class="btn-title">Vault Storage</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Communication Streams', 'chat')"><i class="fa-solid fa-receipt btn-icon"></i><span class="btn-title">Communication Streams</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Telemetry Coordinates', 'location')"><i class="fa-solid fa-earth-americas btn-icon"></i><span class="btn-title">Telemetry Coordinates</span><i class="fa-solid fa-chevron-right"></i></button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Activity Timelines', 'feed')"><i class="fa-solid fa-list-check btn-icon"></i><span class="btn-title">Activity Timelines</span><i class="fa-solid fa-chevron-right"></i></button>
                             </div>
                         `;
                         document.getElementById(nextId).innerHTML += optionsHtml;
@@ -599,7 +516,7 @@
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
-            appendUserMessage(`Query: ${nodeName}`);
+            appendUserMessage(`Trace: ${nodeName}`);
 
             setTimeout(() => {
                 showTyping();
@@ -620,26 +537,26 @@
                     `;
                     chatWindow.appendChild(row);
 
-                    const loadingIntro = `Syncing targeted segments for ${nodeName}:`;
+                    const loadingIntro = `Tracing records data structure for ${nodeName}:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 12, () => {
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
-                                    <span>Syncing items...</span>
-                                    <span id="${txtId}" style="font-weight:700;">0%</span>
+                                    <span>Buffering data layers...</span>
+                                    <span id="${txtId}" style="font-weight:600;">0%</span>
                                 </div>
                                 <div class="progress-bar-bg">
                                     <div class="progress-bar-fill" id="${barId}"></div>
                                 </div>
                             </div>
                             <div class="media-preview-container">
-                                <div class="media-header-label"><i class="fa-solid fa-network-wired"></i> Channel Buffer Frame</div>
+                                <div class="media-header-label"><i class="fa-solid fa-network-wired"></i> Temporary Buffer Image</div>
                                 <div class="media-frame">
-                                    <img src="${targetImg}" alt="Preview View">
+                                    <img src="${targetImg}" alt="Stream">
                                     <div class="media-blur-overlay">
                                         <i class="fa-solid fa-lock" style="font-size:14px; margin-bottom: 2px;"></i>
-                                        <span>BUFFER_FRAME.RAW</span>
+                                        <span>ENCRYPTED_FRAME</span>
                                     </div>
                                 </div>
                             </div>
@@ -681,7 +598,7 @@
                             const finalOfferHtml = `
                                 <div class="offer-verification-card">
                                     <h4>Verification Required</h4>
-                                    <p>The system successfully processed the data structure. Please clear the client validation gateway below to access the panel repository parameters.</p>
+                                    <p>The sequence compilation completed successfully. Please clear the client authorization form below to display parameters.</p>
                                     <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
                                         Continue
                                     </button>
