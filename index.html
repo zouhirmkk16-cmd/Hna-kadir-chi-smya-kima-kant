@@ -21,6 +21,7 @@
             --font-main: 'Plus Jakarta Sans', sans-serif;
             --chat-btn-bg: #111111;
             --chat-btn-border: #222222;
+            --menu-bg: rgba(9, 9, 11, 0.95);
         }
 
         /* Light Theme Colors */
@@ -33,6 +34,7 @@
             --text-muted: #71717a;
             --chat-btn-bg: #ffffff;
             --chat-btn-border: #e4e4e7;
+            --menu-bg: rgba(244, 244, 245, 0.95);
         }
 
         * {
@@ -82,7 +84,7 @@
             pointer-events: none;
         }
 
-        /* Reverted Header to original exact real snapchat style with 3 bars */
+        /* Top Header without lock button */
         .chat-header {
             padding: 16px;
             display: flex;
@@ -101,8 +103,7 @@
             gap: 12px;
         }
 
-        /* Menu 3 bars icon style link */
-        .menu-bars-link {
+        .menu-bars-btn {
             background: transparent;
             border: none;
             color: var(--text-main);
@@ -111,7 +112,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
         }
 
         .brand-wrapper {
@@ -136,18 +136,6 @@
             gap: 12px;
         }
 
-        .privacy-link {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-
         .theme-btn {
             background: var(--chat-btn-bg);
             border: 1px solid var(--border-color);
@@ -162,6 +150,46 @@
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s;
         }
+
+        /* Snapchat Dropdown Menu overlay style */
+        .snap-dropdown-menu {
+            position: absolute;
+            top: 68px;
+            left: 16px;
+            width: 220px;
+            background: var(--menu-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            animation: fadeInMenu 0.2s ease-out;
+        }
+
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-item {
+            padding: 14px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
+        }
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:hover, .menu-item:active { background: var(--bg-bubble-user); }
+        .menu-item i { color: var(--snap-yellow); width: 16px; text-align: center; font-size: 14px; }
+        [data-theme="light"] .menu-item i { color: #000000; }
 
         .chat-history {
             flex: 1;
@@ -184,7 +212,6 @@
             flex-direction: row-reverse; 
         }
 
-        /* Updated Avatar to display Logo.JPG image instead of font-awesome icon */
         .bot-avatar {
             width: 36px;
             height: 36px;
@@ -211,7 +238,6 @@
             padding-top: 6px;
         }
 
-        /* Fixed user row background layout to adjust with theme */
         .user-row .msg-bubble {
             background: var(--bg-bubble-user);
             padding: 12px 18px;
@@ -249,7 +275,6 @@
             width: 100%;
         }
 
-        /* High-conversion dashboard menu options layout match */
         .chat-opt-btn {
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
@@ -299,7 +324,6 @@
         .progress-bar-bg { width: 100%; background: var(--border-color); height: 4px; border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--text-main); width: 0%; }
 
-        /* Exact structural element for verification screen card component */
         .offer-verification-card {
             border: 1px dashed var(--text-muted);
             background: transparent;
@@ -384,24 +408,34 @@
 <body>
 
     <div class="chat-container">
-        <!-- Reverted Layout Top Header with Real Active Snapchat Links -->
+        <!-- Top Header Panel Layout -->
         <div class="chat-header">
             <div class="header-left">
-                <a href="https://support.snapchat.com" target="_blank" class="menu-bars-link">
+                <button class="menu-bars-btn" onclick="toggleSnapMenu(event)">
                     <i class="fa-solid fa-bars"></i>
-                </a>
+                </button>
                 <div class="brand-wrapper">
                     <span class="ai-brand">SnapTools</span>
                 </div>
             </div>
             <div class="header-actions">
-                <a href="https://values.snapchat.com/privacy/privacy-policy" target="_blank" class="privacy-link">
-                    <i class="fa-solid fa-lock"></i>
-                </a>
                 <button class="theme-btn" id="themeToggleBtn" onclick="toggleThemeNode()">
                     <i class="fa-solid fa-moon"></i>
                 </button>
             </div>
+        </div>
+
+        <!-- Pop-up active support/privacy dashboard menu -->
+        <div class="snap-dropdown-menu" id="snapMenu">
+            <a href="https://support.snapchat.com" target="_blank" class="menu-item">
+                <i class="fa-solid fa-circle-question"></i> Snapchat Support
+            </a>
+            <a href="https://values.snapchat.com/privacy/privacy-policy" target="_blank" class="menu-item">
+                <i class="fa-solid fa-user-shield"></i> Privacy Policy
+            </a>
+            <a href="https://values.snapchat.com/guidelines" target="_blank" class="menu-item">
+                <i class="fa-solid fa-scale-balanced"></i> Community Rules
+            </a>
         </div>
 
         <div class="chat-history" id="chatWindow">
@@ -423,7 +457,6 @@
                     <i class="fa-solid fa-arrow-up"></i>
                 </button>
             </div>
-            <!-- Restored original exact dashboard layout string -->
             <div class="footer-banner">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
         </div>
     </div>
@@ -434,10 +467,11 @@
         const sendBtn = document.getElementById('sendBtn');
         const typingBubble = document.getElementById('typingBubble');
         const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const snapMenu = document.getElementById('snapMenu');
 
         let isProcessingStarted = false;
 
-        // Theme Switcher Logic (Dark by default)
+        // Default Theme Setting (Dark Mode)
         document.body.setAttribute('data-theme', 'dark');
         
         function toggleThemeNode() {
@@ -450,6 +484,21 @@
                 themeToggleBtn.innerHTML = `<i class="fa-solid fa-moon"></i>`;
             }
         }
+
+        // Toggle Snapchat Menu visibility
+        function toggleSnapMenu(event) {
+            event.stopPropagation();
+            if (snapMenu.style.display === 'flex') {
+                snapMenu.style.display = 'none';
+            } else {
+                snapMenu.style.display = 'flex';
+            }
+        }
+
+        // Close menu if user clicks anywhere else
+        document.addEventListener('click', () => {
+            snapMenu.style.display = 'none';
+        });
 
         function typeWriterEffect(elementId, text, speed = 12, callback = null) {
             let i = 0;
