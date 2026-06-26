@@ -120,7 +120,7 @@
         }
         .menu-toggle-btn:hover { background: var(--bg-bubble-user); }
 
-        /* Dropdown Menu styling */
+        /* Dropdown Menu with real target blanks */
         .nav-dropdown {
             position: absolute;
             top: 100%;
@@ -128,7 +128,7 @@
             background: var(--bg-chat);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            width: 180px;
+            width: 220px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             display: none;
             flex-direction: column;
@@ -143,12 +143,14 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
             font-weight: 500;
             cursor: pointer;
         }
         .dropdown-item:hover { background: var(--bg-bubble-user); }
-        .dropdown-item i { width: 14px; text-align: center; color: var(--text-muted); }
+        .dropdown-item .item-left { display: flex; align-items: center; gap: 10px; }
+        .dropdown-item i.item-icon { width: 14px; text-align: center; color: var(--text-muted); }
+        .dropdown-item i.fa-arrow-up-right-from-square { font-size: 10px; color: var(--text-muted); }
 
         .header-actions {
             display: flex;
@@ -390,10 +392,22 @@
             </div>
             
             <div class="nav-dropdown" id="menuDropdown">
-                <a class="dropdown-item" onclick="closeDropdown()"><i class="fa-solid fa-user-shield"></i> Privacy Policy</a>
-                <a class="dropdown-item" onclick="closeDropdown()"><i class="fa-solid fa-file-contract"></i> Terms of Service</a>
-                <a class="dropdown-item" onclick="closeDropdown()"><i class="fa-solid fa-triangle-exclamation"></i> Report an Issue</a>
-                <a class="dropdown-item" onclick="closeDropdown()"><i class="fa-solid fa-gear"></i> App Settings</a>
+                <a class="dropdown-item" href="https://values.snapchat.com/privacy" target="_blank" onclick="closeDropdown()">
+                    <div class="item-left"><i class="fa-solid fa-user-shield item-icon"></i> Privacy Center</div>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <a class="dropdown-item" href="https://snap.com/terms" target="_blank" onclick="closeDropdown()">
+                    <div class="item-left"><i class="fa-solid fa-file-contract item-icon"></i> Terms of Service</div>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <a class="dropdown-item" href="https://support.snapchat.com/i-need-help" target="_blank" onclick="closeDropdown()">
+                    <div class="item-left"><i class="fa-solid fa-triangle-exclamation item-icon"></i> Report a Concern</div>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <a class="dropdown-item" href="https://support.snapchat.com/article/snapchat-plus" target="_blank" onclick="closeDropdown()">
+                    <div class="item-left"><i class="fa-brands fa-snapchat item-icon"></i> Snapchat+ Info</div>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
             </div>
 
             <div class="header-actions">
