@@ -302,31 +302,9 @@
         }
 
         .chat-opt-btn i.btn-icon {
-            font-size: 16px;
-            width: 22px;
-            text-align: center;
-        }
-
-        .design-icon-wrapper {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 18px;
             width: 24px;
-            height: 24px;
-        }
-
-        .design-icon-wrapper .base-battery {
-            font-size: 20px;
-            color: var(--text-muted);
-        }
-
-        .design-icon-wrapper .center-pattern {
-            position: absolute;
-            font-size: 8px;
-            top: 50%;
-            left: 42%;
-            transform: translate(-50%, -50%);
+            text-align: center;
         }
 
         .chat-opt-btn i.fa-chevron-right { 
@@ -624,74 +602,65 @@
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
-                            <div class="section-divider-title">Solid Battery Colors</div>
+                            <div class="section-divider-title">Battery Colors</div>
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Volt Neon Green Battery')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Neon Green')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-battery-full btn-icon" style="color:#00ff66;"></i>
-                                        <span class="btn-title">Volt Neon Green [SYS_COLOR]</span>
+                                        <span class="btn-title">Neon Green</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Deep Sapphire Blue Battery')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Sapphire Blue')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-battery-full btn-icon" style="color:#0077ff;"></i>
-                                        <span class="btn-title">Deep Sapphire Blue [SYS_COLOR]</span>
+                                        <span class="btn-title">Sapphire Blue</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Cyberpunk Crimson Red Battery')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Crimson Red')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-battery-full btn-icon" style="color:#ff2a2a;"></i>
-                                        <span class="btn-title">Cyberpunk Crimson Red [SYS_COLOR]</span>
+                                        <span class="btn-title">Crimson Red</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Electric Plasma Pink Battery')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Plasma Pink')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-battery-full btn-icon" style="color:#ff007f;"></i>
-                                        <span class="btn-title">Electric Plasma Pink [SYS_COLOR]</span>
+                                        <span class="btn-title">Plasma Pink</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Liquid Chrome Gold Battery')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Chrome Gold')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-battery-full btn-icon" style="color:#ffd700;"></i>
-                                        <span class="btn-title">Liquid Chrome Gold [SYS_COLOR]</span>
+                                        <span class="btn-title">Chrome Gold</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </div>
 
-                            <div class="section-divider-title">Premium Pattern Fills (Inside Center)</div>
+                            <div class="section-divider-title">Custom Fills</div>
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Chroma Spectrum Micro-Chip Design')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Happy Design')">
                                     <div class="btn-left-content">
-                                        <div class="design-icon-wrapper">
-                                            <i class="fa-solid fa-battery-three-quarters base-battery"></i>
-                                            <i class="fa-solid fa-microchip center-pattern" style="color: #00ff66;"></i>
-                                        </div>
-                                        <span class="btn-title">Chroma Micro-Chip [DESIGN_X1]</span>
+                                        <i class="fa-solid fa-battery-half btn-icon" style="color: #00ff66;"></i>
+                                        <span class="btn-title">Happy Design</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Metallic Obsidian Matrix Design')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Sad Design')">
                                     <div class="btn-left-content">
-                                        <div class="design-icon-wrapper">
-                                            <i class="fa-solid fa-battery-three-quarters base-battery"></i>
-                                            <i class="fa-solid fa-atom center-pattern" style="color: #ffd700;"></i>
-                                        </div>
-                                        <span class="btn-title">Obsidian Core Matrix [DESIGN_X2]</span>
+                                        <i class="fa-solid fa-battery-quarter btn-icon" style="color: #ff2a2a;"></i>
+                                        <span class="btn-title">Sad Design</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Baroque Velvet Geometric Design')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Cool Design')">
                                     <div class="btn-left-content">
-                                        <div class="design-icon-wrapper">
-                                            <i class="fa-solid fa-battery-three-quarters base-battery"></i>
-                                            <i class="fa-solid fa-bolt center-pattern" style="color: #ff007f;"></i>
-                                        </div>
-                                        <span class="btn-title">Velvet Geometric Vector [DESIGN_X3]</span>
+                                        <i class="fa-solid fa-battery-three-quarters btn-icon" style="color: #0077ff;"></i>
+                                        <span class="btn-title">Cool Design</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
