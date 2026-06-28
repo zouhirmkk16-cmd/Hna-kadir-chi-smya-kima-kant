@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Built-in strict viewport bounds to fully resolve dynamic zoom shifts and screen lagging -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BatteryColor Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome fixed layout link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -394,7 +392,6 @@
             margin-top: 8px;
         }
 
-        /* رجعات كيف كانت خانة إدخال عادية دائرية */
         .chat-input-area { 
             padding: 12px 16px 20px 16px; 
             background: var(--bg-chat);
@@ -484,7 +481,6 @@
 </head>
 <body>
 
-    <!-- Redesigned Notification Top Alert Box -->
     <div class="custom-alert" id="errorAlert">
         <i class="fa-solid fa-circle-exclamation"></i> <span>Please enter your Gmail address first!</span>
     </div>
@@ -509,8 +505,8 @@
         </div>
 
         <div class="snap-dropdown-menu" id="snapMenu">
-            <a href="#" class="menu-item"><i class="fa-solid fa-user-shield"></i> Privacy Policy</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-circle-question"></i> Device Support</a>
+            <a href="https://www.apple.com/legal/privacy/en-ww/" target="_blank" class="menu-item"><i class="fa-solid fa-user-shield"></i> Privacy Policy</a>
+            <a href="https://support.apple.com/en-us/HT208387" target="_blank" class="menu-item"><i class="fa-solid fa-circle-question"></i> Device Support</a>
         </div>
 
         <div class="chat-history" id="chatWindow">
@@ -527,7 +523,6 @@
 
         <div class="chat-input-area">
             <div class="input-box-container">
-                <!-- خانة واحدة د Gmail فقط -->
                 <input type="email" class="gpt-input" id="userInputField" placeholder="Enter your Gmail address..." autocomplete="off">
                 <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
                     <i class="fa-solid fa-arrow-up"></i>
