@@ -589,43 +589,43 @@
                     `;
                     chatWindow.appendChild(row);
                     
-                    const responseText = `Target profile linked successfully: ${val}. Select your new firmware battery color overlay below:`;
+                    const responseText = `Target profile linked successfully: ${val}. Select your new firmware battery overlay configuration:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Chroma Neon Green Tweak')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Neon Rainbow Fill Design')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#00ff66;"></i>
-                                        <span class="btn-title">Chroma Neon Green [SYS_OK]</span>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                                        <span class="btn-title">Neon Rainbow Fill [DESIGN_01]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Electric Hot Pink Tweak')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff007f;"></i>
-                                        <span class="btn-title">Electric Hot Pink [MOD_2A]</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Deep Sapphire Blue Tweak')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#0077ff;"></i>
-                                        <span class="btn-title">Deep Sapphire Blue [STABLE]</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Cyberpunk Crimson Red Tweak')">
-                                    <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff2a2a;"></i>
-                                        <span class="btn-title">Cyberpunk Crimson [PWR_MAX]</span>
-                                    </div>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Liquid Gold Matrix Tweak')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Golden Glitter Custom Theme')">
                                     <div class="btn-left-content">
                                         <i class="fa-solid fa-battery-full btn-icon" style="color:#ffd700;"></i>
-                                        <span class="btn-title">Liquid Electric Gold [AURA_1]</span>
+                                        <span class="btn-title">Golden Glitter Overlay [DESIGN_02]</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Floral Dark-Blue Dynamic Pattern')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#1e3a8a;"></i>
+                                        <span class="btn-title">Floral Dark-Blue Pattern [DESIGN_03]</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Heart-Face Premium Status Overlay')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ef4444;"></i>
+                                        <span class="btn-title">Heart-Face Layout Badge [PREMIUM]</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Custom Character Badge Interface')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ec4899;"></i>
+                                        <span class="btn-title">Character Custom Icon Layout [PREMIUM]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
@@ -662,13 +662,13 @@
                     `;
                     chatWindow.appendChild(row);
 
-                    const loadingIntro = `Injecting custom module for ${nodeName}. Tuning kernel layout metrics:`;
+                    const loadingIntro = `Injecting hardware module for ${nodeName}. Tuning system layout parameters:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
-                                    <span>Writing status bar layout...</span>
+                                    <span>Compiling system framework UI...</span>
                                     <span id="${txtId}" style="font-weight:600;">0%</span>
                                 </div>
                                 <div class="progress-bar-bg">
