@@ -9,7 +9,7 @@
     
     <style>
         :root {
-            --snap-yellow: #00ff66; /* لون نيون للبطارية */
+            --snap-yellow: #00ff66; 
             --snap-black: #000000;
             --bg-chat: #09090b;
             --bg-workspace: #020202;
@@ -25,7 +25,6 @@
             --alert-border: rgba(255, 68, 68, 0.4);
         }
 
-        /* Light Theme Colors */
         [data-theme="light"] {
             --bg-chat: #f4f4f5;
             --bg-workspace: #e4e4e7;
@@ -127,12 +126,8 @@
             display: flex;
             align-items: center;
         }
-        .ai-brand .part-snap {
-            color: var(--snap-yellow);
-        }
-        .ai-brand .part-tools {
-            color: var(--text-main);
-        }
+        .ai-brand .part-snap { color: var(--snap-yellow); }
+        .ai-brand .part-tools { color: var(--text-main); }
 
         .header-actions {
             display: flex;
@@ -232,6 +227,7 @@
             max-width: 85%;
             color: var(--text-main);
             padding-top: 6px;
+            width: 100%;
         }
 
         .user-row .msg-bubble {
@@ -240,6 +236,7 @@
             border-radius: 18px;
             max-width: 75%;
             font-weight: 500;
+            width: auto;
         }
 
         [data-theme="dark"] .user-row .msg-bubble {
@@ -306,55 +303,10 @@
             color: #71717a; 
         }
 
-        .media-preview-container {
-            border: 1px solid var(--border-color);
-            background: var(--chat-btn-bg);
-            border-radius: 16px;
-            margin-top: 16px;
-            overflow: hidden;
-            max-width: 100%;
-        }
-
-        .media-header-label {
-            padding: 12px 16px;
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .media-frame { 
-            position: relative; 
-            height: 180px; 
-            background: #000; 
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .media-blur-overlay { 
-            position: absolute; 
-            inset: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 8px; 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #e4e4e7; 
-            letter-spacing: 0.5px; 
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            background: rgba(0, 0, 0, 0.2);
-        }
-
         .progress-block { margin-top: 16px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
         .progress-bar-bg { width: 100%; background: var(--border-color); height: 4px; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--text-main); width: 0%; }
+        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; }
 
         .offer-verification-card {
             border: 1px dashed var(--text-muted);
@@ -471,11 +423,6 @@
         .custom-alert span {
             color: var(--text-main);
         }
-        @keyframes pulseAlert {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
     </style>
 </head>
 <body>
@@ -542,15 +489,6 @@
 
         let isProcessingStarted = false;
         let alertTimeout = null;
-
-        const optionImages = {
-            'Neon Green Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
-            'Electric Pink Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
-            'Sapphire Blue Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
-            'Crimson Red Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
-            'Liquid Gold Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
-            'Aura Purple Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400'
-        };
 
         document.body.setAttribute('data-theme', 'dark');
         
@@ -656,45 +594,52 @@
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Neon Green Tweak')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Chroma Neon Green Tweak')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon" style="color:#00ff66;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#00ff66;"></i>
                                         <span class="btn-title">Chroma Neon Green</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Electric Pink Tweak')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Electric Hot Pink Tweak')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon" style="color:#ff007f;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff007f;"></i>
                                         <span class="btn-title">Electric Hot Pink</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Sapphire Blue Tweak')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Deep Sapphire Blue Tweak')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon" style="color:#0077ff;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#0077ff;"></i>
                                         <span class="btn-title">Deep Sapphire Blue</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Crimson Red Tweak')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Cyberpunk Crimson Red Tweak')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon" style="color:#ff2a2a;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff2a2a;"></i>
                                         <span class="btn-title">Cyberpunk Crimson Red</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Liquid Gold Tweak')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Cool Bad-Boy Battery Tweak 😎')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon" style="color:#ffd700;"></i>
-                                        <span class="btn-title">Liquid Electric Gold</span>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ffd700;"></i>
+                                        <span class="btn-title">Cool Bad-Boy Face Battery 😎</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Aura Purple Tweak')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Cute Kawaii Energy Tweak 🥰')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-bolt btn-icon" style="color:#8a2be2;"></i>
-                                        <span class="btn-title">Aura Violet Purple</span>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff69b4;"></i>
+                                        <span class="btn-title">Cute Kawaii Face Battery 🥰</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Hyped Rage Matrix Tweak 😡')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff4500;"></i>
+                                        <span class="btn-title">Hyped Rage Face Battery 😡</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
@@ -721,7 +666,6 @@
                     
                     const barId = 'bar_' + Date.now();
                     const txtId = 'txt_' + Date.now();
-                    const frameId = 'frame_' + Date.now();
 
                     const nextId = 'ai_load_' + Date.now();
                     const row = document.createElement('div');
@@ -732,28 +676,17 @@
                     `;
                     chatWindow.appendChild(row);
 
-                    const loadingIntro = `Injecting package for ${nodeName}. Establishing encrypted hardware exploit link:`;
+                    const loadingIntro = `Injecting custom module for ${nodeName}. Tuning kernel layout metrics:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
-                        const bgImage = optionImages[nodeName] || "";
-                        
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
-                                    <span>Compiling system framework UI...</span>
+                                    <span>Writing status bar layout...</span>
                                     <span id="${txtId}" style="font-weight:600;">0%</span>
                                 </div>
                                 <div class="progress-bar-bg">
                                     <div class="progress-bar-fill" id="${barId}"></div>
-                                </div>
-                            </div>
-                            <div class="media-preview-container">
-                                <div class="media-header-label"><i class="fa-regular fa-eye"></i> Injection Status Monitor</div>
-                                <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
-                                    <div class="media-blur-overlay">
-                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
-                                        <span>ENCRYPTED_PATCH.RAW</span>
-                                    </div>
                                 </div>
                             </div>
                         `;
