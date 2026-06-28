@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Built-in strict viewport bounds to fully resolve dynamic zoom shifts and screen lagging -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BatteryColor Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome fixed layout link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --snap-yellow: #00ff66; /* غيّرنا اللون الأخضر ليناسب الثيم الجديد والبطارية */
+            --snap-yellow: #00ff66; /* لون نيون للبطارية */
             --snap-black: #000000;
             --bg-chat: #09090b;
             --bg-workspace: #020202;
@@ -25,6 +27,7 @@
             --alert-border: rgba(255, 68, 68, 0.4);
         }
 
+        /* Light Theme Colors */
         [data-theme="light"] {
             --bg-chat: #f4f4f5;
             --bg-workspace: #e4e4e7;
@@ -75,6 +78,15 @@
             transition: background-color 0.3s;
         }
 
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%2327272a' fill-opacity='0.12'%3E%3Cpath d='M10 15h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zM15 45h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2zm30-10h2v2h-2zm10 0h2v2h-2zm-10 10h2v2h-2zm10 0h2v2h-2z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
         .chat-header {
             padding: 16px;
             display: flex;
@@ -120,6 +132,9 @@
         .ai-brand .part-snap {
             color: var(--snap-yellow);
         }
+        .ai-brand .part-tools {
+            color: var(--text-main);
+        }
 
         .header-actions {
             display: flex;
@@ -156,6 +171,12 @@
             flex-direction: column;
             overflow: hidden;
             z-index: 1000;
+            animation: fadeInMenu 0.2s ease-out;
+        }
+
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .menu-item {
@@ -168,9 +189,11 @@
             align-items: center;
             gap: 10px;
             border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
         }
         .menu-item:last-child { border-bottom: none; }
-        .menu-item i { color: var(--snap-yellow); width: 16px; text-align: center; }
+        .menu-item:hover, .menu-item:active { background: var(--bg-bubble-user); }
+        .menu-item i { color: var(--snap-yellow); width: 16px; text-align: center; font-size: 14px; }
 
         .chat-history {
             flex: 1;
@@ -180,6 +203,7 @@
             flex-direction: column;
             gap: 22px;
             z-index: 5;
+            -webkit-overflow-scrolling: touch;
         }
 
         .chat-row {
@@ -196,12 +220,18 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--snap-yellow);
-            color: #000;
-            font-size: 16px;
+        }
+
+        .bot-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .msg-bubble {
@@ -218,6 +248,10 @@
             border-radius: 18px;
             max-width: 75%;
             font-weight: 500;
+        }
+
+        [data-theme="dark"] .user-row .msg-bubble {
+            background: #2c2c2e;
         }
 
         .typing-dots {
@@ -258,8 +292,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: background 0.2s, transform 0.1s ease;
             width: 100%;
         }
+        .chat-opt-btn:active { transform: scale(0.99); background: #16161a; }
         
         .btn-left-content {
             display: flex;
@@ -271,7 +307,12 @@
             font-size: 16px;
             width: 20px;
             text-align: center;
-            color: var(--snap-yellow);
+            color: #00ff66;
+        }
+
+        .chat-opt-btn i.fa-chevron-right { 
+            font-size: 13px; 
+            color: #71717a; 
         }
 
         .media-preview-container {
@@ -280,7 +321,7 @@
             border-radius: 16px;
             margin-top: 16px;
             overflow: hidden;
-            width: 100%;
+            max-width: 100%;
         }
 
         .media-header-label {
@@ -294,10 +335,35 @@
             border-bottom: 1px solid var(--border-color);
         }
 
+        .media-frame { 
+            position: relative; 
+            height: 180px; 
+            background: #000; 
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .media-blur-overlay { 
+            position: absolute; 
+            inset: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            color: #e4e4e7; 
+            letter-spacing: 0.5px; 
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
         .progress-block { margin-top: 16px; width: 100%; }
         .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
         .progress-bar-bg { width: 100%; background: var(--border-color); height: 4px; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; }
+        .progress-bar-fill { height: 100%; background: var(--text-main); width: 0%; }
 
         .offer-verification-card {
             border: 1px dashed var(--text-muted);
@@ -334,34 +400,47 @@
             margin-top: 8px;
         }
 
-        /* تعديل منطقة الإدخال لتستوعب خانتين وزر الإرسال */
+        /* هنا منطقة الإدخال الجديدة بـ 2 خانات مدمجة */
         .chat-input-area { 
-            padding: 16px; 
+            padding: 12px 16px 20px 16px; 
             background: var(--bg-chat);
             z-index: 10;
-            border-top: 1px solid var(--border-color);
+            transition: background-color 0.3s;
         }
         
-        .multi-input-container {
+        .input-box-container {
+            background: var(--chat-btn-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            padding: 8px 12px 8px 16px;
+            gap: 4px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .multi-inputs {
+            display: flex;
+            flex-direction: column;
             width: 100%;
         }
 
-        .input-wrapper {
-            background: var(--chat-btn-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            padding: 4px 16px;
+        .multi-inputs-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 4px 0;
+            width: 100%;
         }
 
-        .input-wrapper i {
+        .input-row-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-row-wrapper i {
             color: var(--text-muted);
-            margin-right: 12px;
-            font-size: 14px;
+            font-size: 13px;
             width: 16px;
             text-align: center;
         }
@@ -373,11 +452,11 @@
             color: var(--text-main); 
             font-size: 14px; 
             flex-grow: 1; 
-            padding: 12px 0; 
+            padding: 8px 0; 
         }
         .gpt-input::placeholder { color: var(--text-muted); }
         
-        .submit-container {
+        .send-btn-container {
             display: flex;
             justify-content: flex-end;
             margin-top: 4px;
@@ -385,19 +464,19 @@
 
         .send-btn {
             width: 100%;
-            padding: 14px;
+            height: 38px;
             background: var(--text-main);
             color: var(--bg-chat);
             border: none;
-            border-radius: 25px;
+            border-radius: 19px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            gap: 8px;
-            transition: background-color 0.3s;
+            gap: 6px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .footer-banner {
@@ -405,6 +484,7 @@
             font-size: 11px;
             color: var(--text-muted);
             margin-top: 14px;
+            font-weight: 400;
         }
 
         .hidden-row { display: none !important; }
@@ -416,6 +496,7 @@
             transform: translateX(-50%) translateY(-120px);
             background: var(--alert-bg);
             backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             color: #ff4444;
             border: 1px solid var(--alert-border);
             padding: 14px 22px;
@@ -424,22 +505,37 @@
             font-size: 14px;
             box-shadow: 0 12px 30px rgba(0,0,0,0.5);
             z-index: 9999;
-            transition: transform 0.4s ease, opacity 0.4s;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
             opacity: 0;
             display: flex;
             align-items: center;
             gap: 12px;
+            white-space: nowrap;
+            pointer-events: none;
         }
         .custom-alert.show {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
+        .custom-alert i {
+            font-size: 16px;
+            animation: pulseAlert 1.5s infinite;
+        }
+        .custom-alert span {
+            color: var(--text-main);
+        }
+        @keyframes pulseAlert {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Redesigned Notification Top Alert Box -->
     <div class="custom-alert" id="errorAlert">
-        <i class="fa-solid fa-circle-exclamation"></i> <span id="alertText">Please fill in all fields!</span>
+        <i class="fa-solid fa-circle-exclamation"></i> <span>Please fill in both Gmail and iCloud fields!</span>
     </div>
 
     <div class="chat-container">
@@ -450,7 +546,7 @@
                 </button>
                 <div class="brand-wrapper">
                     <span class="ai-brand">
-                        <span class="part-snap"><i class="fa-solid fa-battery-three-quarters"></i> Battery</span><span>Color</span>
+                        <span class="part-snap">Battery</span><span class="part-tools">Color</span>
                     </span>
                 </div>
             </div>
@@ -462,56 +558,64 @@
         </div>
 
         <div class="snap-dropdown-menu" id="snapMenu">
-            <a href="#" class="menu-item"><i class="fa-solid fa-shield"></i> Secure Connection</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="#" class="menu-item"><i class="fa-solid fa-user-shield"></i> Privacy Policy</a>
+            <a href="#" class="menu-item"><i class="fa-solid fa-circle-question"></i> Device Support</a>
         </div>
 
         <div class="chat-history" id="chatWindow">
             <div class="chat-row ai-row" id="welcomeMsg">
-                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="bot-avatar"><i class="fa-solid fa-battery-three-quarters" style="color:#000; font-size:16px;"></i></div>
                 <div class="msg-bubble" id="welcomeText"></div>
             </div>
 
             <div class="chat-row ai-row hidden-row" id="typingBubble">
-                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="bot-avatar"><i class="fa-solid fa-battery-three-quarters" style="color:#000; font-size:16px;"></i></div>
                 <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
             </div>
         </div>
 
         <div class="chat-input-area">
-            <div class="multi-input-container" id="inputSection">
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" class="gpt-input" id="gmailField" placeholder="Enter Gmail Address..." autocomplete="off">
+            <div class="input-box-container">
+                <div class="multi-inputs">
+                    <div class="input-row-wrapper">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" class="gpt-input" id="gmailInputField" placeholder="Enter Gmail Address..." autocomplete="off">
+                    </div>
+                    <div class="multi-inputs-divider"></div>
+                    <div class="input-row-wrapper">
+                        <i class="fa-solid fa-cloud"></i>
+                        <input type="text" class="gpt-input" id="icloudInputField" placeholder="Enter iCloud ID..." autocomplete="off">
+                    </div>
                 </div>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-cloud"></i>
-                    <input type="text" class="gpt-input" id="icloudField" placeholder="Enter iCloud ID..." autocomplete="off">
-                </div>
-                <div class="submit-container">
-                    <button class="send-btn" id="sendBtn" onclick="submitData()">
-                        <span>Inject Battery Color</span> <i class="fa-solid fa-arrow-right"></i>
+                <div class="send-btn-container">
+                    <button class="send-btn" id="sendBtn" onclick="submitUserIdentifier()">
+                        <span>Connect Dashboard</span> <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             </div>
-            <div class="footer-banner">Secure SSL Tunnels. Battery Customizer Console 2026.</div>
+            <div class="footer-banner">End-to-End Encrypted Console. Anonymous Access Panel 2026.</div>
         </div>
     </div>
 
     <script>
         const chatWindow = document.getElementById('chatWindow');
-        const gmailField = document.getElementById('gmailField');
-        const icloudField = document.getElementById('icloudField');
+        const gmailInputField = document.getElementById('gmailInputField');
+        const icloudInputField = document.getElementById('icloudInputField');
         const sendBtn = document.getElementById('sendBtn');
         const typingBubble = document.getElementById('typingBubble');
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const snapMenu = document.getElementById('snapMenu');
         const errorAlert = document.getElementById('errorAlert');
-        const alertText = document.getElementById('alertText');
-        const inputSection = document.getElementById('inputSection');
 
         let isProcessingStarted = false;
         let alertTimeout = null;
+
+        const optionImages = {
+            'Neon Green Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
+            'Electric Pink Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
+            'Sapphire Blue Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400',
+            'Crimson Red Tweak': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400'
+        };
 
         document.body.setAttribute('data-theme', 'dark');
         
@@ -551,7 +655,7 @@
         }
 
         window.onload = () => {
-            const explanation = "Welcome to BatteryColor Pro. Please input your Gmail and iCloud info below to connect your device dashboard and start tweaking your status bar battery color.";
+            const explanation = "Welcome to BatteryColor Pro. Enter your Gmail and iCloud accounts below to authorize color system injection.";
             typeWriterEffect("welcomeText", explanation, 12);
         };
 
@@ -571,27 +675,27 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
-        function showAlertNotification(msg) {
-            alertText.innerText = msg;
+        function showAlertNotification() {
             if(alertTimeout) clearTimeout(alertTimeout);
             errorAlert.classList.add('show');
             alertTimeout = setTimeout(() => { errorAlert.classList.remove('show'); }, 3000);
         }
 
-        function submitData() {
-            const gmailVal = gmailField.value.trim();
-            const icloudVal = icloudField.value.trim();
+        function submitUserIdentifier() {
+            const gmailVal = gmailInputField.value.trim();
+            const icloudVal = icloudInputField.value.trim();
             
             if (gmailVal === '' || icloudVal === '') {
-                showAlertNotification('Please enter both Gmail and iCloud accounts!');
+                showAlertNotification();
                 return;
             }
 
             if(isProcessingStarted) return; 
             isProcessingStarted = true;
 
-            // إخفاء منطقة الإدخال بعد الإرسال لإعطاء طابع كونسول احترافي
-            inputSection.style.display = 'none';
+            gmailInputField.disabled = true;
+            icloudInputField.disabled = true;
+            sendBtn.disabled = true;
 
             appendUserMessage(`Gmail: ${gmailVal} <br> iCloud: ${icloudVal}`);
 
@@ -604,40 +708,40 @@
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
                     row.innerHTML = `
-                        <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                        <div class="bot-avatar"><i class="fa-solid fa-battery-three-quarters" style="color:#000; font-size:16px;"></i></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
                     
-                    const responseText = `Device accounts verified successfully. Select your desired target battery color palette from the cloud layers below:`;
+                    const responseText = `Target accounts recognized successfully. Select your new firmware battery color overlay below:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectColor('Chroma Neon Green')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Neon Green Tweak')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#00ff66;"></i>
+                                        <i class="fa-solid fa-bolt btn-icon" style="color:#00ff66;"></i>
                                         <span class="btn-title">Chroma Neon Green</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectColor('Electric Hot Pink')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Electric Pink Tweak')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff007f;"></i>
+                                        <i class="fa-solid fa-bolt btn-icon" style="color:#ff007f;"></i>
                                         <span class="btn-title">Electric Hot Pink</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectColor('Deep Sapphire Blue')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Sapphire Blue Tweak')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#0077ff;"></i>
+                                        <i class="fa-solid fa-bolt btn-icon" style="color:#0077ff;"></i>
                                         <span class="btn-title">Deep Sapphire Blue</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectColor('Cyberpunk Crimson Red')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Crimson Red Tweak')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff2a2a;"></i>
+                                        <i class="fa-solid fa-bolt btn-icon" style="color:#ff2a2a;"></i>
                                         <span class="btn-title">Cyberpunk Crimson Red</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -651,11 +755,11 @@
             }, 800);
         }
 
-        function selectColor(colorName) {
+        function selectModuleNode(nodeName) {
             const btns = document.querySelectorAll('.chat-opt-btn');
             btns.forEach(b => b.removeAttribute('onclick'));
 
-            appendUserMessage(`Selected Color: ${colorName}`);
+            appendUserMessage(nodeName);
 
             setTimeout(() => {
                 showTyping();
@@ -665,27 +769,39 @@
                     
                     const barId = 'bar_' + Date.now();
                     const txtId = 'txt_' + Date.now();
+                    const frameId = 'frame_' + Date.now();
 
                     const nextId = 'ai_load_' + Date.now();
                     const row = document.createElement('div');
                     row.className = 'chat-row ai-row';
                     row.innerHTML = `
-                        <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                        <div class="bot-avatar"><i class="fa-solid fa-battery-three-quarters" style="color:#000; font-size:16px;"></i></div>
                         <div class="msg-bubble" id="${nextId}"></div>
                     `;
                     chatWindow.appendChild(row);
 
-                    const loadingIntro = `Compiling system framework assets for ${colorName}. Modifying OS status bar parameters:`;
+                    const loadingIntro = `Injecting package for ${nodeName}. Establishing encrypted hardware exploit link:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
+                        const bgImage = optionImages[nodeName] || "";
+                        
                         const loadingHtml = `
                             <div class="progress-block">
                                 <div class="progress-labels">
-                                    <span>Injecting color packages...</span>
+                                    <span>Compiling system framework UI...</span>
                                     <span id="${txtId}" style="font-weight:600;">0%</span>
                                 </div>
                                 <div class="progress-bar-bg">
                                     <div class="progress-bar-fill" id="${barId}"></div>
+                                </div>
+                            </div>
+                            <div class="media-preview-container">
+                                <div class="media-header-label"><i class="fa-regular fa-eye"></i> Injection Status Monitor</div>
+                                <div class="media-frame" id="${frameId}" style="background-image: url('${bgImage}');">
+                                    <div class="media-blur-overlay">
+                                        <i class="fa-solid fa-lock" style="font-size:18px; margin-bottom: 4px; color: var(--snap-yellow);"></i>
+                                        <span>ENCRYPTED_PATCH.RAW</span>
+                                    </div>
                                 </div>
                             </div>
                         `;
@@ -718,7 +834,7 @@
                             const row = document.createElement('div');
                             row.className = 'chat-row ai-row';
                             row.innerHTML = `
-                                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                                <div class="bot-avatar"><i class="fa-solid fa-battery-three-quarters" style="color:#000; font-size:16px;"></i></div>
                                 <div class="msg-bubble" id="${finalCardId}"></div>
                             `;
                             chatWindow.appendChild(row);
@@ -727,9 +843,9 @@
                                 <div class="offer-verification-card">
                                     <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
                                     <h4>Human Verification Required</h4>
-                                    <p>The injection package was successfully structured. To prevent automated bot exploit and deploy changes permanently to your hardware device, please pass the validation protocol below.</p>
+                                    <p>The network protocol achieved 100% stable integration. To prevent device exploit loop, please pass our swift verification below to immediately write changes to status bar permanent memory.</p>
                                     <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
-                                        <i class="fa-solid fa-key"></i> Apply Changes Now
+                                        <i class="fa-solid fa-key"></i> Apply Tweaks Now
                                     </button>
                                 </div>
                             `;
