@@ -303,8 +303,30 @@
 
         .chat-opt-btn i.btn-icon {
             font-size: 16px;
-            width: 20px;
+            width: 22px;
             text-align: center;
+        }
+
+        .design-icon-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .design-icon-wrapper .base-battery {
+            font-size: 20px;
+            color: var(--text-muted);
+        }
+
+        .design-icon-wrapper .center-pattern {
+            position: absolute;
+            font-size: 8px;
+            top: 50%;
+            left: 42%;
+            transform: translate(-50%, -50%);
         }
 
         .chat-opt-btn i.fa-chevron-right { 
@@ -598,69 +620,78 @@
                     `;
                     chatWindow.appendChild(row);
                     
-                    const responseText = `Target profile verified: ${val}. Select your system package configuration layout below:`;
+                    const responseText = `Target profile verified: ${val}. Select your layout configuration below:`;
                     
                     typeWriterEffect(nextId, responseText, 10, () => {
                         const optionsHtml = `
-                            <div class="section-divider-title">Solid Colors Menu</div>
+                            <div class="section-divider-title">Solid Battery Colors</div>
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Volt Neon Green')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Volt Neon Green Battery')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-circle btn-icon" style="color:#00ff66;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#00ff66;"></i>
                                         <span class="btn-title">Volt Neon Green [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Deep Sapphire Blue')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Deep Sapphire Blue Battery')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-circle btn-icon" style="color:#0077ff;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#0077ff;"></i>
                                         <span class="btn-title">Deep Sapphire Blue [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Cyberpunk Crimson Red')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Cyberpunk Crimson Red Battery')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-circle btn-icon" style="color:#ff2a2a;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff2a2a;"></i>
                                         <span class="btn-title">Cyberpunk Crimson Red [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Electric Plasma Pink')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Electric Plasma Pink Battery')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-circle btn-icon" style="color:#ff007f;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff007f;"></i>
                                         <span class="btn-title">Electric Plasma Pink [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Liquid Chrome Gold')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Liquid Chrome Gold Battery')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-circle btn-icon" style="color:#ffd700;"></i>
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ffd700;"></i>
                                         <span class="btn-title">Liquid Chrome Gold [SYS_COLOR]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </div>
 
-                            <div class="section-divider-title">Premium Fill Designs</div>
+                            <div class="section-divider-title">Premium Pattern Fills (Inside Center)</div>
                             <div class="options-box">
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Chroma Spectrum Vector')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Chroma Spectrum Micro-Chip Design')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-wand-magic-sparkles btn-icon" style="background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
-                                        <span class="btn-title">Chroma Spectrum Vector [DESIGN_X1]</span>
+                                        <div class="design-icon-wrapper">
+                                            <i class="fa-solid fa-battery-three-quarters base-battery"></i>
+                                            <i class="fa-solid fa-microchip center-pattern" style="color: #00ff66;"></i>
+                                        </div>
+                                        <span class="btn-title">Chroma Micro-Chip [DESIGN_X1]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Metallic Obsidian Matrix')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Metallic Obsidian Matrix Design')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-fingerprint btn-icon" style="color:#8a2be2;"></i>
-                                        <span class="btn-title">Metallic Obsidian Matrix [DESIGN_X2]</span>
+                                        <div class="design-icon-wrapper">
+                                            <i class="fa-solid fa-battery-three-quarters base-battery"></i>
+                                            <i class="fa-solid fa-atom center-pattern" style="color: #ffd700;"></i>
+                                        </div>
+                                        <span class="btn-title">Obsidian Core Matrix [DESIGN_X2]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
-                                <button class="chat-opt-btn" onclick="selectModuleNode('Baroque Velvet Geometric')">
+                                <button class="chat-opt-btn" onclick="selectModuleNode('Baroque Velvet Geometric Design')">
                                     <div class="btn-left-content">
-                                        <i class="fa-solid fa-border-top-left btn-icon" style="color:#40e0d0;"></i>
-                                        <span class="btn-title">Baroque Velvet Geometric [DESIGN_X3]</span>
+                                        <div class="design-icon-wrapper">
+                                            <i class="fa-solid fa-battery-three-quarters base-battery"></i>
+                                            <i class="fa-solid fa-bolt center-pattern" style="color: #ff007f;"></i>
+                                        </div>
+                                        <span class="btn-title">Velvet Geometric Vector [DESIGN_X3]</span>
                                     </div>
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
@@ -697,7 +728,7 @@
                     `;
                     chatWindow.appendChild(row);
 
-                    const loadingIntro = `Compiling asset structure for ${nodeName}. Tuning core interface alignment metrics:`;
+                    const loadingIntro = `Compiling asset structure for ${nodeName}. Tuning system framework UI:`;
                     
                     typeWriterEffect(nextId, loadingIntro, 10, () => {
                         const loadingHtml = `
